@@ -1,7 +1,7 @@
 ﻿app.controller("myCtrl", function ($scope, $http, $filter) {
     $scope.EventPerm(19);
     $scope.btnSaveValue = "Posting";
-
+    $scope.DataMode = "Backward";
     $http({
         method: "GET",
         url: MyApp.rootPath + "ParliamentSessionInfo/GetActiveSession"
@@ -10,7 +10,17 @@
     }, function (response) {
         toastr.warning("Error Occurred!");
     });
-
+    $http({
+        method: "GET",
+        url: MyApp.rootPath + "ResolutionInfo/GetWorkflow"
+    }).then(function (response) {
+        $scope.WorkflowList = response.data;
+    }, function (response) {
+        toastr.warning("Error Occurred!");
+    });
+    $scope.frmSrAssistantSecretaryApproval = {
+        SignTo: 1 // Set your default value here
+    };
 
     $http({
         method: "GET",
@@ -39,7 +49,7 @@
             toastr.warning("No Data Found!");
         });
     };
-
+   
     var columnResolutionList = [
         {
             field: 'selectData',
@@ -333,6 +343,8 @@
         $scope.SaveDb.SpeakerApproveDetail = (row.entity.html == '' || row.entity.html == null || row.entity.html == "null") ? row.entity.MemberResolutionDetail : row.entity.html;
         $scope.SaveDb.SpeakerApproveDate = (dt.getFullYear() + '-' + dt.getMonth() + '-' + dt.getDate());
         $scope.SaveDb.SpeakerApproveStatus = "1";
+
+        $scope.SaveDb.SendTo = $scope.frmSpeakerApproval.SignTo;
 
         if ($scope.uiID === '' || typeof $scope.uiID === 'undefined') {
             $http({

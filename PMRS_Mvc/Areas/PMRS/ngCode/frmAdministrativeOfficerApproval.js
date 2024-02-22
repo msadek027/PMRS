@@ -3,6 +3,7 @@
     $scope.btnSaveValue = "Posting";
 
     $scope.DataMode = "Forward";
+
     $http({
         method: "GET",
         url: MyApp.rootPath + "ParliamentSessionInfo/GetActiveSession"
@@ -48,15 +49,7 @@
         });
     };
     $scope.loadDataMode = function () {
-        $scope.loading = true;
-        $(".mydiv").show();
-        // $('#dwtHorizontalThumbnil').empty();
-        $('#dwtLargeViewer').empty();
-        $('#dwtVerticalThumbnil').empty();
-
-        $scope.BindDataToGrid();
-        $scope.loading = false;
-        $(".mydiv").hide();
+        $scope.GetWaitingListForAdministrative();
     }
     var columnResolutionList = [
         {
@@ -340,7 +333,9 @@
         $scope.SaveDb.AdministrativeOfcDetail = (row.entity.html == '' || row.entity.html == null || row.entity.html == "null") ? row.entity.MemberResolutionDetail : row.entity.html; 
         $scope.SaveDb.AdministrativeOfcApproveDate = (dt.getFullYear() + '-' + dt.getMonth() + '-' + dt.getDate());
         $scope.SaveDb.AdministrativeOfcApproveStatus = "1";
+
         $scope.SaveDb.SendTo = $scope.frmAdministrativeOfficerApproval.SignTo;
+        $scope.SaveDb.DataMode = $scope.DataMode;
 
         if (($scope.uiID === '' || typeof $scope.uiID === 'undefined') && $scope.SaveDb.SendTo != '' && $scope.SaveDb.SendTo != 'undefined' && $scope.SaveDb.SendTo != undefined) {
             $http({
@@ -386,6 +381,7 @@
                 $scope.SaveDb.AdministrativeOfcApproveDate = (dt.getFullYear() + '-' + dt.getMonth() + '-' + dt.getDate());
                 $scope.SaveDb.AdministrativeOfcApproveStatus = "1";
                 $scope.SaveDb.SendTo = $scope.frmAdministrativeOfficerApproval.SignTo;
+                $scope.SaveDb.DataMode = $scope.DataMode;
                 if ($scope.uiID === '' || typeof $scope.uiID === 'undefined' && $scope.SaveDb.SendTo != '' && $scope.SaveDb.SendTo != 'undefined' && $scope.SaveDb.SendTo != undefined) {
                     $http({
                         method: "post",
@@ -435,6 +431,7 @@
         $scope.SaveDb.AdministrativeOfcApproveDate = $scope.ApproveDate;
         $scope.SaveDb.AdministrativeOfcApproveStatus = $scope.frmAdministrativeOfficerApproval.AppStatus;
         $scope.SaveDb.SendTo = $scope.frmAdministrativeOfficerApproval.SignTo;
+        $scope.SaveDb.DataMode = $scope.DataMode;
         $http({
             method: "post",
             url: MyApp.rootPath + "ResolutionApproval/UpdateAdministrativeApproval",

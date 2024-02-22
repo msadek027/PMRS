@@ -66,5 +66,7 @@ namespace PMRS_Mvc.Models
         public Nullable<int> MemberResPriority { get; set; }
         [NotMapped]
         public string SendTo { get; set; }
+
+        public string DataMode { get; set; }
     }
 }

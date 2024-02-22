@@ -14,345 +14,651 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
     {
         private readonly AuditTrailLogger _adt = new AuditTrailLogger();
         int userID = Convert.ToInt32(HttpContext.Current.Session["empID"]);
-        public object GetWaitingListForAdministrative(int sessionID)
+        public object GetWaitingListForAdministrative(int sessionID, string DataMode)
         {
             using (PMRS_BcEntities db = new PMRS_BcEntities())
             {
-              
+                IQueryable<object> query;
 
-                var thList = (from t in db.MemberResolutionInfoes
-                              join em in db.EmployeeInfoes on t.UserID equals em.UserID
-                              join r in db.ResolutionApprovals on t.MemberResolutionID equals r.MemberResolutionID
-                              join prl in db.ParliamentSessionInfoes on t.ParlSessID equals prl.ParliamentSessionID
-                              join map in db.ConstitutentUserMappingInfoes on em.UserID equals map.UserID
-                              join cnt in db.ConstitutentInfoes on map.ConstitutentID equals cnt.ConstitutentID
-                              //join apr in db.ApprovalStatus on r.AdministrativeOfcApproveStatus equals apr.Status
-                              where prl.ParliamentSessionID == sessionID && t.AcceptStatus=="true" && map.ParliamentNo == prl.ParliamentNo.ToString() && t.SendTo == "10"
-                             && new[] { "0" }.Contains(r.AdministrativeOfcApproveStatus)
+                if (DataMode == "Forward")
+                {
+                    query = (from t in db.MemberResolutionInfoes
+                             join em in db.EmployeeInfoes on t.UserID equals em.UserID
+                             join r in db.ResolutionApprovals on t.MemberResolutionID equals r.MemberResolutionID
+                             join prl in db.ParliamentSessionInfoes on t.ParlSessID equals prl.ParliamentSessionID
+                             join map in db.ConstitutentUserMappingInfoes on em.UserID equals map.UserID
+                             join cnt in db.ConstitutentInfoes on map.ConstitutentID equals cnt.ConstitutentID
+                             where prl.ParliamentSessionID == sessionID && t.AcceptStatus == "true" && map.ParliamentNo == prl.ParliamentNo.ToString() && t.SendTo == "10"
+                                   && new[] { "0" }.Contains(r.AdministrativeOfcApproveStatus)
+                             select new
+                             {
+                                 t.MemberResolutionID,
+                                 r.ResolutionApproveID,
+                                 html = t.MemberResolutionDetail,
+                                 t.MemberResolutionDetail,
+                                 t.MemberResolutionDate,
+                                 t.MemberResolutionFIleURL,
+                                 t.ParlSessID,
+                                 t.AcceptStatus,
+                                 t.EntryType,
+                                 cnt.ConstitutentBangla,
+                                 prl.ParliamentNo,
+                                 prl.SessionNo,
+                                 t.UserID,
+                                 t.RDNo,
+                                 t.AcceptanceComment,
+                                 em.UserName,
+                                 em.BanglaName,
+                                 t.Status,
+                                 r.AdministrativeOfcSignature,
+                                 r.AssitantSccSignature,
+                                 r.SrAssitantSccSignature,
+                                 r.DeputySecSignature,
+                                 r.SecSignature,
+                                 r.AddSecSignature,
+                                 r.SpeakerSignature,
+                             });
+                }
+                else if (DataMode == "Backward")
+                {
+                    query = (from t in db.MemberResolutionInfoes
+                             join em in db.EmployeeInfoes on t.UserID equals em.UserID
+                             join r in db.ResolutionApprovals on t.MemberResolutionID equals r.MemberResolutionID
+                             join prl in db.ParliamentSessionInfoes on t.ParlSessID equals prl.ParliamentSessionID
+                             join map in db.ConstitutentUserMappingInfoes on em.UserID equals map.UserID
+                             join cnt in db.ConstitutentInfoes on map.ConstitutentID equals cnt.ConstitutentID
+                             where prl.ParliamentSessionID == sessionID && t.AcceptStatus == "true" && map.ParliamentNo == prl.ParliamentNo.ToString() && t.SendTo == "10"
+                                   && new[] { "0" }.Contains(r.AdministrativeOfcBackStatus)
+                             select new
+                             {
+                                 t.MemberResolutionID,
+                                 r.ResolutionApproveID,
+                                 html = t.MemberResolutionDetail,
+                                 t.MemberResolutionDetail,
+                                 t.MemberResolutionDate,
+                                 t.MemberResolutionFIleURL,
+                                 t.ParlSessID,
+                                 t.AcceptStatus,
+                                 t.EntryType,
+                                 cnt.ConstitutentBangla,
+                                 prl.ParliamentNo,
+                                 prl.SessionNo,
+                                 t.UserID,
+                                 t.RDNo,
+                                 t.AcceptanceComment,
+                                 em.UserName,
+                                 em.BanglaName,
+                                 t.Status,
+                                 r.AdministrativeOfcSignature,
+                                 r.AssitantSccSignature,
+                                 r.SrAssitantSccSignature,
+                                 r.DeputySecSignature,
+                                 r.SecSignature,
+                                 r.AddSecSignature,
+                                 r.SpeakerSignature,
+                             });
+                }
+                else
+                {
+                    return null; // Handle other cases or return empty list
+                }
 
-                              select new
-                              {
-                                  t.MemberResolutionID,
-                                  r.ResolutionApproveID,
-                                  html = t.MemberResolutionDetail,
-                                  t.MemberResolutionDetail,
-                                  t.MemberResolutionDate,
-                                  t.MemberResolutionFIleURL,
-                                  t.ParlSessID,
-                                  t.AcceptStatus,
-                                  t.EntryType,
-                                  cnt.ConstitutentBangla,
-                                  prl.ParliamentNo,
-                                  prl.SessionNo,
-                                  t.UserID,
-                                  t.RDNo,
-                                  t.AcceptanceComment,
-                                  em.UserName,
-                                  em.BanglaName,
-                                  t.Status,
-
-                                  r.AdministrativeOfcSignature,
-                                  r.AssitantSccSignature,
-                                  r.SrAssitantSccSignature,
-                                  r.DeputySecSignature,
-                                  r.SecSignature,
-                                  r.AddSecSignature,
-                                  r.SpeakerSignature,
-
-                              }).ToList();
+                var thList = query.ToList();
                 return thList;
             }
         }
-        public object GetWaitingListForAssistantSecretary(int sessionID)
+
+
+
+        public object GetWaitingListForAssistantSecretary(int sessionID, string DataMode)
+        {
+          
+            using (PMRS_BcEntities db = new PMRS_BcEntities())
+            {
+                if (DataMode == "Forward")
+                {
+                    var thList = (from t in db.MemberResolutionInfoes
+                                  join em in db.EmployeeInfoes on t.UserID equals em.UserID
+                                  join r in db.ResolutionApprovals on t.MemberResolutionID equals r.MemberResolutionID
+                                  join prl in db.ParliamentSessionInfoes on t.ParlSessID equals prl.ParliamentSessionID
+                                  join map in db.ConstitutentUserMappingInfoes on em.UserID equals map.UserID
+                                  join cnt in db.ConstitutentInfoes on map.ConstitutentID equals cnt.ConstitutentID
+                                  //join apr in db.ApprovalStatus on r.AssitantSccApproveStatus equals apr.Status
+                                  where t.AcceptStatus == "true" && map.ParliamentNo == prl.ParliamentNo.ToString() && r.ParlSessID == sessionID
+                                   && new[] { "0" }.Contains(r.AssitantSccApproveStatus)
+                                  select new
+                                  {
+                                      t.MemberResolutionID,
+                                      r.ResolutionApproveID,
+                                      html = r.AdministrativeOfcDetail,
+                                      t.MemberResolutionDetail,
+                                      t.MemberResolutionDate,
+                                      t.MemberResolutionFIleURL,
+                                      t.ParlSessID,
+                                      t.AcceptStatus,
+                                      t.EntryType,
+                                      cnt.ConstitutentBangla,
+                                      prl.ParliamentNo,
+                                      prl.SessionNo,
+                                      t.UserID,
+                                      t.RDNo,
+                                      t.AcceptanceComment,
+                                      em.UserName,
+                                      em.BanglaName,
+                                      t.Status,
+
+                                      r.AdministrativeOfcSignature,
+                                      r.AssitantSccSignature,
+                                      r.SrAssitantSccSignature,
+                                      r.DeputySecSignature,
+                                      r.SecSignature,
+                                      r.AddSecSignature,
+                                      r.SpeakerSignature,
+                                  }).ToList();
+                    return thList;
+                }
+                else if (DataMode == "Backward")
+                {
+                    var thList = (from t in db.MemberResolutionInfoes
+                                  join em in db.EmployeeInfoes on t.UserID equals em.UserID
+                                  join r in db.ResolutionApprovals on t.MemberResolutionID equals r.MemberResolutionID
+                                  join prl in db.ParliamentSessionInfoes on t.ParlSessID equals prl.ParliamentSessionID
+                                  join map in db.ConstitutentUserMappingInfoes on em.UserID equals map.UserID
+                                  join cnt in db.ConstitutentInfoes on map.ConstitutentID equals cnt.ConstitutentID
+                                  //join apr in db.ApprovalStatus on r.AssitantSccApproveStatus equals apr.Status
+                                  where t.AcceptStatus == "true" && map.ParliamentNo == prl.ParliamentNo.ToString() && r.ParlSessID == sessionID
+                                   && new[] { "0" }.Contains(r.AssitantSccBackStatus)
+                                  select new
+                                  {
+                                      t.MemberResolutionID,
+                                      r.ResolutionApproveID,
+                                      html = r.AdministrativeOfcDetail,
+                                      t.MemberResolutionDetail,
+                                      t.MemberResolutionDate,
+                                      t.MemberResolutionFIleURL,
+                                      t.ParlSessID,
+                                      t.AcceptStatus,
+                                      t.EntryType,
+                                      cnt.ConstitutentBangla,
+                                      prl.ParliamentNo,
+                                      prl.SessionNo,
+                                      t.UserID,
+                                      t.RDNo,
+                                      t.AcceptanceComment,
+                                      em.UserName,
+                                      em.BanglaName,
+                                      t.Status,
+
+                                      r.AdministrativeOfcSignature,
+                                      r.AssitantSccSignature,
+                                      r.SrAssitantSccSignature,
+                                      r.DeputySecSignature,
+                                      r.SecSignature,
+                                      r.AddSecSignature,
+                                      r.SpeakerSignature,
+                                  }).ToList();
+                    return thList;
+                }
+                else
+                {
+                    // Handle other cases or return null/empty list
+                    return null;
+                }
+            }
+        }
+        public object GetWatingListForSrAssistantSecretary(int sessionID,string DataMode)
         {
             using (PMRS_BcEntities db = new PMRS_BcEntities())
             {
-                
-                var thList = (from t in db.MemberResolutionInfoes
-                              join em in db.EmployeeInfoes on t.UserID equals em.UserID
-                              join r in db.ResolutionApprovals on t.MemberResolutionID equals r.MemberResolutionID
-                              join prl in db.ParliamentSessionInfoes on t.ParlSessID equals prl.ParliamentSessionID
-                              join map in db.ConstitutentUserMappingInfoes on em.UserID equals map.UserID
-                              join cnt in db.ConstitutentInfoes on map.ConstitutentID equals cnt.ConstitutentID
-                              //join apr in db.ApprovalStatus on r.AssitantSccApproveStatus equals apr.Status
-                              where t.AcceptStatus == "true" && map.ParliamentNo == prl.ParliamentNo.ToString() && r.ParlSessID == sessionID
-                               && new[] { "0" }.Contains(r.AssitantSccApproveStatus)
-                              select new
-                              {
-                                  t.MemberResolutionID,
-                                  r.ResolutionApproveID,
-                                  html = r.AdministrativeOfcDetail,
-                                  t.MemberResolutionDetail,
-                                  t.MemberResolutionDate,
-                                  t.MemberResolutionFIleURL,
-                                  t.ParlSessID,
-                                  t.AcceptStatus,
-                                  t.EntryType,
-                                  cnt.ConstitutentBangla,
-                                  prl.ParliamentNo,
-                                  prl.SessionNo,
-                                  t.UserID,
-                                  t.RDNo,
-                                  t.AcceptanceComment,
-                                  em.UserName,
-                                  em.BanglaName,
-                                  t.Status,
+                if (DataMode == "Forward")
+                {
+                    var thList = (from t in db.MemberResolutionInfoes
+                                  join em in db.EmployeeInfoes on t.UserID equals em.UserID
+                                  join r in db.ResolutionApprovals on t.MemberResolutionID equals r.MemberResolutionID
+                                  join prl in db.ParliamentSessionInfoes on t.ParlSessID equals prl.ParliamentSessionID
+                                  join map in db.ConstitutentUserMappingInfoes on em.UserID equals map.UserID
+                                  join cnt in db.ConstitutentInfoes on map.ConstitutentID equals cnt.ConstitutentID
+                                  // join apr in db.ApprovalStatus on r.SrAssitantSccApproveStatus equals apr.Status
+                                  where map.ParliamentNo == prl.ParliamentNo.ToString() && r.ParlSessID == sessionID
+                                 && t.AcceptStatus == "true"
+                                   && new[] { "0" }.Contains(r.SrAssitantSccApproveStatus)
+                                  select new
+                                  {
+                                      t.MemberResolutionID,
+                                      r.ResolutionApproveID,
+                                      html = r.AssitantSccDetail,
+                                      t.MemberResolutionDetail,
+                                      t.MemberResolutionDate,
+                                      t.MemberResolutionFIleURL,
+                                      t.ParlSessID,
+                                      t.AcceptStatus,
+                                      t.EntryType,
+                                      cnt.ConstitutentBangla,
+                                      prl.ParliamentNo,
+                                      prl.SessionNo,
+                                      t.UserID,
+                                      t.RDNo,
+                                      t.AcceptanceComment,
+                                      em.UserName,
+                                      em.BanglaName,
+                                      t.Status,
+                                      r.AdministrativeOfcSignature,
+                                      r.AssitantSccSignature,
+                                      r.SrAssitantSccSignature,
+                                      r.DeputySecSignature,
+                                      r.SecSignature,
+                                      r.AddSecSignature,
+                                      r.SpeakerSignature,
+                                  }).ToList();
+                    return thList;
+                }
+                else if (DataMode == "Backward")
+                {
+                    var thList = (from t in db.MemberResolutionInfoes
+                                  join em in db.EmployeeInfoes on t.UserID equals em.UserID
+                                  join r in db.ResolutionApprovals on t.MemberResolutionID equals r.MemberResolutionID
+                                  join prl in db.ParliamentSessionInfoes on t.ParlSessID equals prl.ParliamentSessionID
+                                  join map in db.ConstitutentUserMappingInfoes on em.UserID equals map.UserID
+                                  join cnt in db.ConstitutentInfoes on map.ConstitutentID equals cnt.ConstitutentID
+                                  // join apr in db.ApprovalStatus on r.SrAssitantSccApproveStatus equals apr.Status
+                                  where map.ParliamentNo == prl.ParliamentNo.ToString() && r.ParlSessID == sessionID
+                                 && t.AcceptStatus == "true"
+                                   && new[] { "0" }.Contains(r.SrAssitantSccBackStatus)
+                                  select new
+                                  {
+                                      t.MemberResolutionID,
+                                      r.ResolutionApproveID,
+                                      html = r.AssitantSccDetail,
+                                      t.MemberResolutionDetail,
+                                      t.MemberResolutionDate,
+                                      t.MemberResolutionFIleURL,
+                                      t.ParlSessID,
+                                      t.AcceptStatus,
+                                      t.EntryType,
+                                      cnt.ConstitutentBangla,
+                                      prl.ParliamentNo,
+                                      prl.SessionNo,
+                                      t.UserID,
+                                      t.RDNo,
+                                      t.AcceptanceComment,
+                                      em.UserName,
+                                      em.BanglaName,
+                                      t.Status,
+                                      r.AdministrativeOfcSignature,
+                                      r.AssitantSccSignature,
+                                      r.SrAssitantSccSignature,
+                                      r.DeputySecSignature,
+                                      r.SecSignature,
+                                      r.AddSecSignature,
+                                      r.SpeakerSignature,
+                                  }).ToList();
+                    return thList;
+                }
+                else
+                {
+                    // Handle other cases or return null/empty list
+                    return null;
+                }
 
-                                  r.AdministrativeOfcSignature,
-                                  r.AssitantSccSignature,
-                                  r.SrAssitantSccSignature,
-                                  r.DeputySecSignature,
-                                  r.SecSignature,
-                                  r.AddSecSignature,
-                                  r.SpeakerSignature,
-                              }).ToList();
-                return thList;
-            }
-        }
-        public object GetWatingListForSrAssistantSecretary(int sessionID)
-        {
-            using (PMRS_BcEntities db = new PMRS_BcEntities())
-            {             
-                var thList = (from t in db.MemberResolutionInfoes
-                              join em in db.EmployeeInfoes on t.UserID equals em.UserID
-                              join r in db.ResolutionApprovals on t.MemberResolutionID equals r.MemberResolutionID
-                              join prl in db.ParliamentSessionInfoes on t.ParlSessID equals prl.ParliamentSessionID
-                              join map in db.ConstitutentUserMappingInfoes on em.UserID equals map.UserID
-                              join cnt in db.ConstitutentInfoes on map.ConstitutentID equals cnt.ConstitutentID
-                             // join apr in db.ApprovalStatus on r.SrAssitantSccApproveStatus equals apr.Status
-                              where  map.ParliamentNo == prl.ParliamentNo.ToString() && r.ParlSessID == sessionID
-                             && t.AcceptStatus == "true"
-                               && new[] { "0" }.Contains(r.SrAssitantSccApproveStatus)
-                              select new
-                              {
-                                  t.MemberResolutionID,
-                                  r.ResolutionApproveID,
-                                  html = r.AssitantSccDetail,
-                                  t.MemberResolutionDetail,
-                                  t.MemberResolutionDate,
-                                  t.MemberResolutionFIleURL,
-                                  t.ParlSessID,
-                                  t.AcceptStatus,
-                                  t.EntryType,
-                                  cnt.ConstitutentBangla,
-                                  prl.ParliamentNo,
-                                  prl.SessionNo,
-                                  t.UserID,
-                                  t.RDNo,
-                                  t.AcceptanceComment,
-                                  em.UserName,
-                                  em.BanglaName,
-                                  t.Status,
-                                  r.AdministrativeOfcSignature,
-                                  r.AssitantSccSignature,
-                                  r.SrAssitantSccSignature,
-                                  r.DeputySecSignature,
-                                  r.SecSignature,
-                                  r.AddSecSignature,
-                                  r.SpeakerSignature,
-                              }).ToList();
-                return thList;
-            }
-        }
-     
-        public object GetWaitingListForDeputySecretary(int sessionID)
-        {
-            using (PMRS_BcEntities db = new PMRS_BcEntities())
-            {               
-                var thList = (from t in db.MemberResolutionInfoes
-                              join em in db.EmployeeInfoes on t.UserID equals em.UserID
-                              join r in db.ResolutionApprovals on t.MemberResolutionID equals r.MemberResolutionID
-                              join prl in db.ParliamentSessionInfoes on t.ParlSessID equals prl.ParliamentSessionID
-                              join map in db.ConstitutentUserMappingInfoes on em.UserID equals map.UserID
-                              join cnt in db.ConstitutentInfoes on map.ConstitutentID equals cnt.ConstitutentID
-                             // join apr in db.ApprovalStatus on r.DeputySecApproveStatus equals apr.Status
-                              where    map.ParliamentNo == prl.ParliamentNo.ToString()
-                              && r.ParlSessID == sessionID && t.AcceptStatus == "true"
-                                 && new[] { "0" }.Contains(r.DeputySecApproveStatus)
-                              select new
-                              {
-                                  t.MemberResolutionID,
-                                  r.ResolutionApproveID,
-                                  html = r.SrAssitantSccDetail,
-                                  t.MemberResolutionDetail,
-                                  t.MemberResolutionDate,
-                                  t.MemberResolutionFIleURL,
-                                  t.ParlSessID,
-                                  t.AcceptStatus,
-                                  t.EntryType,
-                                  cnt.ConstitutentBangla,
-                                  prl.ParliamentNo,
-                                  prl.SessionNo,
-                                  t.UserID,
-                                  t.RDNo,
-                                  t.AcceptanceComment,
-                                  em.UserName,
-                                  em.BanglaName,
-                                  t.Status,
-
-                                  r.AdministrativeOfcSignature,
-                                  r.AssitantSccSignature,
-                                  r.SrAssitantSccSignature,
-                                  r.DeputySecSignature,
-                                  r.SecSignature,
-                                  r.AddSecSignature,
-                                  r.SpeakerSignature,
-                              }).ToList();
-                return thList;
             }
         }
 
-  
-        public object GetWaitingListForAdditionalSecretary(int session)
+        public object GetWaitingListForDeputySecretary(int sessionID, string DataMode)
         {
             using (PMRS_BcEntities db = new PMRS_BcEntities())
             {
-                var thList = (from x in db.ResolutionApprovals
-                              join t in db.MemberResolutionInfoes on x.MemberResolutionID equals t.MemberResolutionID
-                              join em in db.EmployeeInfoes on t.UserID equals em.UserID
-                              join prl in db.ParliamentSessionInfoes on t.ParlSessID equals prl.ParliamentSessionID
-                              join map in db.ConstitutentUserMappingInfoes on em.UserID equals map.UserID
-                              join cnt in db.ConstitutentInfoes on map.ConstitutentID equals cnt.ConstitutentID
-                              //join apr in db.ApprovalStatus on x.AddSecApproveStatus equals apr.Status
-                              where map.ParliamentNo == prl.ParliamentNo.ToString() && x.ParlSessID == session
-                             && t.AcceptStatus == "true" && new[] { "0" }.Contains(x.AddSecApproveStatus)
-                              select new
-                              {
-                                  x.ResolutionApproveID,
-                                  x.MemberResolutionID,
-                                  x.AdministrativeOfcApproveStatus,
-                                  x.AdministrativeOfcDetail,
-                                  x.AddSecApproveDate,                              
-                                  x.DeputySecApproveDetail,
+                if (DataMode == "Forward")
+                {
+                    var thList = (from t in db.MemberResolutionInfoes
+                                  join em in db.EmployeeInfoes on t.UserID equals em.UserID
+                                  join r in db.ResolutionApprovals on t.MemberResolutionID equals r.MemberResolutionID
+                                  join prl in db.ParliamentSessionInfoes on t.ParlSessID equals prl.ParliamentSessionID
+                                  join map in db.ConstitutentUserMappingInfoes on em.UserID equals map.UserID
+                                  join cnt in db.ConstitutentInfoes on map.ConstitutentID equals cnt.ConstitutentID
+                                  // join apr in db.ApprovalStatus on r.DeputySecApproveStatus equals apr.Status
+                                  where map.ParliamentNo == prl.ParliamentNo.ToString()
+                                  && r.ParlSessID == sessionID && t.AcceptStatus == "true"
+                                     && new[] { "0" }.Contains(r.DeputySecApproveStatus)
+                                  select new
+                                  {
+                                      t.MemberResolutionID,
+                                      r.ResolutionApproveID,
+                                      html = r.SrAssitantSccDetail,
+                                      t.MemberResolutionDetail,
+                                      t.MemberResolutionDate,
+                                      t.MemberResolutionFIleURL,
+                                      t.ParlSessID,
+                                      t.AcceptStatus,
+                                      t.EntryType,
+                                      cnt.ConstitutentBangla,
+                                      prl.ParliamentNo,
+                                      prl.SessionNo,
+                                      t.UserID,
+                                      t.RDNo,
+                                      t.AcceptanceComment,
+                                      em.UserName,
+                                      em.BanglaName,
+                                      t.Status,
 
-                                  x.AdministrativeOfcSignature,
-                                  x.AssitantSccSignature,
-                                  x.SrAssitantSccSignature,
-                                  x.DeputySecSignature,
-                                  x.SecSignature,
-                                  x.AddSecSignature,
-                                  x.SpeakerSignature,
+                                      r.AdministrativeOfcSignature,
+                                      r.AssitantSccSignature,
+                                      r.SrAssitantSccSignature,
+                                      r.DeputySecSignature,
+                                      r.SecSignature,
+                                      r.AddSecSignature,
+                                      r.SpeakerSignature,
+                                  }).ToList();
+                    return thList;
+                }
+                else if (DataMode == "Backward")
+                {
+                    var thList = (from t in db.MemberResolutionInfoes
+                                  join em in db.EmployeeInfoes on t.UserID equals em.UserID
+                                  join r in db.ResolutionApprovals on t.MemberResolutionID equals r.MemberResolutionID
+                                  join prl in db.ParliamentSessionInfoes on t.ParlSessID equals prl.ParliamentSessionID
+                                  join map in db.ConstitutentUserMappingInfoes on em.UserID equals map.UserID
+                                  join cnt in db.ConstitutentInfoes on map.ConstitutentID equals cnt.ConstitutentID
+                                  // join apr in db.ApprovalStatus on r.DeputySecApproveStatus equals apr.Status
+                                  where map.ParliamentNo == prl.ParliamentNo.ToString()
+                                  && r.ParlSessID == sessionID && t.AcceptStatus == "true"
+                                     && new[] { "0" }.Contains(r.DeputySecBackStatus)
+                                  select new
+                                  {
+                                      t.MemberResolutionID,
+                                      r.ResolutionApproveID,
+                                      html = r.SrAssitantSccDetail,
+                                      t.MemberResolutionDetail,
+                                      t.MemberResolutionDate,
+                                      t.MemberResolutionFIleURL,
+                                      t.ParlSessID,
+                                      t.AcceptStatus,
+                                      t.EntryType,
+                                      cnt.ConstitutentBangla,
+                                      prl.ParliamentNo,
+                                      prl.SessionNo,
+                                      t.UserID,
+                                      t.RDNo,
+                                      t.AcceptanceComment,
+                                      em.UserName,
+                                      em.BanglaName,
+                                      t.Status,
 
-                                  html = x.DeputySecApproveDetail,
-                                //  MemberResolutionDetail = x.DeputySecApproveDetail,
-                                 
-                                  t.MemberResolutionDetail,
-
-                                  t.MemberResolutionDate,
-                                  t.MemberResolutionFIleURL,
-                                  t.AcceptanceComment,
-                                  t.ParlSessID,
-                                  prl.ParliamentNo,
-                                  cnt.ConstitutentBangla,
-                                  prl.SessionNo,
-                                  t.UserID,
-                                  t.RDNo,
-                                  em.UserName,
-                                  em.BanglaName,
-                                  t.Status,
-                              }).ToList();
-                return thList;
+                                      r.AdministrativeOfcSignature,
+                                      r.AssitantSccSignature,
+                                      r.SrAssitantSccSignature,
+                                      r.DeputySecSignature,
+                                      r.SecSignature,
+                                      r.AddSecSignature,
+                                      r.SpeakerSignature,
+                                  }).ToList();
+                    return thList;
+                }
+                else
+                {
+                    // Handle other cases or return null/empty list
+                    return null;
+                }
             }
         }
-        public object GetWaitingListForSecretary(int sessionID)
+
+
+        public object GetWaitingListForAdditionalSecretary(int session, string DataMode)
         {
             using (PMRS_BcEntities db = new PMRS_BcEntities())
             {
-                var thList = (from x in db.ResolutionApprovals
-                              join t in db.MemberResolutionInfoes on x.MemberResolutionID equals t.MemberResolutionID
-                              join em in db.EmployeeInfoes on t.UserID equals em.UserID
-                              join prl in db.ParliamentSessionInfoes on t.ParlSessID equals prl.ParliamentSessionID
-                              join map in db.ConstitutentUserMappingInfoes on em.UserID equals map.UserID
-                              join cnt in db.ConstitutentInfoes on map.ConstitutentID equals cnt.ConstitutentID
-                            //  join apr in db.ApprovalStatus on x.AddSecApproveStatus equals apr.Status                           
-                              where  map.ParliamentNo == prl.ParliamentNo.ToString() && x.ParlSessID == sessionID
-                                && t.AcceptStatus == "true" && new[] { "0" }.Contains(x.SecApproveStatus)
-                              select new
-                              {
-                                  x.ResolutionApproveID,
-                                  x.MemberResolutionID,
-                                  x.SecApproveDate,
-                                  x.SecApproveDetail,
-                                  x.SecApproveStatus,
+                if (DataMode == "Forward")
+                {
+                    var thList = (from x in db.ResolutionApprovals
+                                  join t in db.MemberResolutionInfoes on x.MemberResolutionID equals t.MemberResolutionID
+                                  join em in db.EmployeeInfoes on t.UserID equals em.UserID
+                                  join prl in db.ParliamentSessionInfoes on t.ParlSessID equals prl.ParliamentSessionID
+                                  join map in db.ConstitutentUserMappingInfoes on em.UserID equals map.UserID
+                                  join cnt in db.ConstitutentInfoes on map.ConstitutentID equals cnt.ConstitutentID
+                                  //join apr in db.ApprovalStatus on x.AddSecApproveStatus equals apr.Status
+                                  where map.ParliamentNo == prl.ParliamentNo.ToString() && x.ParlSessID == session
+                                 && t.AcceptStatus == "true" && new[] { "0" }.Contains(x.AddSecApproveStatus)
+                                  select new
+                                  {
+                                      x.ResolutionApproveID,
+                                      x.MemberResolutionID,
+                                      x.AdministrativeOfcApproveStatus,
+                                      x.AdministrativeOfcDetail,
+                                      x.AddSecApproveDate,
+                                      x.DeputySecApproveDetail,
 
-                                  x.AdministrativeOfcSignature,
-                                  x.AssitantSccSignature,
-                                  x.SrAssitantSccSignature,
-                                  x.DeputySecSignature,
-                                  x.SecSignature,
-                                  x.AddSecSignature,
-                                  x.SpeakerSignature,
+                                      x.AdministrativeOfcSignature,
+                                      x.AssitantSccSignature,
+                                      x.SrAssitantSccSignature,
+                                      x.DeputySecSignature,
+                                      x.SecSignature,
+                                      x.AddSecSignature,
+                                      x.SpeakerSignature,
 
-                                  html = x.AddSecApproveDetail,
-                                  //MemberResolutionDetail = x.AddSecApproveDetail,
-                          
-                                  t.MemberResolutionDetail,
+                                      html = x.DeputySecApproveDetail,
+                                      //  MemberResolutionDetail = x.DeputySecApproveDetail,
 
-                                  t.MemberResolutionDate,
-                                  t.MemberResolutionFIleURL,
-                                  t.AcceptanceComment,
-                                  t.ParlSessID,
-                                  prl.ParliamentNo,
-                                  cnt.ConstitutentBangla,
-                                  prl.SessionNo,
-                                  t.UserID,
-                                  t.RDNo,
-                                  em.UserName,
-                                  em.BanglaName,
-                                  t.Status,
-                              }).ToList();
-                return thList;
+                                      t.MemberResolutionDetail,
+
+                                      t.MemberResolutionDate,
+                                      t.MemberResolutionFIleURL,
+                                      t.AcceptanceComment,
+                                      t.ParlSessID,
+                                      prl.ParliamentNo,
+                                      cnt.ConstitutentBangla,
+                                      prl.SessionNo,
+                                      t.UserID,
+                                      t.RDNo,
+                                      em.UserName,
+                                      em.BanglaName,
+                                      t.Status,
+                                  }).ToList();
+                    return thList;
+                }
+                else if (DataMode == "Backward")
+                {
+                    var thList = (from x in db.ResolutionApprovals
+                                  join t in db.MemberResolutionInfoes on x.MemberResolutionID equals t.MemberResolutionID
+                                  join em in db.EmployeeInfoes on t.UserID equals em.UserID
+                                  join prl in db.ParliamentSessionInfoes on t.ParlSessID equals prl.ParliamentSessionID
+                                  join map in db.ConstitutentUserMappingInfoes on em.UserID equals map.UserID
+                                  join cnt in db.ConstitutentInfoes on map.ConstitutentID equals cnt.ConstitutentID
+                                  //join apr in db.ApprovalStatus on x.AddSecApproveStatus equals apr.Status
+                                  where map.ParliamentNo == prl.ParliamentNo.ToString() && x.ParlSessID == session
+                                 && t.AcceptStatus == "true" && new[] { "0" }.Contains(x.AddSecBackStatus)
+                                  select new
+                                  {
+                                      x.ResolutionApproveID,
+                                      x.MemberResolutionID,
+                                      x.AdministrativeOfcApproveStatus,
+                                      x.AdministrativeOfcDetail,
+                                      x.AddSecApproveDate,
+                                      x.DeputySecApproveDetail,
+
+                                      x.AdministrativeOfcSignature,
+                                      x.AssitantSccSignature,
+                                      x.SrAssitantSccSignature,
+                                      x.DeputySecSignature,
+                                      x.SecSignature,
+                                      x.AddSecSignature,
+                                      x.SpeakerSignature,
+
+                                      html = x.DeputySecApproveDetail,
+                                      //  MemberResolutionDetail = x.DeputySecApproveDetail,
+
+                                      t.MemberResolutionDetail,
+
+                                      t.MemberResolutionDate,
+                                      t.MemberResolutionFIleURL,
+                                      t.AcceptanceComment,
+                                      t.ParlSessID,
+                                      prl.ParliamentNo,
+                                      cnt.ConstitutentBangla,
+                                      prl.SessionNo,
+                                      t.UserID,
+                                      t.RDNo,
+                                      em.UserName,
+                                      em.BanglaName,
+                                      t.Status,
+                                  }).ToList();
+                    return thList;
+                }
+                else
+                {
+                    // Handle other cases or return null/empty list
+                    return null;
+                }
+            }
+        }
+        public object GetWaitingListForSecretary(int sessionID, string DataMode)
+        {
+            using (PMRS_BcEntities db = new PMRS_BcEntities())
+            {
+                if (DataMode == "Forward")
+                {
+                    var thList = (from x in db.ResolutionApprovals
+                                  join t in db.MemberResolutionInfoes on x.MemberResolutionID equals t.MemberResolutionID
+                                  join em in db.EmployeeInfoes on t.UserID equals em.UserID
+                                  join prl in db.ParliamentSessionInfoes on t.ParlSessID equals prl.ParliamentSessionID
+                                  join map in db.ConstitutentUserMappingInfoes on em.UserID equals map.UserID
+                                  join cnt in db.ConstitutentInfoes on map.ConstitutentID equals cnt.ConstitutentID
+                                  //  join apr in db.ApprovalStatus on x.AddSecApproveStatus equals apr.Status                           
+                                  where map.ParliamentNo == prl.ParliamentNo.ToString() && x.ParlSessID == sessionID
+                                    && t.AcceptStatus == "true" && new[] { "0" }.Contains(x.SecApproveStatus)
+                                  select new
+                                  {
+                                      x.ResolutionApproveID,
+                                      x.MemberResolutionID,
+                                      x.SecApproveDate,
+                                      x.SecApproveDetail,
+                                      x.SecApproveStatus,
+
+                                      x.AdministrativeOfcSignature,
+                                      x.AssitantSccSignature,
+                                      x.SrAssitantSccSignature,
+                                      x.DeputySecSignature,
+                                      x.SecSignature,
+                                      x.AddSecSignature,
+                                      x.SpeakerSignature,
+                                      html = x.AddSecApproveDetail,
+                                      //MemberResolutionDetail = x.AddSecApproveDetail,                          
+                                      t.MemberResolutionDetail,
+                                      t.MemberResolutionDate,
+                                      t.MemberResolutionFIleURL,
+                                      t.AcceptanceComment,
+                                      t.ParlSessID,
+                                      prl.ParliamentNo,
+                                      cnt.ConstitutentBangla,
+                                      prl.SessionNo,
+                                      t.UserID,
+                                      t.RDNo,
+                                      em.UserName,
+                                      em.BanglaName,
+                                      t.Status,
+                                  }).ToList();
+                    return thList;
+                }
+                else if (DataMode == "Backward")
+                {
+                    var thList = (from x in db.ResolutionApprovals
+                                  join t in db.MemberResolutionInfoes on x.MemberResolutionID equals t.MemberResolutionID
+                                  join em in db.EmployeeInfoes on t.UserID equals em.UserID
+                                  join prl in db.ParliamentSessionInfoes on t.ParlSessID equals prl.ParliamentSessionID
+                                  join map in db.ConstitutentUserMappingInfoes on em.UserID equals map.UserID
+                                  join cnt in db.ConstitutentInfoes on map.ConstitutentID equals cnt.ConstitutentID
+                                  //  join apr in db.ApprovalStatus on x.AddSecApproveStatus equals apr.Status                           
+                                  where map.ParliamentNo == prl.ParliamentNo.ToString() && x.ParlSessID == sessionID
+                                    && t.AcceptStatus == "true" && new[] { "0" }.Contains(x.SecBackStatus)
+                                  select new
+                                  {
+                                      x.ResolutionApproveID,
+                                      x.MemberResolutionID,
+                                      x.SecApproveDate,
+                                      x.SecApproveDetail,
+                                      x.SecApproveStatus,
+
+                                      x.AdministrativeOfcSignature,
+                                      x.AssitantSccSignature,
+                                      x.SrAssitantSccSignature,
+                                      x.DeputySecSignature,
+                                      x.SecSignature,
+                                      x.AddSecSignature,
+                                      x.SpeakerSignature,
+                                      html = x.AddSecApproveDetail,
+                                      //MemberResolutionDetail = x.AddSecApproveDetail,                          
+                                      t.MemberResolutionDetail,
+                                      t.MemberResolutionDate,
+                                      t.MemberResolutionFIleURL,
+                                      t.AcceptanceComment,
+                                      t.ParlSessID,
+                                      prl.ParliamentNo,
+                                      cnt.ConstitutentBangla,
+                                      prl.SessionNo,
+                                      t.UserID,
+                                      t.RDNo,
+                                      em.UserName,
+                                      em.BanglaName,
+                                      t.Status,
+                                  }).ToList();
+                    return thList;
+                }
+                else
+                {
+                    // Handle other cases or return null/empty list
+                    return null;
+                }
             }
         }
         public object GetWaitingListForSpeaker(int sessionID)
         {
             using (PMRS_BcEntities db = new PMRS_BcEntities())
             {
-                var thList = (from x in db.ResolutionApprovals
-                              join t in db.MemberResolutionInfoes on x.MemberResolutionID equals t.MemberResolutionID
-                              join em in db.EmployeeInfoes on t.UserID equals em.UserID
-                              join prl in db.ParliamentSessionInfoes on t.ParlSessID equals prl.ParliamentSessionID
-                              join map in db.ConstitutentUserMappingInfoes on em.UserID equals map.UserID
-                              join cnt in db.ConstitutentInfoes on map.ConstitutentID equals cnt.ConstitutentID
-                            //  join apr in db.ApprovalStatus on x.AddSecApproveStatus equals apr.Status
-                              where  map.ParliamentNo == prl.ParliamentNo.ToString() && x.ParlSessID == sessionID
-                              && t.AcceptStatus == "true" && new[] { "0" }.Contains(x.SpeakerApproveStatus)
-                              select new
-                              {
-                                  x.ResolutionApproveID,
-                                  x.MemberResolutionID,
-                                  x.SpeakerApproveDate,
-                                  x.SpeakerApproveDetail,
-                                  x.SpeakerApproveStatus,
+                
+                    var thList = (from x in db.ResolutionApprovals
+                                  join t in db.MemberResolutionInfoes on x.MemberResolutionID equals t.MemberResolutionID
+                                  join em in db.EmployeeInfoes on t.UserID equals em.UserID
+                                  join prl in db.ParliamentSessionInfoes on t.ParlSessID equals prl.ParliamentSessionID
+                                  join map in db.ConstitutentUserMappingInfoes on em.UserID equals map.UserID
+                                  join cnt in db.ConstitutentInfoes on map.ConstitutentID equals cnt.ConstitutentID
+                                  //  join apr in db.ApprovalStatus on x.AddSecApproveStatus equals apr.Status
+                                  where map.ParliamentNo == prl.ParliamentNo.ToString() && x.ParlSessID == sessionID
+                                  && t.AcceptStatus == "true" && new[] { "0" }.Contains(x.SpeakerApproveStatus)
+                                  select new
+                                  {
+                                      x.ResolutionApproveID,
+                                      x.MemberResolutionID,
+                                      x.SpeakerApproveDate,
+                                      x.SpeakerApproveDetail,
+                                      x.SpeakerApproveStatus,
 
-                                  x.AdministrativeOfcSignature,
-                                  x.AssitantSccSignature,
-                                  x.SrAssitantSccSignature,
-                                  x.DeputySecSignature,
-                                  x.SecSignature,
-                                  x.AddSecSignature,
-                                  x.SpeakerSignature,
+                                      x.AdministrativeOfcSignature,
+                                      x.AssitantSccSignature,
+                                      x.SrAssitantSccSignature,
+                                      x.DeputySecSignature,
+                                      x.SecSignature,
+                                      x.AddSecSignature,
+                                      x.SpeakerSignature,
 
-                                  html = x.SecApproveDetail,
-                                  //MemberResolutionDetail = x.SecApproveDetail,
-                               
-                                
-                                  t.MemberResolutionDetail,
+                                      html = x.SecApproveDetail,
+                                      //MemberResolutionDetail = x.SecApproveDetail,
 
-                                  t.MemberResolutionDate,
-                                  t.MemberResolutionFIleURL,
-                                  t.AcceptanceComment,
-                                  t.ParlSessID,
-                                  prl.ParliamentNo,
-                                  cnt.ConstitutentBangla,
-                                  prl.SessionNo,
-                                  t.UserID,
-                                  t.RDNo,
-                                  em.UserName,
-                                  em.BanglaName,
-                                  t.Status,
-                              }).ToList();
-                return thList;
+
+                                      t.MemberResolutionDetail,
+
+                                      t.MemberResolutionDate,
+                                      t.MemberResolutionFIleURL,
+                                      t.AcceptanceComment,
+                                      t.ParlSessID,
+                                      prl.ParliamentNo,
+                                      cnt.ConstitutentBangla,
+                                      prl.SessionNo,
+                                      t.UserID,
+                                      t.RDNo,
+                                      em.UserName,
+                                      em.BanglaName,
+                                      t.Status,
+                                  }).ToList();
+                    return thList;
+               
             }
         }
         public object GetPostedHistoryListByAdministrativeOfficer()
@@ -402,6 +708,7 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
                                   t.Status,
                               }).ToList();
                 return thList;
+
             }
         }
         public object GetPostedHistoryListByAssistantSecretary()
@@ -1112,90 +1419,7 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
 
             return false;
         }
-        public bool UpdateAdministrativeApproval(ResolutionApproval master)
-        {
-            bool isTrue = false;
-            IUMode = "U";
-
-            if (master != null)
-            {
-                try
-                {
-                    using (PMRS_BcEntities db = new PMRS_BcEntities())
-                    {
-                        var updt = db.ResolutionApprovals.Where(x => x.ResolutionApproveID == master.ResolutionApproveID).FirstOrDefault();
-
-                        if (updt != null)
-                        {
-                            updt.AdministrativeOfcSignature = master.AdministrativeOfcSignature;
-                            updt.AdministrativeOfcApproveStatus= master.AdministrativeOfcApproveStatus;
-                            updt.AdministrativeOfcDetail = master.AdministrativeOfcDetail;
-                            updt.AdministrativeOfcApproveDate = DateTime.Now;
-                            updt.AdministrativeOfcEmpID = userID;
-                            db.SaveChanges();
-
-                            isTrue = true;
-                            MaxCode = updt.ResolutionApproveID.ToString();
-                            MaxID = updt.ResolutionApproveID.ToString();
-
-                            _adt.InsertAudit("frmAdministrativeApproval", "AdministrativeApproval", IUMode, "", master.ResolutionApproveID);
-                            return isTrue;
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    if (ex.InnerException.InnerException.Message.Contains("UNIQUE"))
-                    {
-                        IUMode = "Unique";
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-        public bool UpdateASecApproval(ResolutionApproval master)
-        {
-            bool isTrue = false;
-            IUMode = "U";
-
-            if (master != null)
-            {
-                try
-                {
-                    using (PMRS_BcEntities db = new PMRS_BcEntities())
-                    {
-                        var updt = db.ResolutionApprovals.Where(x => x.ResolutionApproveID == master.ResolutionApproveID).FirstOrDefault();
-
-                        if (updt != null)
-                        {
-                            updt.AssitantSccSignature = master.AssitantSccSignature;
-                            updt.AssitantSccApproveStatus = master.AssitantSccApproveStatus;
-                            updt.AssitantSccDetail = master.AssitantSccDetail;
-                            updt.AssitantSccApproveDate = DateTime.Now;
-                            updt.AssitantSccEmpID = userID;
-                            db.SaveChanges();
-
-                            isTrue = true;
-                            MaxCode = updt.ResolutionApproveID.ToString();
-                            MaxID = updt.ResolutionApproveID.ToString();
-
-                            _adt.InsertAudit("frmAdministrativeApproval", "AdministrativeApproval", IUMode, "", master.ResolutionApproveID);
-                            return isTrue;
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    if (ex.InnerException.InnerException.Message.Contains("UNIQUE"))
-                    {
-                        IUMode = "Unique";
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
+     
 
         public bool SaveAssistantApproval(ResolutionApproval master)
         {
@@ -1233,91 +1457,9 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
 
             return false;
         }
-        public bool UpdateAssistantSecApproval(ResolutionApproval master)
-        {
-            bool isTrue = false;
-            IUMode = "U";
+     
 
-            if (master != null)
-            {
-                try
-                {
-                    using (PMRS_BcEntities db = new PMRS_BcEntities())
-                    {
-                        var updt = db.ResolutionApprovals.Where(x => x.ResolutionApproveID == master.ResolutionApproveID).FirstOrDefault();
-
-                        if (updt != null)
-                        {
-                            updt.AssitantSccApproveStatus = master.AssitantSccApproveStatus;
-                            updt.AssitantSccDetail = master.AssitantSccDetail;
-                            updt.AssitantSccApproveDate = DateTime.Now;
-                            updt.AssitantSccEmpID= userID;
-                            db.SaveChanges();
-
-                            isTrue = true;
-                            MaxCode = updt.ResolutionApproveID.ToString();
-                            MaxID = updt.ResolutionApproveID.ToString();
-
-                            _adt.InsertAudit("frmAssistantSecApproval", "AssistantSecApproval", IUMode, "", master.ResolutionApproveID);
-                            return isTrue;
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    if (ex.InnerException.InnerException.Message.Contains("UNIQUE"))
-                    {
-                        IUMode = "Unique";
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-
-        public bool UpdateSrAssistantSecApproval(ResolutionApproval master)
-        {
-            bool isTrue = false;
-            IUMode = "U";
-
-            if (master != null)
-            {
-                try
-                {
-                    using (PMRS_BcEntities db = new PMRS_BcEntities())
-                    {
-                        var updt = db.ResolutionApprovals.Where(x => x.ResolutionApproveID == master.ResolutionApproveID).FirstOrDefault();
-
-                        if (updt != null)
-                        {
-                            updt.SrAssitantSccSignature = master.SrAssitantSccSignature;
-                            updt.SrAssitantSccApproveStatus = master.SrAssitantSccApproveStatus;
-                            updt.SrAssitantSccDetail = master.SrAssitantSccDetail;
-                            updt.SrAssitantSccApproveDate = DateTime.Now;
-                            updt.SrAssitantSccEmpID = userID;
-                            db.SaveChanges();
-
-                            isTrue = true;
-                            MaxCode = updt.ResolutionApproveID.ToString();
-                            MaxID = updt.ResolutionApproveID.ToString();
-
-                            _adt.InsertAudit("frmAdministrativeApproval", "AdministrativeApproval", IUMode, "", master.ResolutionApproveID);
-                            return isTrue;
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    if (ex.InnerException.InnerException.Message.Contains("UNIQUE"))
-                    {
-                        IUMode = "Unique";
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-
+     
         public bool SaveSrAssistantSecApproval(ResolutionApproval master)
         {
             bool isTrue = false;
@@ -1500,6 +1642,190 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
 
             return false;
         }
+
+
+
+
+
+
+
+
+
+        public bool UpdateAdministrativeApproval(ResolutionApproval master)
+        {
+            bool isTrue = false;
+            IUMode = "U";
+
+            if (master != null)
+            {
+                try
+                {
+                    using (PMRS_BcEntities db = new PMRS_BcEntities())
+                    {
+                        var updt = db.ResolutionApprovals.Where(x => x.ResolutionApproveID == master.ResolutionApproveID).FirstOrDefault();
+
+                        if (updt != null)
+                        {
+                            updt.AdministrativeOfcSignature = master.AdministrativeOfcSignature;
+                            updt.AdministrativeOfcApproveStatus = master.AdministrativeOfcApproveStatus;
+                            updt.AdministrativeOfcBackStatus = master.AdministrativeOfcBackStatus;
+                            updt.AdministrativeOfcDetail = master.AdministrativeOfcDetail;
+                            updt.AdministrativeOfcApproveDate = DateTime.Now;
+                            updt.AdministrativeOfcEmpID = userID;
+                            db.SaveChanges();
+
+                            isTrue = true;
+                            MaxCode = updt.ResolutionApproveID.ToString();
+                            MaxID = updt.ResolutionApproveID.ToString();
+
+                            _adt.InsertAudit("frmAdministrativeApproval", "AdministrativeApproval", IUMode, "", master.ResolutionApproveID);
+                            return isTrue;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    if (ex.InnerException.InnerException.Message.Contains("UNIQUE"))
+                    {
+                        IUMode = "Unique";
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        //public bool UpdateAssitantSecApproval(ResolutionApproval master)
+        //{
+        //    bool isTrue = false;
+        //    IUMode = "U";
+
+        //    if (master != null)
+        //    {
+        //        try
+        //        {
+        //            using (PMRS_BcEntities db = new PMRS_BcEntities())
+        //            {
+        //                var updt = db.ResolutionApprovals.Where(x => x.ResolutionApproveID == master.ResolutionApproveID).FirstOrDefault();
+
+        //                if (updt != null)
+        //                {
+        //                    updt.AssitantSccSignature = master.AssitantSccSignature;
+        //                    updt.AssitantSccApproveStatus = master.AssitantSccApproveStatus;
+        //                    updt.AssitantSccDetail = master.AssitantSccDetail;
+        //                    updt.AssitantSccApproveDate = DateTime.Now;
+        //                    updt.AssitantSccEmpID = userID;
+        //                    db.SaveChanges();
+
+        //                    isTrue = true;
+        //                    MaxCode = updt.ResolutionApproveID.ToString();
+        //                    MaxID = updt.ResolutionApproveID.ToString();
+
+        //                    _adt.InsertAudit("frmAdministrativeApproval", "AdministrativeApproval", IUMode, "", master.ResolutionApproveID);
+        //                    return isTrue;
+        //                }
+        //            }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            if (ex.InnerException.InnerException.Message.Contains("UNIQUE"))
+        //            {
+        //                IUMode = "Unique";
+        //                return true;
+        //            }
+        //        }
+        //    }
+        //    return false;
+        //}
+
+
+        public bool UpdateAssistantSecApproval(ResolutionApproval master)
+        {
+            bool isTrue = false;
+            IUMode = "U";
+
+            if (master != null)
+            {
+                try
+                {
+                    using (PMRS_BcEntities db = new PMRS_BcEntities())
+                    {
+                        var updt = db.ResolutionApprovals.Where(x => x.ResolutionApproveID == master.ResolutionApproveID).FirstOrDefault();
+
+                        if (updt != null)
+                        {
+                            updt.AssitantSccApproveStatus = master.AssitantSccApproveStatus;
+                            updt.AssitantSccBackStatus = master.AssitantSccBackStatus;
+                            updt.AssitantSccDetail = master.AssitantSccDetail;
+                            updt.AssitantSccApproveDate = DateTime.Now;
+                            updt.AssitantSccEmpID = userID;
+                            db.SaveChanges();
+
+                            isTrue = true;
+                            MaxCode = updt.ResolutionApproveID.ToString();
+                            MaxID = updt.ResolutionApproveID.ToString();
+
+                            _adt.InsertAudit("frmAssistantSecApproval", "AssistantSecApproval", IUMode, "", master.ResolutionApproveID);
+                            return isTrue;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    if (ex.InnerException.InnerException.Message.Contains("UNIQUE"))
+                    {
+                        IUMode = "Unique";
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public bool UpdateSrAssistantSecApproval(ResolutionApproval master)
+        {
+            bool isTrue = false;
+            IUMode = "U";
+
+            if (master != null)
+            {
+                try
+                {
+                    using (PMRS_BcEntities db = new PMRS_BcEntities())
+                    {
+                        var updt = db.ResolutionApprovals.Where(x => x.ResolutionApproveID == master.ResolutionApproveID).FirstOrDefault();
+
+                        if (updt != null)
+                        {
+                            updt.SrAssitantSccSignature = master.SrAssitantSccSignature;
+                            updt.SrAssitantSccApproveStatus = master.SrAssitantSccApproveStatus;
+                            updt.SrAssitantSccBackStatus = master.SrAssitantSccBackStatus;
+                            updt.SrAssitantSccDetail = master.SrAssitantSccDetail;
+                            updt.SrAssitantSccApproveDate = DateTime.Now;
+                            updt.SrAssitantSccEmpID = userID;
+                            db.SaveChanges();
+
+                            isTrue = true;
+                            MaxCode = updt.ResolutionApproveID.ToString();
+                            MaxID = updt.ResolutionApproveID.ToString();
+
+                            _adt.InsertAudit("frmAdministrativeApproval", "AdministrativeApproval", IUMode, "", master.ResolutionApproveID);
+                            return isTrue;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    if (ex.InnerException.InnerException.Message.Contains("UNIQUE"))
+                    {
+                        IUMode = "Unique";
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
         public bool UpdateDeputySecretaryApproval(ResolutionApproval master)
         {
             bool isTrue = false;
@@ -1517,6 +1843,7 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
                         {
                             updt.DeputySecSignature = master.DeputySecSignature;
                             updt.DeputySecApproveStatus = master.DeputySecApproveStatus;
+                            updt.DeputySecBackStatus = master.DeputySecBackStatus;
                             updt.DeputySecApproveDetail = master.DeputySecApproveDetail;
                             updt.DeputySecApproveDate = DateTime.Now;
                             updt.DeputySecEmpID = userID;
@@ -1542,119 +1869,52 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
             }
             return false;
         }
-        public bool UpdateDraftAdministrativeOfficer(ResolutionApproval master)
+        public bool UpdateAdditionalSecretaryApproval(ResolutionApproval model)
         {
             bool isTrue = false;
             IUMode = "U";
-
-            if (master != null)
+            try
             {
-                try
+                using (PMRS_BcEntities db = new PMRS_BcEntities())
                 {
-                    using (PMRS_BcEntities db = new PMRS_BcEntities())
-                    {
-                        var updt = db.ResolutionApprovals.Where(x => x.ResolutionApproveID == master.ResolutionApproveID).FirstOrDefault();
+                    var updt = db.ResolutionApprovals.Where(x => x.ResolutionApproveID == model.ResolutionApproveID).FirstOrDefault();
 
-                        if (updt != null)
-                        {
-                            updt.AdministrativeOfcDetail = master.AdministrativeOfcDetail;
-                            updt.AdministrativeOfcEmpID= userID;
-                            db.SaveChanges();
+                    updt.AddSecApproveStatus = model.AddSecApproveStatus;
+                    updt.AddSecBackStatus = model.AddSecBackStatus;
+                    updt.AddSecApproveDetail = model.AddSecApproveDetail;
+                    updt.AddSecApproveDate = DateTime.Now;
+                    updt.AddSecEmpID = userID;
+                    updt.AddSecSignature = model.AddSecSignature;
 
-                            isTrue = true;
-                            MaxCode = updt.ResolutionApproveID.ToString();
-                            MaxID = updt.ResolutionApproveID.ToString();
 
-                            _adt.InsertAudit("frmResolutionApproval", "ResolutionApproval", IUMode, "", master.ResolutionApproveID);
-                            return isTrue;
-                        }
-                        else
-                        {
-                            master.AdministrativeOfcEmpID = Convert.ToInt32(userID);
-                            //master.DeputySecApproveDate = DateTime.Now;
-                            db.ResolutionApprovals.Add(master);
-                            db.SaveChanges();
+                    db.SaveChanges();
 
-                            isTrue = true;
-                            MaxCode = master.ResolutionApproveID.ToString();
-                            MaxID = master.ResolutionApproveID.ToString();
+                    isTrue = true;
+                    MaxCode = updt.ResolutionApproveID.ToString();
+                    MaxID = updt.ResolutionApproveID.ToString();
 
-                            _adt.InsertAudit("frmResolutionApproval", "ResolutionApproval", IUMode, "", master.ResolutionApproveID);
-                            return isTrue;
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    if (ex.InnerException.InnerException.Message.Contains("UNIQUE"))
-                    {
-                        IUMode = "Unique";
-                        return true;
-                    }
+                    _adt.InsertAudit("frmResolutionASApproval", "ResolutionApproval", IUMode, "", updt.ResolutionApproveID);
+                    return isTrue;
                 }
             }
+            catch (Exception ex)
+            {
+                if (ex.InnerException.InnerException.Message.Contains("UNIQUE"))
+                {
+                    IUMode = "Unique";
+                    return true;
+                }
+            }
+
             return false;
         }
 
-        public bool UpdateDSDraft(ResolutionApproval master)
-        {
-            bool isTrue = false;
-            IUMode = "U";
+     
+     
 
-            if (master != null)
-            {
-                try
-                {
-                    using (PMRS_BcEntities db = new PMRS_BcEntities())
-                    {
-                        var updt = db.ResolutionApprovals.Where(x => x.ResolutionApproveID == master.ResolutionApproveID).FirstOrDefault();
+       
 
-                        if (updt != null)
-                        {
-                            updt.DeputySecApproveDetail = master.DeputySecApproveDetail;
-                            updt.DeputySecEmpID = userID;
-                            db.SaveChanges();
 
-                            isTrue = true;
-                            MaxCode = updt.ResolutionApproveID.ToString();
-                            MaxID = updt.ResolutionApproveID.ToString();
-
-                            _adt.InsertAudit("frmResolutionApproval", "ResolutionApproval", IUMode, "", master.ResolutionApproveID);
-                            return isTrue;
-                        }
-                        else
-                        {
-                            master.DeputySecEmpID = Convert.ToInt32(userID);
-                            //master.DeputySecApproveDate = DateTime.Now;
-                            db.ResolutionApprovals.Add(master);
-                            db.SaveChanges();
-
-                            isTrue = true;
-                            MaxCode = master.ResolutionApproveID.ToString();
-                            MaxID = master.ResolutionApproveID.ToString();
-
-                            _adt.InsertAudit("frmResolutionApproval", "ResolutionApproval", IUMode, "", master.ResolutionApproveID);
-                            return isTrue;
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    if (ex.InnerException.InnerException.Message.Contains("UNIQUE"))
-                    {
-                        IUMode = "Unique";
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-
-   
-
-    
-
-  
 
         public bool UpdateSecretaryApproval(ResolutionApproval model)
         {
@@ -1668,6 +1928,7 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
 
                     updt.SecSignature = model.SecSignature;
                     updt.SecApproveStatus = model.SecApproveStatus;
+                    updt.SecBackStatus = model.SecBackStatus;
                     updt.SecApproveDetail = model.SecApproveDetail;
                     updt.SecApproveDate = DateTime.Now;
                     updt.SecEmpID = userID;
@@ -1694,135 +1955,6 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
             return false;
         }
 
-
-        public bool UpdateSecDraft(ResolutionApproval master)
-        {
-            bool isTrue = false;
-            IUMode = "U";
-
-            if (master != null)
-            {
-                try
-                {
-                    using (PMRS_BcEntities db = new PMRS_BcEntities())
-                    {
-                        var updt = db.ResolutionApprovals.Where(x => x.ResolutionApproveID == master.ResolutionApproveID).FirstOrDefault();
-
-                        if (updt != null)
-                        {
-                            updt.SecApproveDetail = master.SecApproveDetail;
-                            updt.SecEmpID = userID;
-                            db.SaveChanges();
-
-                            isTrue = true;
-                            MaxCode = updt.ResolutionApproveID.ToString();
-                            MaxID = updt.ResolutionApproveID.ToString();
-
-                            _adt.InsertAudit("frmResolutionSecApproval", "ResolutionApproval", IUMode, "", master.ResolutionApproveID);
-                            return isTrue;
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    if (ex.InnerException.InnerException.Message.Contains("UNIQUE"))
-                    {
-                        IUMode = "Unique";
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-
-   
-
-
-        public bool UpdateAdditionalSecretaryApproval(ResolutionApproval model)
-        {
-            bool isTrue = false;
-            IUMode = "U";
-            try
-            {
-                using (PMRS_BcEntities db = new PMRS_BcEntities())
-                {
-                    var updt = db.ResolutionApprovals.Where(x => x.ResolutionApproveID == model.ResolutionApproveID).FirstOrDefault();
-                   
-
-                    updt.AddSecApproveStatus = model.AddSecApproveStatus;
-                    updt.AddSecApproveDetail = model.AddSecApproveDetail;
-                    updt.AddSecApproveDate = DateTime.Now;
-                    updt.AddSecEmpID = userID;
-                    updt.AddSecSignature = model.AddSecSignature;
-                    db.SaveChanges();
-
-                    isTrue = true;
-                    MaxCode = updt.ResolutionApproveID.ToString();
-                    MaxID = updt.ResolutionApproveID.ToString();
-
-                    _adt.InsertAudit("frmResolutionASApproval", "ResolutionApproval", IUMode, "", updt.ResolutionApproveID);
-                    return isTrue;
-                }
-            }
-            catch (Exception ex)
-            {
-                if (ex.InnerException.InnerException.Message.Contains("UNIQUE"))
-                {
-                    IUMode = "Unique";
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        public bool UpdateASDraft(ResolutionApproval master)
-        {
-            bool isTrue = false;
-            IUMode = "U";
-
-            if (master != null)
-            {
-                try
-                {
-                    using (PMRS_BcEntities db = new PMRS_BcEntities())
-                    {
-                        var updt = db.ResolutionApprovals.Where(x => x.ResolutionApproveID == master.ResolutionApproveID).FirstOrDefault();
-
-                        if (updt != null)
-                        {
-                            updt.AdministrativeOfcDetail = master.AdministrativeOfcDetail;
-                            updt.AddSecEmpID = userID;
-                            db.SaveChanges();
-
-                            isTrue = true;
-                            MaxCode = updt.ResolutionApproveID.ToString();
-                            MaxID = updt.ResolutionApproveID.ToString();
-
-                            _adt.InsertAudit("frmResolutionASApproval", "ResolutionApproval", IUMode, "", master.ResolutionApproveID);
-                            return isTrue;
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    if (ex.InnerException.InnerException.Message.Contains("UNIQUE"))
-                    {
-                        IUMode = "Unique";
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-
-     
-
-        #region Speaker
-
-
- 
-
         public bool UpdateSpeakerApproval(ResolutionApproval model)
         {
             bool isTrue = false;
@@ -1833,6 +1965,7 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
                 {
                     var updt = db.ResolutionApprovals.Where(x => x.ResolutionApproveID == model.ResolutionApproveID).FirstOrDefault();
                     updt.SpeakerApproveStatus = model.SpeakerApproveStatus;
+                    updt.SpeakerBackStatus = model.SpeakerBackStatus;
                     updt.SpeakerApproveDetail = model.SpeakerApproveDetail;
                     updt.SpeakerApproveDate = DateTime.Now;
                     updt.SpeakerEmpID = userID;
@@ -1859,8 +1992,38 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
             return false;
         }
 
+        public bool UpdateNofificationStatus(ResolutionApproval model)
+        {
+            bool isTrue = false;
+            IUMode = "U";
+            try
+            {
+                using (PMRS_BcEntities db = new PMRS_BcEntities())
+                {
+                    var updt = db.ResolutionApprovals.Where(x => x.ResolutionApproveID == model.ResolutionApproveID).FirstOrDefault();
+                    updt.NoticeBackStatus = model.NoticeBackStatus;               
+                    db.SaveChanges();
 
-        #endregion
+                    isTrue = true;
+                    MaxCode = updt.ResolutionApproveID.ToString();
+                    MaxID = updt.ResolutionApproveID.ToString();
+
+                    _adt.InsertAudit("frmResolutionSpeakerApproval", "ResolutionApproval", IUMode, "", updt.ResolutionApproveID);
+                    return isTrue;
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException.InnerException.Message.Contains("UNIQUE"))
+                {
+                    IUMode = "Unique";
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        
 
     }
 }

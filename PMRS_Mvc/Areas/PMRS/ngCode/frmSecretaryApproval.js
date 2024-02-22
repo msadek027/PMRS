@@ -1,7 +1,7 @@
 ﻿app.controller("myCtrl", function ($scope, $http, $filter) {
     $scope.EventPerm(17);
     $scope.btnSaveValue = "Posting";
-
+    $scope.DataMode = "Forward";
     $http({
         method: "GET",
         url: MyApp.rootPath + "ParliamentSessionInfo/GetActiveSession"
@@ -33,7 +33,7 @@
         $http({
             method: "POST",
             url: MyApp.rootPath + "ResolutionApproval/GetWaitingListForSecretary",
-            data: { session: $scope.frmSecretaryApproval.ParliamentSession }
+            data: { session: $scope.frmSecretaryApproval.ParliamentSession,DataMode: $scope.DataMode }
         }).then(function (response) {
             if (response.data.length > 0) {
                 $scope.gridResolutionOptions.data = response.data;
@@ -45,7 +45,9 @@
             toastr.warning("No Data Found!");
         });
     };
-
+    $scope.loadDataMode = function () {
+        $scope.GetWaitingListForSecretary();
+    }
     var columnResolutionList = [
         {
             field: 'selectData',
@@ -340,6 +342,7 @@
        $scope.SaveDb.SecApproveDate = (dt.getFullYear() + '-' + dt.getMonth() + '-' + dt.getDate());
         $scope.SaveDb.SecApproveStatus = "1";
         $scope.SaveDb.SendTo = $scope.frmSecretaryApproval.SignTo;
+        $scope.SaveDb.DataMode = $scope.DataMode;
         if ($scope.uiID === '' || typeof $scope.uiID === 'undefined' && $scope.SaveDb.SendTo != '' && $scope.SaveDb.SendTo != 'undefined' && $scope.SaveDb.SendTo != undefined) {
             $http({
                 method: "post",
@@ -385,6 +388,7 @@
                 $scope.SaveDb.SecApproveDate = (dt.getFullYear() + '-' + dt.getMonth() + '-' + dt.getDate());
                 $scope.SaveDb.SecApproveStatus = "1";
                 $scope.SaveDb.SendTo = $scope.frmSecretaryApproval.SignTo;
+                $scope.SaveDb.DataMode = $scope.DataMode;
                 if ($scope.uiID === '' || typeof $scope.uiID === 'undefined' && $scope.SaveDb.SendTo != '' && $scope.SaveDb.SendTo != 'undefined' && $scope.SaveDb.SendTo != undefined) {
                     $http({
                         method: "post",
@@ -432,6 +436,8 @@
         $scope.SaveDb.SecApproveDate = $scope.ApproveDate;
         $scope.SaveDb.SecApproveStatus = $scope.frmSecretaryApproval.AppStatus;
         $scope.SaveDb.SendTo = $scope.frmSecretaryApproval.SignTo;
+        $scope.SaveDb.DataMode = $scope.DataMode;
+    
         $http({
             method: "post",
             url: MyApp.rootPath + "ResolutionApproval/UpdateSecApproval",

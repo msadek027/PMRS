@@ -37,10 +37,10 @@
 
             <div class="panel-content bg-light-blue">
                 <div class="form-group">
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <label class="control-label input-sm required">সংসদীয় অধিবেশন নং</label>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <ui-select class="form-control form-white input-sm" ng-model="frmSpeakerApproval.ParliamentSession" theme="select2" ng-disabled="disabled" ng-change="GetWaitingListForSpeaker()" required>
                             <ui-select-match placeholder="অধিবেশন নির্বাচন করুন">{{$select.selected.ParliamentNo}}</ui-select-match>
                             <ui-select-choices repeat="session.ParliamentSessionID as session in Sessions | propsFilter: {ParliamentNo: $select.search, SessionNo: $select.search}">
@@ -52,10 +52,19 @@
                             </ui-select-choices>
                         </ui-select>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
+                        <label class="control-label input-sm required">প্রাপোক</label>
                     </div>
                     <div class="col-md-3">
-                   </div>
+                        <ui-select class="form-control form-white input-sm" ng-model="frmSpeakerApproval.SignTo" theme="select2" ng-init="frmSpeakerApproval.SignTo = 1" required>
+                            <ui-select-match placeholder="নির্বাচন করুন">{{$select.selected.UserName}}</ui-select-match>
+                            <ui-select-choices repeat="session.Grade as session in WorkflowList | propsFilter: {Grade: $select.search, SessionNo: $select.search}">
+                                <small>
+                                    {{session.UserName}} (<span ng-bind-html="''+session.DesignationNameBN | highlight: $select.search"></span>)  &nbsp;&nbsp;&nbsp;
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
 
                     <div class="row">
                         <div id="gridEmployeeInfo" ui-grid="gridResolutionOptions" class="grid" ui-grid-pagination style="padding-left: 1%; height: 350px; width: 98.6%;" ui-grid-auto-resize ui-grid-resize-columns></div>

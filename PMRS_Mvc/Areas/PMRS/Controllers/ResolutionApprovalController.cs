@@ -17,37 +17,37 @@ namespace PMRS_Mvc.Areas.PMRS.Controllers
         [HttpPost]
         public ActionResult GetWaitingListForAdministrative(string session, string DataMode)
         {
-            var data = primaryDAO.GetWaitingListForAdministrative(Convert.ToInt32(session));
+            var data = primaryDAO.GetWaitingListForAdministrative(Convert.ToInt32(session), DataMode);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
-        public ActionResult GetWaitingListForAssistantSecretary(string session)
+        public ActionResult GetWaitingListForAssistantSecretary(string session,string DataMode)
         {
-            var data = primaryDAO.GetWaitingListForAssistantSecretary(Convert.ToInt32(session));
+            var data = primaryDAO.GetWaitingListForAssistantSecretary(Convert.ToInt32(session), DataMode);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
-        public ActionResult GetWatingListForSrAssistantSecretary(string session)
+        public ActionResult GetWatingListForSrAssistantSecretary(string session, string DataMode)
         {
-            var data = primaryDAO.GetWatingListForSrAssistantSecretary(Convert.ToInt32(session));
+            var data = primaryDAO.GetWatingListForSrAssistantSecretary(Convert.ToInt32(session), DataMode);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
-        public ActionResult GetWaitingListForDeputySecretary(string session)
+        public ActionResult GetWaitingListForDeputySecretary(string session, string DataMode)
         {
-            var data = primaryDAO.GetWaitingListForDeputySecretary(Convert.ToInt32(session));
+            var data = primaryDAO.GetWaitingListForDeputySecretary(Convert.ToInt32(session), DataMode);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
-        public ActionResult GetWaitingListForAdditionalSecretary(string session)
+        public ActionResult GetWaitingListForAdditionalSecretary(string session, string DataMode)
         {
-            var data = primaryDAO.GetWaitingListForAdditionalSecretary(Convert.ToInt32(session));
+            var data = primaryDAO.GetWaitingListForAdditionalSecretary(Convert.ToInt32(session), DataMode);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
-        public ActionResult GetWaitingListForSecretary(string session)
+        public ActionResult GetWaitingListForSecretary(string session, string DataMode)
         {
-            var data = primaryDAO.GetWaitingListForSecretary(Convert.ToInt32(session));
+            var data = primaryDAO.GetWaitingListForSecretary(Convert.ToInt32(session), DataMode);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
@@ -234,27 +234,27 @@ namespace PMRS_Mvc.Areas.PMRS.Controllers
             return View();
         }
        
-        [HttpPost]
-        public ActionResult SaveAssistantSecApproval(ResolutionApproval master)
-        {
-            try
-            {
-                if (Session["Signature"] != null)
-                {
-                    master.AssitantSccSignature= Session["Signature"].ToString();
-                }
+        //[HttpPost]
+        //public ActionResult SaveAssistantSecApproval(ResolutionApproval master)
+        //{
+        //    try
+        //    {
+        //        if (Session["Signature"] != null)
+        //        {
+        //            master.AssitantSccSignature= Session["Signature"].ToString();
+        //        }
 
-                if (primaryDAO.SaveAdministrativeApproval(master))
-                {
-                    return Json(new { Code = primaryDAO.MaxCode, Mode = primaryDAO.IUMode, Status = "Yes", ID = primaryDAO.MaxID });
-                }
-                return View("frmResolutionApproval");
-            }
-            catch (Exception)
-            {
-                return View("frmResolutionApproval");
-            }
-        }
+        //        if (primaryDAO.SaveAdministrativeApproval(master))
+        //        {
+        //            return Json(new { Code = primaryDAO.MaxCode, Mode = primaryDAO.IUMode, Status = "Yes", ID = primaryDAO.MaxID });
+        //        }
+        //        return View("frmResolutionApproval");
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return View("frmResolutionApproval");
+        //    }
+        //}
         public ActionResult UpdateAssistantSecApproval(ResolutionApproval master)
         {
             try
@@ -267,7 +267,7 @@ namespace PMRS_Mvc.Areas.PMRS.Controllers
                 {
                     UpdateResolutionStatus(master);
                 }
-                if (primaryDAO.UpdateASecApproval(master))
+                if (primaryDAO.UpdateAssistantSecApproval(master))
                 {
                     return Json(new { Code = primaryDAO.MaxCode, Mode = primaryDAO.IUMode, Status = "Yes", ID = primaryDAO.MaxID });
                 }
@@ -294,27 +294,27 @@ namespace PMRS_Mvc.Areas.PMRS.Controllers
 
       
        
-        [HttpPost]
-        public ActionResult SaveSrAssistantSecApproval(ResolutionApproval master)
-        {
-            try
-            {
-                if (Session["Signature"] != null)
-                {
-                    master.SrAssitantSccSignature = Session["Signature"].ToString();
-                }
+        //[HttpPost]
+        //public ActionResult SaveSrAssistantSecApproval(ResolutionApproval master)
+        //{
+        //    try
+        //    {
+        //        if (Session["Signature"] != null)
+        //        {
+        //            master.SrAssitantSccSignature = Session["Signature"].ToString();
+        //        }
             
-                if (primaryDAO.SaveSrAssistantSecApproval(master))
-                {
-                    return Json(new { Code = primaryDAO.MaxCode, Mode = primaryDAO.IUMode, Status = "Yes", ID = primaryDAO.MaxID });
-                }
-                return View("frmResolutionApproval");
-            }
-            catch (Exception)
-            {
-                return View("frmResolutionApproval");
-            }
-        }
+        //        if (primaryDAO.SaveSrAssistantSecApproval(master))
+        //        {
+        //            return Json(new { Code = primaryDAO.MaxCode, Mode = primaryDAO.IUMode, Status = "Yes", ID = primaryDAO.MaxID });
+        //        }
+        //        return View("frmResolutionApproval");
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return View("frmResolutionApproval");
+        //    }
+        //}
         public ActionResult UpdateSrAssistantSecApproval(ResolutionApproval master)
         {
             try
@@ -396,27 +396,27 @@ namespace PMRS_Mvc.Areas.PMRS.Controllers
         //    return Json(data, JsonRequestBehavior.AllowGet);
         //}
 
-        [HttpPost]
-        public ActionResult SaveDSApproval(ResolutionApproval master)
-        {
-            try
-            {
-                if(Session["Signature"] != null)
-                {
-                    master.DeputySecSignature = Session["Signature"].ToString();
-                }
+        //[HttpPost]
+        //public ActionResult SaveDSApproval(ResolutionApproval master)
+        //{
+        //    try
+        //    {
+        //        if(Session["Signature"] != null)
+        //        {
+        //            master.DeputySecSignature = Session["Signature"].ToString();
+        //        }
                 
-                if (primaryDAO.SaveDeputySecretaryApproval(master))
-                {
-                    return Json(new { Code = primaryDAO.MaxCode, Mode = primaryDAO.IUMode, Status = "Yes", ID = primaryDAO.MaxID });
-                }
-                return View("frmResolutionApproval");
-            }
-            catch (Exception)
-            {
-                return View("frmResolutionApproval");
-            }
-        }
+        //        if (primaryDAO.SaveDeputySecretaryApproval(master))
+        //        {
+        //            return Json(new { Code = primaryDAO.MaxCode, Mode = primaryDAO.IUMode, Status = "Yes", ID = primaryDAO.MaxID });
+        //        }
+        //        return View("frmResolutionApproval");
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return View("frmResolutionApproval");
+        //    }
+        //}
 
         [HttpPost]
         public ActionResult UpdateDSApproval(ResolutionApproval master)
@@ -630,11 +630,15 @@ namespace PMRS_Mvc.Areas.PMRS.Controllers
         {
             try
             {
+                master.DataMode = "Backward";
                 if(Session["Signature"] != null)
                 {
                     master.SpeakerSignature = Session["Signature"].ToString();
                 }
-              
+                if (master.SpeakerApproveStatus == "1" || master.SpeakerApproveStatus == "7" || master.SpeakerApproveStatus == "8" || master.SpeakerApproveStatus == "10")
+                {
+                    UpdateResolutionStatus(master);
+                }
                 if (primaryDAO.UpdateSpeakerApproval(master))
                 {
                     return Json(new { Code = primaryDAO.MaxCode, Mode = primaryDAO.IUMode, Status = "Yes", ID = primaryDAO.MaxID });
@@ -673,77 +677,78 @@ namespace PMRS_Mvc.Areas.PMRS.Controllers
             approval.ResolutionApproveID = master.ResolutionApproveID;
             approval.MemberResolutionID = master.MemberResolutionID;
 
-          
-            if (master.SendTo == "10")
+            if (master.DataMode == "Forward")
             {
-              
+                if (master.SendTo == "10")
+                {
+
                     approval.AdministrativeOfcDetail = master.AddSecApproveDetail;
                     approval.RDNo = master.RDNo;
                     approval.ParlSessID = master.ParlSessID;
                     approval.AdministrativeOfcApproveStatus = "0";
                     primaryDAO.UpdateAdministrativeApproval(approval);
-                
-            }
 
-            if (master.SendTo == "9")
-            {
-              
+                }
+
+                if (master.SendTo == "9")
+                {
+
                     approval.AssitantSccDetail = master.AssitantSccDetail;
                     approval.RDNo = master.RDNo;
                     approval.ParlSessID = master.ParlSessID;
                     approval.AssitantSccApproveStatus = "0";
                     primaryDAO.UpdateAssistantSecApproval(approval);
-                
-            }
-            if (master.SendTo == "6")
-            {
-               
+
+                }
+                if (master.SendTo == "6")
+                {
+
                     approval.SrAssitantSccDetail = master.SrAssitantSccDetail;
                     approval.RDNo = master.RDNo;
                     approval.ParlSessID = master.ParlSessID;
                     approval.SrAssitantSccApproveStatus = "0";
                     primaryDAO.UpdateSrAssistantSecApproval(approval);
-                
-            }
+
+                }
 
 
-            if (master.SendTo == "3")
-            {
-                
+                if (master.SendTo == "3")
+                {
+
                     approval.DeputySecApproveDetail = master.DeputySecApproveDetail;
                     approval.RDNo = master.RDNo;
                     approval.ParlSessID = master.ParlSessID;
                     approval.DeputySecApproveStatus = "0";
                     primaryDAO.UpdateDeputySecretaryApproval(approval);
-                
-            }
 
-            if (master.SendTo == "2")
-            {
-               
+                }
+
+                if (master.SendTo == "2")
+                {
+
                     approval.AddSecApproveDetail = master.AddSecApproveDetail;
                     approval.RDNo = master.RDNo;
                     approval.ParlSessID = master.ParlSessID;
 
                     approval.AddSecApproveStatus = "0";
                     primaryDAO.UpdateAdditionalSecretaryApproval(approval);
-                
-            }
-            if (master.SendTo == "1")
-            {
-               
+
+                }
+                if (master.SendTo == "1")
+                {
+
                     approval.SecApproveDetail = master.SecApproveDetail;
                     approval.RDNo = master.RDNo;
                     approval.ParlSessID = master.ParlSessID;
                     approval.SecApproveDate = DateTime.Now;
                     approval.SecApproveStatus = "0";
                     primaryDAO.UpdateSecretaryApproval(approval);
-                
 
-            }
-            if (master.SendTo == "0")
-            {
-               
+
+                }
+                if (master.SendTo == "0")
+                {
+
                     approval.SpeakerApproveDetail = master.SpeakerApproveDetail;
                     approval.RDNo = master.RDNo;
                     approval.ParlSessID = master.ParlSessID;
@@ -751,7 +756,104 @@ namespace PMRS_Mvc.Areas.PMRS.Controllers
 
                     approval.SpeakerApproveStatus = "0";
                     primaryDAO.UpdateSpeakerApproval(approval);
-                
+
+                }
+            }
+           else if (master.DataMode == "Backward")
+            {
+                if (master.SendTo == "10")
+                {
+
+                    approval.AdministrativeOfcDetail = master.AddSecApproveDetail;
+                    approval.RDNo = master.RDNo;
+                    approval.ParlSessID = master.ParlSessID;
+                    approval.AdministrativeOfcApproveStatus = "1";
+                    approval.AdministrativeOfcBackStatus = "0";
+                    primaryDAO.UpdateAdministrativeApproval(approval);
+
+                }
+
+                if (master.SendTo == "9")
+                {
+
+                    approval.AssitantSccDetail = master.AssitantSccDetail;
+                    approval.RDNo = master.RDNo;
+                    approval.ParlSessID = master.ParlSessID;
+                    approval.AssitantSccApproveStatus = "1";
+                    approval.AssitantSccBackStatus = "0";
+                    primaryDAO.UpdateAssistantSecApproval(approval);
+
+                }
+                if (master.SendTo == "6")
+                {
+
+                    approval.SrAssitantSccDetail = master.SrAssitantSccDetail;
+                    approval.RDNo = master.RDNo;
+                    approval.ParlSessID = master.ParlSessID;
+                    approval.SrAssitantSccApproveStatus = "1";
+                    approval.SrAssitantSccBackStatus = "0";
+                    primaryDAO.UpdateSrAssistantSecApproval(approval);
+
+                }
+
+
+                if (master.SendTo == "3")
+                {
+
+                    approval.DeputySecApproveDetail = master.DeputySecApproveDetail;
+                    approval.RDNo = master.RDNo;
+                    approval.ParlSessID = master.ParlSessID;
+                    approval.DeputySecApproveStatus = "1";
+                    approval.DeputySecBackStatus = "0";
+                    primaryDAO.UpdateDeputySecretaryApproval(approval);
+
+                }
+
+                if (master.SendTo == "2")
+                {
+
+                    approval.AddSecApproveDetail = master.AddSecApproveDetail;
+                    approval.RDNo = master.RDNo;
+                    approval.ParlSessID = master.ParlSessID;
+
+                    approval.AddSecApproveStatus = "1";
+                    approval.AddSecBackStatus = "0";
+                    primaryDAO.UpdateAdditionalSecretaryApproval(approval);
+
+                }
+                if (master.SendTo == "1")
+                {
+
+                    approval.SecApproveDetail = master.SecApproveDetail;
+                    approval.RDNo = master.RDNo;
+                    approval.ParlSessID = master.ParlSessID;
+                    approval.SecApproveDate = DateTime.Now;
+                    approval.SecApproveStatus = "1";
+                    approval.SecBackStatus = "0";
+                    primaryDAO.UpdateSecretaryApproval(approval);
+
+
+                }
+                if (master.SendTo == "0")
+                {
+
+                    approval.SpeakerApproveDetail = master.SpeakerApproveDetail;
+                    approval.RDNo = master.RDNo;
+                    approval.ParlSessID = master.ParlSessID;
+                    approval.SpeakerApproveDate = DateTime.Now;
+
+                    approval.SpeakerApproveStatus = "1";
+                    approval.SpeakerBackStatus = "1";
+                    primaryDAO.UpdateSpeakerApproval(approval);
+
+                }
+                if (master.SendTo == "100")
+                { 
+                    approval.NoticeBackStatus = "0";
+                    primaryDAO.UpdateNofificationStatus(approval);
+
+                }
+               
             }
         }
 

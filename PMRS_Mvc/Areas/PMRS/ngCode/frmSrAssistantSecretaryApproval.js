@@ -1,7 +1,7 @@
 ﻿app.controller("myCtrl", function ($scope, $http, $filter) {
     $scope.EventPerm(18);
     $scope.btnSaveValue = "Posting";
-
+    $scope.DataMode = "Forward";
     $http({
         method: "GET",
         url: MyApp.rootPath + "ParliamentSessionInfo/GetActiveSession"
@@ -33,7 +33,7 @@
         $http({
             method: "POST",
             url: MyApp.rootPath + "ResolutionApproval/GetWatingListForSrAssistantSecretary",
-            data: { session: $scope.frmSrAssistantSecretaryApproval.ParliamentSession }
+            data: { session: $scope.frmSrAssistantSecretaryApproval.ParliamentSession, DataMode: $scope.DataMode }
         }).then(function (response) {
             if (response.data.length > 0) {
                 $scope.gridResolutionOptions.data = response.data;
@@ -45,7 +45,9 @@
             toastr.warning("No Data Found!");
         });
     };
-
+    $scope.loadDataMode = function () {
+        $scope.GetWatingListForSrAssistantSecretary();
+    }
     var columnResolutionList = [
         {
             field: 'selectData',
@@ -330,6 +332,7 @@
         $scope.SaveDb.SrAssitantSccApproveDate = (dt.getFullYear() + '-' + dt.getMonth() + '-' + dt.getDate());
         $scope.SaveDb.SrAssitantSccApproveStatus = "1";
         $scope.SaveDb.SendTo = $scope.frmSrAssistantSecretaryApproval.SignTo;
+        $scope.SaveDb.DataMode = $scope.DataMode;
         if ($scope.uiID === '' || typeof $scope.uiID === 'undefined' && $scope.SaveDb.SendTo != '' && $scope.SaveDb.SendTo != 'undefined' && $scope.SaveDb.SendTo != undefined) {
             $http({
                 method: "post",
@@ -374,6 +377,7 @@
                 $scope.SaveDb.SrAssitantSccApproveDate = (dt.getFullYear() + '-' + dt.getMonth() + '-' + dt.getDate());
                 $scope.SaveDb.SrAssitantSccApproveStatus = "1";
                 $scope.SaveDb.SendTo = $scope.frmSrAssistantSecretaryApproval.SignTo;
+                $scope.SaveDb.DataMode = $scope.DataMode;
                 if ($scope.uiID === '' || typeof $scope.uiID === 'undefined' && $scope.SaveDb.SendTo != '' && $scope.SaveDb.SendTo != 'undefined' && $scope.SaveDb.SendTo != undefined) {
                     $http({
                         method: "post",
@@ -423,7 +427,7 @@
         $scope.SaveDb.SrAssitantSccApproveStatus = $scope.frmSrAssistantSecretaryApproval.AppStatus;
 
         $scope.SaveDb.SendTo = $scope.frmSrAssistantSecretaryApproval.SignTo;
-
+        $scope.SaveDb.DataMode = $scope.DataMode;
         $http({
             method: "post",
             url: MyApp.rootPath + "ResolutionApproval/UpdateSrAssistantSecApproval",
