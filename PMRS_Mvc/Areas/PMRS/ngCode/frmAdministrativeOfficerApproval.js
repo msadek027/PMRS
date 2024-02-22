@@ -2,8 +2,11 @@
     $scope.EventPerm(18);
     $scope.btnSaveValue = "Posting";
 
+<<<<<<< HEAD
     $scope.DataMode = "Forward";
 
+=======
+>>>>>>> 2ad3a468a6431460147149bd85dc330d7a800a8b
     $http({
         method: "GET",
         url: MyApp.rootPath + "ParliamentSessionInfo/GetActiveSession"
@@ -36,7 +39,7 @@
         $http({
             method: "POST",
             url: MyApp.rootPath + "ResolutionApproval/GetWaitingListForAdministrative",
-            data: { session: $scope.frmAdministrativeOfficerApproval.ParliamentSession,DataMode: $scope.DataMode }
+            data: { session: $scope.frmAdministrativeOfficerApproval.ParliamentSession }
         }).then(function (response) {
             if (response.data.length > 0) {
                 $scope.gridResolutionOptions.data = response.data;
@@ -48,9 +51,13 @@
             toastr.warning("No Data Found!");
         });
     };
+<<<<<<< HEAD
     $scope.loadDataMode = function () {
         $scope.GetWaitingListForAdministrative();
     }
+=======
+
+>>>>>>> 2ad3a468a6431460147149bd85dc330d7a800a8b
     var columnResolutionList = [
         {
             field: 'selectData',
@@ -62,8 +69,8 @@
         { name: 'ResolutionApproveID', displayName: "ID", visible: false },
         { name: 'MemberResolutionID', displayName: "ID", visible: false },
         { name: 'MemberResolutionDate', displayName: "প্রস্তাবের তারিখ", cellFilter: "FullDateWithTime", width: 150 },
-        { name: 'html', displayName: "সিদ্ধান্ত প্রস্তাব", width: 330, cellTemplate: '<div ng-bind-html="COL_FIELD"></div>' },
-        { name: 'MemberResolutionDetail', displayName: "মূল প্রস্তাব", visible: false, width: 150, cellTemplate: '<div ng-bind-html="COL_FIELD"></div>'},
+        { name: 'html', displayName: "সিদ্ধান্ত প্রস্তাব", width: 650, cellTemplate: '<div ng-bind-html="COL_FIELD"></div>' },
+        { name: 'MemberResolutionDetail', displayName: "মূল প্রস্তাব", visible: false, width: 150, cellTemplate: '<div ng-bind-html="COL_FIELD"></div>' },
         { name: 'MemberResolutionFIleURL', displayName: "URL", visible: false },
         { name: 'ConstitutentBangla', displayName: "নির্বাচনী এলাকা", width: 150 },
         { name: 'ParlSessID', displayName: "Session ID", visible: false },
@@ -78,7 +85,10 @@
             cellTemplate: '<div style="padding:2px 2px 2px 2px;"><button  class="btn-success" ng-click="grid.appScope.DirectSave(row)"><i class="fa fa-forward"></i></button> <button  class="btn-danger " ng-click="grid.appScope.rowDblClickCompCons(row)"><i class="fa fa-edit"></i></button></div>'
         }
     ];
+    $scope.getRowStyle = function (row) {
 
+        return { background: 'green' };
+    };
     $scope.gridResolutionOptions = {
         enableFiltering: true,
         enableSorting: true,
@@ -93,7 +103,7 @@
     };
 
     function rowTemplate() {
-        return '<div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader }"  ui-grid-cell></div></div>';
+        return '<div style="border-bottom:1px solid #D4D4D4;" ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader }"  ui-grid-cell></div></div>';
     }
 
     $scope.SelectRow = function (row) {
@@ -113,7 +123,7 @@
         $scope.MemberResolutionDate = $filter('FullDateTime')(row.entity.MemberResolutionDate);
         $scope.MemberResolutionFIleURL = row.entity.MemberResolutionFIleURL;
         $scope.RDNo = row.entity.RDNo;
-        $scope.ApproveDetail = (row.entity.html == '' || row.entity.html == null || row.entity.html == "null") ? row.entity.MemberResolutionDetail : row.entity.html; 
+        $scope.ApproveDetail = (row.entity.html == '' || row.entity.html == null || row.entity.html == "null") ? row.entity.MemberResolutionDetail : row.entity.html;
         $scope.GetResolutionLog(row.entity.MemberResolutionID);
     };
 
@@ -181,8 +191,8 @@
         { name: 'ParliamentNo', displayName: "সংসদ নং", cellFilter: "banglaNumber", width: 100 },
         { name: 'SessionNo', displayName: "অধিবেশন নং", cellFilter: "banglaNumber", width: 100 },
         { name: 'MemberResolutionDate', displayName: "প্রস্তাবের তারিখ", cellFilter: "FullDateWithTime", width: 150 },
-        { name: 'html', displayName: "সিদ্ধান্ত প্রস্তাব", width: 330, cellTemplate: '<div ng-bind-html="COL_FIELD"></div>' },
-        { name: 'MemberResolutionDetail', displayName: "মূল প্রস্তাব", visible: true, width: 150, cellTemplate: '<div ng-bind-html="COL_FIELD"></div>' },
+        { name: 'html', displayName: "সিদ্ধান্ত প্রস্তাব", width: 630, cellTemplate: '<div ng-bind-html="COL_FIELD"></div>' },
+        //{ name: 'MemberResolutionDetail', displayName: "মূল প্রস্তাব", visible: true, width: 150, cellTemplate: '<div ng-bind-html="COL_FIELD"></div>' },
 
         { name: 'MemberResolutionFIleURL', displayName: "URL", visible: false },
         { name: 'ConstitutentBangla', displayName: "নির্বাচনী এলাকা", width: 120 },
@@ -190,7 +200,7 @@
         { name: 'UserID', displayName: "EMP ID", visible: false },
         { name: 'BanglaName', displayName: "সদস্যের নাম", width: 260 },
         { name: 'AcceptanceComment', displayName: "গ্রহনযোগ্যতা", visible: false },
-        { name: 'RDNo', displayName: "আর ডি নং", width: 100 },     
+        { name: 'RDNo', displayName: "আর ডি নং", width: 100 },
         { name: 'AdministrativeOfcApproveStatus', displayName: "Status", width: 120 },
         { name: 'AdministrativeOfcDetail', displayName: "Status", visible: false },
         { name: 'AdministrativeOfcDetail', displayName: "Status", visible: false },
@@ -224,6 +234,12 @@
     $scope.gridDepartmentOptions = {
         enableFiltering: true,
         enableSorting: true,
+        enableGridMenu: true,
+        
+        showGridFooter: true,
+        showColumnFooter: true,
+
+
         enableColumnResizing: true,
         paginationPageSizes: [10, 20, 50, 100],
         paginationPageSize: 10,
@@ -242,8 +258,9 @@
         paginationPageSizes: [10, 20, 50, 100],
         paginationPageSize: 10,
         columnDefs: columnDepartmentList1,
+        rowTemplate: rowTemplateHistoryApproval(),
         onRegisterApi: function (gridApi) {
-            $scope.gridDepartmentOptions = gridApi;
+            $scope.gridDepartmentOptions1 = gridApi;
         }
     };
     var columnLogList = [
@@ -265,7 +282,7 @@
         columnDefs: columnLogList,
         rowTemplate: rowTemplateApproval(),
         onRegisterApi: function (gridApi) {
-            $scope.gridDepartmentOptions = gridApi;
+            $scope.gridMemberResolutionsOptions = gridApi;
         }
     };
 
@@ -288,8 +305,10 @@
     };
 
     function rowTemplateApproval() {
-        return '<div ng-dblclick="grid.appScope.rowDblClickCompApproval(row)" >' +
-            ' <div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader }"  ui-grid-cell></div></div>';
+        return ' <div style="border-bottom:1px solid #D4D4D4;" ng-dblclick="grid.appScope.rowDblClickCompApproval(row)"  ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader }"  ui-grid-cell></div>';
+    }
+    function rowTemplateHistoryApproval() {
+        return ' <div style="border-bottom:1px solid #D4D4D4;"   ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader }"  ui-grid-cell></div>';
     }
 
     $scope.rowDblClickCompApproval = function (row) {
@@ -330,7 +349,7 @@
         $scope.SaveDb.RDNo = row.entity.RDNo;
         $scope.SaveDb.ParlSessID = row.entity.ParlSessID;
 
-        $scope.SaveDb.AdministrativeOfcDetail = (row.entity.html == '' || row.entity.html == null || row.entity.html == "null") ? row.entity.MemberResolutionDetail : row.entity.html; 
+        $scope.SaveDb.AdministrativeOfcDetail = (row.entity.html == '' || row.entity.html == null || row.entity.html == "null") ? row.entity.MemberResolutionDetail : row.entity.html;
         $scope.SaveDb.AdministrativeOfcApproveDate = (dt.getFullYear() + '-' + dt.getMonth() + '-' + dt.getDate());
         $scope.SaveDb.AdministrativeOfcApproveStatus = "1";
 

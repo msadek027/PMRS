@@ -2510,9 +2510,6 @@
     <Compile Include="Areas\MP\MPAreaRegistration.cs" />
     <Compile Include="Areas\PMRS\Controllers\BallotInfoController.cs" />
     <Compile Include="Areas\PMRS\Controllers\PrioritySetController.cs" />
-    <Compile Include="Areas\PMRS\Controllers\PRMSReportController.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Areas\PMRS\Controllers\ResolutionApprovalController.cs" />
     <Compile Include="Areas\PMRS\Controllers\ResolutionInfoController.cs" />
     <Compile Include="Areas\PMRS\DAO\BallotInfoDAO.cs" />
@@ -2521,48 +2518,6 @@
     <Compile Include="Areas\PMRS\DAO\ResolutionApprovalDAO.cs" />
     <Compile Include="Areas\PMRS\DAO\ResolutionInfoDAO.cs" />
     <Compile Include="Areas\PMRS\PMRSAreaRegistration.cs" />
-    <Compile Include="Areas\PMRS\Reports\rptBallotInfo.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>rptBallotInfo.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Areas\PMRS\Reports\rptCircular.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>rptCircular.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Areas\PMRS\Reports\rptPrimarySummary.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>rptPrimarySummary.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Areas\PMRS\Reports\rptSpeakerAccepted.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>rptSpeakerAccepted.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Areas\PMRS\Reports\rptTabularSummary.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>rptTabularSummary.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Areas\PMRS\Reports\rptTest.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>rptTest.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
     <Compile Include="Areas\Security\Controllers\AuditTrailController.cs" />
     <Compile Include="Areas\Security\Controllers\MHController.cs" />
     <Compile Include="Areas\Security\Controllers\MNConfController.cs" />
@@ -2916,38 +2871,6 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\PMRS\Reports\rptBallotInfo.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>rptBallotInfo.cs</LastGenOutput>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Areas\PMRS\Reports\rptCircular.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>rptCircular.cs</LastGenOutput>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Areas\PMRS\Reports\rptPrimarySummary.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>rptPrimarySummary.cs</LastGenOutput>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Areas\PMRS\Reports\rptSpeakerAccepted.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>rptSpeakerAccepted.cs</LastGenOutput>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Areas\PMRS\Reports\rptTabularSummary.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>rptTabularSummary.cs</LastGenOutput>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Areas\PMRS\Reports\rptTest.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>rptTest.cs</LastGenOutput>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
