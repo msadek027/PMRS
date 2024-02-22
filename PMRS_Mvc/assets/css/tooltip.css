@@ -1,0 +1,68 @@
+﻿body {
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltiptext {
+    /*visibility: hidden;*/
+    position: absolute;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    /*padding: 5px 0;*/
+    border-radius: 6px;
+    z-index: 1;
+    opacity:100;
+    transition: opacity 1s;
+}
+
+.tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent #555 transparent transparent;
+}
+
+        
+
+.tooltip-right {
+    top: -5px;
+    left: 105%;
+}
+
+.table-controls {
+    margin-bottom: 10px;
+    padding: 10px 5px 0 5px;
+    background: #eee;
+    font-size: 14px;
+}
+
+.table-controls input, .table-controls select, .table-controls button, .table-controls > span {
+    margin: 0 30px 10px 5px;
+}
+.table-controls input, .table-controls select {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 4px 10px;
+    border: 2px solid #3FB449;
+    background: #fafafa;
+    outline: none;
+}
+.table-controls button {
+    padding: 5px 10px;
+    border: 1px solid #25682a;
+    background: #3FB449;
+    background: -webkit-gradient(linear, left top, left bottom, from(#3FB449), to(#25682a));
+    background: linear-gradient(to bottom, #3FB449 0%, #25682a 100%);
+    color: #fff;
+    font-weight: bold;
+}
+

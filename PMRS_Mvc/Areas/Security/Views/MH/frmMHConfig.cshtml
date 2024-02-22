@@ -1,0 +1,123 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Areas/Security/ngCode/frmMHConfig.js"></script>
+
+<style>
+    .error {
+        background-color: red;
+        border: 2px solid blue;
+    }
+</style>
+
+<div ng-app="myApp" ng-controller="myCtrl">
+
+    <div class="form-horizontal" ng-form="frmMHConfig">
+        <div class="panel panel-default">
+            <div class="panel-header bg-aero">
+                <div class="form-group ">
+                    <div class="col-md-5">
+                        <h2 class="panel-title">
+                            <strong>{{FormTitle}}</strong>
+                        </h2>
+                    </div>
+                    <div class="col-md-7">
+
+                        <div class="text-right  m-t-10">
+                            <button class="btn btn-embossed btn-primary btn-rounded" ng-click="SaveData()" ng-class="{'btn-transparent': frmMHConfig.$invalid}" ng-disabled="frmMHConfig.$invalid"><i class="fa fa-save"></i>&nbsp{{btnSaveValue}}</button>
+                            <button type="button" class="btn btn-embossed btn-danger btn-rounded" ng-click="Reset()"><i class="fa fa-refresh"></i>&nbsp Reset</button>
+                            <button type="button" class="btn btn-embossed btn-success btn-rounded" ng-click="GetHeadMenuList()"><i class="fa fa-search"></i>&nbspSearch</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-content bg-light-blue">
+                <div class="form-group">
+
+                    <div class="col-md-3">
+                        <label class="control-label input-sm">Menu Head Name</label>
+                    </div>
+                    <div class="col-md-3" ng-class="{'has-error':frmMHConfig.Name.$error.maxlength}">
+                        <input type="text" id="Name" placeholder="Name" ng-model="Name" name="Name" ng-maxlength="50" class="form-control form-white input-sm" required>
+                        <input type="hidden" ng-model="uiID" />
+                    </div>
+                    <div class="col-md-3">
+                        <label class="control-label input-sm">Sequence</label>
+                    </div>
+                    <div class="col-md-3" ng-class="{'has-error':frmMHConfig.Sequence.$error.pattern}">
+                        <input type="text" class="form-control form-white input-sm" id="Sequence" name="Sequence"  ng-pattern={{NumberPattern}} ng-model="Sequence" placeholder="Sequence" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label class="control-label input-sm">Icon Name</label>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-control form-white input-sm" id="CssClass" ng-model="CssClass" required>
+                            <option value="">Please Select</option>
+                            <option value="icon-home">icon-home</option>
+                            <option value="icon-energy">icon-energy</option>
+                            <option value="icon-emoticon-smile">icon-emoticon-smile</option>
+                            <option value="icon-energy">icon-energy</option>
+                            <option value="icon-mouse">icon-mouse</option>
+                            <option value="icon-magnet">icon-magnet</option>
+                            <option value="icon-magic-wand">icon-magic-wand</option>
+                            <option value="icon-hourglass">icon-hourglass</option>
+                            <option value="icon-graduation">icon-graduation</option>
+                            <option value="icon-ghost">icon-ghost</option>
+                            <option value="icon-game-controller">icon-game-controller</option>
+                            <option value="icon-fire">icon-fire</option>
+                            <option value="icon-eyeglasses">icon-eyeglasses</option>
+                            <option value="icon-envelope-open">icon-envelope-open</option>
+                            <option value="icon-envelope-letter">icon-envelope-letter</option>
+                            <option value="icon-disc">icon-disc</option>
+                            <option value="icon-cursor-move">icon-cursor-move</option>
+                            <option value="icon-crop">icon-crop</option>
+                            <option value="icon-credit-card">icon-credit-card</option>
+                            <option value="icon-chemistry">icon-chemistry</option>
+                            <option value="icon-bell">icon-bell</option>
+                            <option value="icon-badge">icon-badge</option>
+                            <option value="icon-anchor">icon-anchor</option>
+                            <option value="icon-bag">icon-bag</option>
+                            <option value="icon-basket">icon-basket</option>
+                            <option value="icon-basket-loaded">icon-basket-loaded</option>
+                            <option value="icon-book-open">icon-book-open</option>
+                            <option value="icon-briefcase">icon-briefcase</option>
+                            <option value="icon-bubbles">icon-bubbles</option>
+                            <option value="icon-calculator">icon-calculator</option>
+                            <option value="icon-compass">icon-compass</option>
+                            <option value="icon-cup">icon-cup</option>
+                            <option value="icon-diamond">icon-diamond</option>
+                            <option value="icon-direction">icon-direction</option>
+                            <option value="icon-equalizer">icon-equalizer</option>
+                            <option value="icon-wrench">icon-wrench</option>
+                            <option value="icon-magnifier">icon-magnifier</option>
+                            <option value="icon-star">icon-star</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="test" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="panel-content bg-light-blue">
+                    <div class="modal-header">
+                        <h2 class="panel-title">Menu List</h2>
+                        <button type="button" id="modalClose" class="close" data-dismiss="modal" aria-hidden="true"><i class="icons-office-52"></i></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div id="gridMH" ui-grid="gridMHOptions" class="grid" style="padding-left: 1%; height: 350px; width: 98.6%;" ui-grid-auto-resize ui-grid-resize-columns></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

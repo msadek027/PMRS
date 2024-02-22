@@ -1,0 +1,533 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PMRS_BcModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Audit_Trail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Action_By" Type="int" />
+          <Property Name="Terminal" Type="varchar" MaxLength="50" />
+          <Property Name="Action_Date" Type="datetime" />
+          <Property Name="Activity_Type" Type="varchar" MaxLength="10" />
+          <Property Name="Action_Form" Type="varchar" MaxLength="50" />
+          <Property Name="Action_Table" Type="varchar" MaxLength="50" />
+          <Property Name="Transaction_ID" Type="int" />
+          <Property Name="Project_Name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="MailTrack">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProNo" Type="varchar" MaxLength="50" />
+          <Property Name="TriggerType" Type="varchar" MaxLength="10" />
+          <Property Name="MailTo" Type="varchar" MaxLength="50" />
+          <Property Name="FormName" Type="varchar" MaxLength="50" />
+          <Property Name="MailTime" Type="datetime" />
+          <Property Name="MailStatus" Type="varchar" MaxLength="20" />
+          <Property Name="SpecialMsg" Type="varchar" MaxLength="500" />
+          <Property Name="MailTypeID" Type="int" />
+          <Property Name="SMTPServer" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="MLConf">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MH_ID" Type="int" />
+          <Property Name="SM_ID" Type="int" />
+          <Property Name="SM_Url" Type="varchar" MaxLength="250" />
+          <Property Name="Act_Type" Type="varchar" MaxLength="20" />
+          <Property Name="Dept_Code" Type="varchar" MaxLength="20" />
+          <Property Name="Emp_ID" Type="int" />
+          <Property Name="ML_ID" Type="int" />
+          <Property Name="Notify_For" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="MLMng">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ML_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Mail_Sub" Type="varchar" MaxLength="500" />
+          <Property Name="Mail_Body" Type="varchar" MaxLength="2500" />
+        </EntityType>
+        <EntityType Name="MNConf">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="SM_ID" Type="int" Nullable="false" />
+          <Property Name="MH_ID" Type="int" Nullable="false" />
+          <Property Name="RL_ID" Type="int" Nullable="false" />
+          <Property Name="Sv" Type="varchar" MaxLength="10" />
+          <Property Name="Vw" Type="varchar" MaxLength="10" />
+          <Property Name="Dl" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="RL">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Nm" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Priority" Type="int" />
+        </EntityType>
+        <EntityType Name="RLConf">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="RL_ID" Type="int" Nullable="false" />
+          <Property Name="Emp_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RPTConf">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="FormName" Type="varchar" MaxLength="50" />
+          <Property Name="Rpt_ID" Type="int" />
+          <Property Name="RL_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="RPTMng">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="FormName" Type="varchar" MaxLength="50" />
+          <Property Name="ReportName" Type="varchar" MaxLength="150" />
+          <Property Name="RptCode" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="SecMH">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Seq" Type="int" Nullable="false" />
+          <Property Name="Nm" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CssClass" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SecSM">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Seq" Type="int" Nullable="false" />
+          <Property Name="Nm" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Url" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="MH_ID" Type="int" Nullable="false" />
+          <Property Name="CssClass" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="UserLogin">
+          <Key>
+            <PropertyRef Name="UserLoginID" />
+          </Key>
+          <Property Name="UserLoginID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserLoginName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="Status" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PMRS_Bc.SC.VW_Login' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VW_Login">
+          <Key>
+            <PropertyRef Name="UserLoginID" />
+          </Key>
+          <Property Name="UserID" Type="int" />
+          <Property Name="EmployeeCode" Type="varchar" MaxLength="50" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="100" />
+          <Property Name="UserLoginID" Type="int" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="Status" Type="int" />
+          <Property Name="UserLoginName" Type="nvarchar" MaxLength="50" />
+          <Property Name="DesignationID" Type="int" />
+          <Property Name="DepartmentID" Type="int" />
+          <Property Name="DepartmentName" Type="nvarchar" MaxLength="50" />
+          <Property Name="DesignationName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityContainer Name="PMRS_BcModelStoreContainer">
+          <EntitySet Name="Audit_Trail" EntityType="Self.Audit_Trail" Schema="SC" store:Type="Tables" />
+          <EntitySet Name="MailTrack" EntityType="Self.MailTrack" Schema="SC" store:Type="Tables" />
+          <EntitySet Name="MLConf" EntityType="Self.MLConf" Schema="SC" store:Type="Tables" />
+          <EntitySet Name="MLMng" EntityType="Self.MLMng" Schema="SC" store:Type="Tables" />
+          <EntitySet Name="MNConf" EntityType="Self.MNConf" Schema="SC" store:Type="Tables" />
+          <EntitySet Name="RL" EntityType="Self.RL" Schema="SC" store:Type="Tables" />
+          <EntitySet Name="RLConf" EntityType="Self.RLConf" Schema="SC" store:Type="Tables" />
+          <EntitySet Name="RPTConf" EntityType="Self.RPTConf" Schema="SC" store:Type="Tables" />
+          <EntitySet Name="RPTMng" EntityType="Self.RPTMng" Schema="SC" store:Type="Tables" />
+          <EntitySet Name="SecMH" EntityType="Self.SecMH" Schema="SC" store:Type="Tables" />
+          <EntitySet Name="SecSM" EntityType="Self.SecSM" Schema="SC" store:Type="Tables" />
+          <EntitySet Name="UserLogin" EntityType="Self.UserLogin" Schema="SC" store:Type="Tables" />
+          <EntitySet Name="VW_Login" EntityType="Self.VW_Login" store:Type="Views" store:Schema="SC">
+            <DefiningQuery>SELECT 
+    [VW_Login].[UserID] AS [UserID], 
+    [VW_Login].[EmployeeCode] AS [EmployeeCode], 
+    [VW_Login].[UserName] AS [UserName], 
+    [VW_Login].[UserLoginID] AS [UserLoginID], 
+    [VW_Login].[Password] AS [Password], 
+    [VW_Login].[Status] AS [Status], 
+    [VW_Login].[UserLoginName] AS [UserLoginName], 
+    [VW_Login].[DesignationID] AS [DesignationID], 
+    [VW_Login].[DepartmentID] AS [DepartmentID], 
+    [VW_Login].[DepartmentName] AS [DepartmentName], 
+    [VW_Login].[DesignationName] AS [DesignationName]
+    FROM [SC].[VW_Login] AS [VW_Login]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PMRS_BcModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Audit_Trail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Action_By" Type="Int32" />
+          <Property Name="Terminal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Action_Date" Type="DateTime" Precision="3" />
+          <Property Name="Activity_Type" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Action_Form" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Action_Table" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Transaction_ID" Type="Int32" />
+          <Property Name="Project_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MailTrack">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TriggerType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MailTo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FormName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MailTime" Type="DateTime" Precision="3" />
+          <Property Name="MailStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SpecialMsg" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="MailTypeID" Type="Int32" />
+          <Property Name="SMTPServer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MLConf">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MH_ID" Type="Int32" />
+          <Property Name="SM_ID" Type="Int32" />
+          <Property Name="SM_Url" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Act_Type" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Dept_Code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Emp_ID" Type="Int32" />
+          <Property Name="ML_ID" Type="Int32" />
+          <Property Name="Notify_For" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MLMng">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ML_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Mail_Sub" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Mail_Body" Type="String" MaxLength="2500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MNConf">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="SM_ID" Type="Int32" Nullable="false" />
+          <Property Name="MH_ID" Type="Int32" Nullable="false" />
+          <Property Name="RL_ID" Type="Int32" Nullable="false" />
+          <Property Name="Sv" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Vw" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Dl" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="RL">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Nm" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Priority" Type="Int32" />
+        </EntityType>
+        <EntityType Name="RLConf">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="RL_ID" Type="Int32" Nullable="false" />
+          <Property Name="Emp_ID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RPTConf">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="FormName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Rpt_ID" Type="Int32" />
+          <Property Name="RL_ID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="RPTMng">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="FormName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ReportName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="RptCode" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SecMH">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Seq" Type="Int32" Nullable="false" />
+          <Property Name="Nm" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CssClass" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SecSM">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Seq" Type="Int32" Nullable="false" />
+          <Property Name="Nm" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Url" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MH_ID" Type="Int32" Nullable="false" />
+          <Property Name="CssClass" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="UserLogin">
+          <Key>
+            <PropertyRef Name="UserLoginID" />
+          </Key>
+          <Property Name="UserLoginID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserLoginName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="Status" Type="Int32" />
+        </EntityType>
+        <EntityType Name="VW_Login">
+          <Key>
+            <PropertyRef Name="UserLoginID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="EmployeeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UserLoginID" Type="Int32" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="UserLoginName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DesignationID" Type="Int32" />
+          <Property Name="DepartmentID" Type="Int32" />
+          <Property Name="DepartmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DesignationName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="SCEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Audit_Trail" EntityType="Self.Audit_Trail" />
+          <EntitySet Name="MailTracks" EntityType="Self.MailTrack" />
+          <EntitySet Name="MLConfs" EntityType="Self.MLConf" />
+          <EntitySet Name="MLMngs" EntityType="Self.MLMng" />
+          <EntitySet Name="MNConfs" EntityType="Self.MNConf" />
+          <EntitySet Name="RLs" EntityType="Self.RL" />
+          <EntitySet Name="RLConfs" EntityType="Self.RLConf" />
+          <EntitySet Name="RPTConfs" EntityType="Self.RPTConf" />
+          <EntitySet Name="RPTMngs" EntityType="Self.RPTMng" />
+          <EntitySet Name="SecMHs" EntityType="Self.SecMH" />
+          <EntitySet Name="SecSMs" EntityType="Self.SecSM" />
+          <EntitySet Name="UserLogins" EntityType="Self.UserLogin" />
+          <EntitySet Name="VW_Login" EntityType="Self.VW_Login" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PMRS_BcModelStoreContainer" CdmEntityContainer="SCEntities">
+          <EntitySetMapping Name="Audit_Trail">
+            <EntityTypeMapping TypeName="PMRS_BcModel.Audit_Trail">
+              <MappingFragment StoreEntitySet="Audit_Trail">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Action_By" ColumnName="Action_By" />
+                <ScalarProperty Name="Terminal" ColumnName="Terminal" />
+                <ScalarProperty Name="Action_Date" ColumnName="Action_Date" />
+                <ScalarProperty Name="Activity_Type" ColumnName="Activity_Type" />
+                <ScalarProperty Name="Action_Form" ColumnName="Action_Form" />
+                <ScalarProperty Name="Action_Table" ColumnName="Action_Table" />
+                <ScalarProperty Name="Transaction_ID" ColumnName="Transaction_ID" />
+                <ScalarProperty Name="Project_Name" ColumnName="Project_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MailTracks">
+            <EntityTypeMapping TypeName="PMRS_BcModel.MailTrack">
+              <MappingFragment StoreEntitySet="MailTrack">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ProNo" ColumnName="ProNo" />
+                <ScalarProperty Name="TriggerType" ColumnName="TriggerType" />
+                <ScalarProperty Name="MailTo" ColumnName="MailTo" />
+                <ScalarProperty Name="FormName" ColumnName="FormName" />
+                <ScalarProperty Name="MailTime" ColumnName="MailTime" />
+                <ScalarProperty Name="MailStatus" ColumnName="MailStatus" />
+                <ScalarProperty Name="SpecialMsg" ColumnName="SpecialMsg" />
+                <ScalarProperty Name="MailTypeID" ColumnName="MailTypeID" />
+                <ScalarProperty Name="SMTPServer" ColumnName="SMTPServer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MLConfs">
+            <EntityTypeMapping TypeName="PMRS_BcModel.MLConf">
+              <MappingFragment StoreEntitySet="MLConf">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="MH_ID" ColumnName="MH_ID" />
+                <ScalarProperty Name="SM_ID" ColumnName="SM_ID" />
+                <ScalarProperty Name="SM_Url" ColumnName="SM_Url" />
+                <ScalarProperty Name="Act_Type" ColumnName="Act_Type" />
+                <ScalarProperty Name="Dept_Code" ColumnName="Dept_Code" />
+                <ScalarProperty Name="Emp_ID" ColumnName="Emp_ID" />
+                <ScalarProperty Name="ML_ID" ColumnName="ML_ID" />
+                <ScalarProperty Name="Notify_For" ColumnName="Notify_For" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MLMngs">
+            <EntityTypeMapping TypeName="PMRS_BcModel.MLMng">
+              <MappingFragment StoreEntitySet="MLMng">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ML_Name" ColumnName="ML_Name" />
+                <ScalarProperty Name="Mail_Sub" ColumnName="Mail_Sub" />
+                <ScalarProperty Name="Mail_Body" ColumnName="Mail_Body" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MNConfs">
+            <EntityTypeMapping TypeName="PMRS_BcModel.MNConf">
+              <MappingFragment StoreEntitySet="MNConf">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SM_ID" ColumnName="SM_ID" />
+                <ScalarProperty Name="MH_ID" ColumnName="MH_ID" />
+                <ScalarProperty Name="RL_ID" ColumnName="RL_ID" />
+                <ScalarProperty Name="Sv" ColumnName="Sv" />
+                <ScalarProperty Name="Vw" ColumnName="Vw" />
+                <ScalarProperty Name="Dl" ColumnName="Dl" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RLs">
+            <EntityTypeMapping TypeName="PMRS_BcModel.RL">
+              <MappingFragment StoreEntitySet="RL">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Nm" ColumnName="Nm" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RLConfs">
+            <EntityTypeMapping TypeName="PMRS_BcModel.RLConf">
+              <MappingFragment StoreEntitySet="RLConf">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="RL_ID" ColumnName="RL_ID" />
+                <ScalarProperty Name="Emp_ID" ColumnName="Emp_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RPTConfs">
+            <EntityTypeMapping TypeName="PMRS_BcModel.RPTConf">
+              <MappingFragment StoreEntitySet="RPTConf">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FormName" ColumnName="FormName" />
+                <ScalarProperty Name="Rpt_ID" ColumnName="Rpt_ID" />
+                <ScalarProperty Name="RL_ID" ColumnName="RL_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RPTMngs">
+            <EntityTypeMapping TypeName="PMRS_BcModel.RPTMng">
+              <MappingFragment StoreEntitySet="RPTMng">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FormName" ColumnName="FormName" />
+                <ScalarProperty Name="ReportName" ColumnName="ReportName" />
+                <ScalarProperty Name="RptCode" ColumnName="RptCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SecMHs">
+            <EntityTypeMapping TypeName="PMRS_BcModel.SecMH">
+              <MappingFragment StoreEntitySet="SecMH">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Seq" ColumnName="Seq" />
+                <ScalarProperty Name="Nm" ColumnName="Nm" />
+                <ScalarProperty Name="CssClass" ColumnName="CssClass" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SecSMs">
+            <EntityTypeMapping TypeName="PMRS_BcModel.SecSM">
+              <MappingFragment StoreEntitySet="SecSM">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Seq" ColumnName="Seq" />
+                <ScalarProperty Name="Nm" ColumnName="Nm" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="MH_ID" ColumnName="MH_ID" />
+                <ScalarProperty Name="CssClass" ColumnName="CssClass" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserLogins">
+            <EntityTypeMapping TypeName="PMRS_BcModel.UserLogin">
+              <MappingFragment StoreEntitySet="UserLogin">
+                <ScalarProperty Name="UserLoginID" ColumnName="UserLoginID" />
+                <ScalarProperty Name="UserLoginName" ColumnName="UserLoginName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VW_Login">
+            <EntityTypeMapping TypeName="PMRS_BcModel.VW_Login">
+              <MappingFragment StoreEntitySet="VW_Login">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="EmployeeCode" ColumnName="EmployeeCode" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserLoginID" ColumnName="UserLoginID" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="UserLoginName" ColumnName="UserLoginName" />
+                <ScalarProperty Name="DesignationID" ColumnName="DesignationID" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+                <ScalarProperty Name="DesignationName" ColumnName="DesignationName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

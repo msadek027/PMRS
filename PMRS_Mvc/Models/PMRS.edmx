@@ -1,0 +1,1471 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PMRS_BcModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ApprovalStatus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Comments" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BallotInfo">
+          <Key>
+            <PropertyRef Name="BallotID" />
+          </Key>
+          <Property Name="BallotID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ResolutionApproveID" Type="int" Nullable="false" />
+          <Property Name="ParlSessID" Type="int" Nullable="false" />
+          <Property Name="BallotDate" Type="datetime" Nullable="false" />
+          <Property Name="RaisedStatus" Type="int" Nullable="false" />
+          <Property Name="BallotEmpID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ConstitutentInfo">
+          <Key>
+            <PropertyRef Name="ConstitutentID" />
+          </Key>
+          <Property Name="ConstitutentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ConstitutentArea" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ConstitutentBangla" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ConstitutentNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Status" Type="int" />
+        </EntityType>
+        <EntityType Name="ConstitutentUserMappingInfo">
+          <Key>
+            <PropertyRef Name="UserMappingID" />
+          </Key>
+          <Property Name="UserMappingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ConstitutentID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="ParliamentNo" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DepartmentInfo">
+          <Key>
+            <PropertyRef Name="DepartmentID" />
+          </Key>
+          <Property Name="DepartmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DepartmentCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="DepartmentName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Status" Type="int" />
+        </EntityType>
+        <EntityType Name="DesignationInfo">
+          <Key>
+            <PropertyRef Name="DesignationID" />
+          </Key>
+          <Property Name="DesignationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DesignationCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="DesignationName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Status" Type="int" />
+          <Property Name="DesignationNameBN" Type="nvarchar" MaxLength="200" />
+          <Property Name="Grade" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="DocUpInfo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DocTypeCode" Type="varchar" MaxLength="10" />
+          <Property Name="DocTypeName" Type="varchar" MaxLength="50" />
+          <Property Name="DocName" Type="varchar" MaxLength="50" />
+          <Property Name="FileName" Type="varchar" MaxLength="150" />
+          <Property Name="FilePath" Type="varchar" MaxLength="250" />
+          <Property Name="DocRemarks" Type="varchar" MaxLength="250" />
+          <Property Name="FormName" Type="varchar" MaxLength="50" />
+          <Property Name="TrackNo" Type="varchar" MaxLength="50" />
+          <Property Name="PrNo" Type="varchar" MaxLength="50" />
+          <Property Name="UploadedBy" Type="int" />
+          <Property Name="UploadedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="EmployeeInfo">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="100" />
+          <Property Name="BanglaName" Type="nvarchar" MaxLength="100" />
+          <Property Name="FatherName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Address" Type="nvarchar" MaxLength="500" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="30" />
+          <Property Name="UserType" Type="varchar" MaxLength="30" />
+          <Property Name="DesignationID" Type="int" />
+          <Property Name="DepartmentID" Type="int" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="NationalID" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="PhotoURL" Type="varchar" MaxLength="500" />
+          <Property Name="Status" Type="int" />
+          <Property Name="Signature" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="MemberResolutionInfo">
+          <Key>
+            <PropertyRef Name="MemberResolutionID" />
+          </Key>
+          <Property Name="MemberResolutionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemberResolutionDetail" Type="nvarchar" MaxLength="2500" />
+          <Property Name="ResolutionSLNo" Type="int" />
+          <Property Name="MemberResolutionDate" Type="datetime" />
+          <Property Name="MemberResolutionFIleURL" Type="varchar" MaxLength="500" />
+          <Property Name="ParlSessID" Type="int" />
+          <Property Name="EntryType" Type="varchar" MaxLength="10" />
+          <Property Name="AcceptStatus" Type="varchar" MaxLength="10" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="AcceptanceComment" Type="nvarchar" MaxLength="500" />
+          <Property Name="RDNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="Status" Type="int" />
+          <Property Name="EnteredBy" Type="int" />
+          <Property Name="SendTo" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsDraft" Type="bit" />
+        </EntityType>
+        <EntityType Name="ParliamentSessionInfo">
+          <Key>
+            <PropertyRef Name="ParliamentSessionID" />
+          </Key>
+          <Property Name="ParliamentSessionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ParliamentNo" Type="int" Nullable="false" />
+          <Property Name="SessionNo" Type="int" Nullable="false" />
+          <Property Name="FromDate" Type="date" Nullable="false" />
+          <Property Name="ToDate" Type="date" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ResolutionApproval">
+          <Key>
+            <PropertyRef Name="ResolutionApproveID" />
+          </Key>
+          <Property Name="ResolutionApproveID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ResolutionApproveSlNo" Type="varchar" MaxLength="20" />
+          <Property Name="MemberResolutionID" Type="int" />
+          <Property Name="RDNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="ParlSessID" Type="int" />
+          <Property Name="NoticeBackStatus" Type="nvarchar" MaxLength="300" />
+          <Property Name="AdministrativeOfcDetail" Type="nvarchar" MaxLength="4000" />
+          <Property Name="AdministrativeOfcApproveDate" Type="datetime" />
+          <Property Name="AdministrativeOfcApproveStatus" Type="nvarchar" MaxLength="300" />
+          <Property Name="AdministrativeOfcBackStatus" Type="nvarchar" MaxLength="300" />
+          <Property Name="AdministrativeOfcEmpID" Type="int" />
+          <Property Name="AdministrativeOfcSignature" Type="varchar(max)" />
+          <Property Name="AssitantSccDetail" Type="nvarchar" MaxLength="4000" />
+          <Property Name="AssitantSccApproveDate" Type="datetime" />
+          <Property Name="AssitantSccApproveStatus" Type="nvarchar" MaxLength="300" />
+          <Property Name="AssitantSccBackStatus" Type="nvarchar" MaxLength="300" />
+          <Property Name="AssitantSccEmpID" Type="int" />
+          <Property Name="AssitantSccSignature" Type="varchar(max)" />
+          <Property Name="SrAssitantSccDetail" Type="nvarchar" MaxLength="4000" />
+          <Property Name="SrAssitantSccApproveDate" Type="datetime" />
+          <Property Name="SrAssitantSccApproveStatus" Type="nvarchar" MaxLength="300" />
+          <Property Name="SrAssitantSccBackStatus" Type="nvarchar" MaxLength="300" />
+          <Property Name="SrAssitantSccEmpID" Type="int" />
+          <Property Name="SrAssitantSccSignature" Type="varchar(max)" />
+          <Property Name="DeputySecApproveDetail" Type="nvarchar" MaxLength="4000" />
+          <Property Name="DeputySecApproveDate" Type="datetime" />
+          <Property Name="DeputySecApproveStatus" Type="nvarchar" MaxLength="300" />
+          <Property Name="DeputySecBackStatus" Type="nvarchar" MaxLength="300" />
+          <Property Name="DeputySecEmpID" Type="int" />
+          <Property Name="DeputySecSignature" Type="varchar(max)" />
+          <Property Name="AddSecApproveDetail" Type="nvarchar" MaxLength="4000" />
+          <Property Name="AddSecApproveDate" Type="datetime" />
+          <Property Name="AddSecApproveStatus" Type="nvarchar" MaxLength="300" />
+          <Property Name="AddSecBackStatus" Type="nvarchar" MaxLength="300" />
+          <Property Name="AddSecEmpID" Type="int" />
+          <Property Name="AddSecSignature" Type="varchar(max)" />
+          <Property Name="SecApproveDetail" Type="nvarchar" MaxLength="4000" />
+          <Property Name="SecApproveDate" Type="datetime" />
+          <Property Name="SecApproveStatus" Type="nvarchar" MaxLength="300" />
+          <Property Name="SecBackStatus" Type="nvarchar" MaxLength="300" />
+          <Property Name="SecEmpID" Type="int" />
+          <Property Name="SecSignature" Type="varchar(max)" />
+          <Property Name="SpeakerApproveDetail" Type="nvarchar" MaxLength="4000" />
+          <Property Name="SpeakerApproveDate" Type="datetime" />
+          <Property Name="SpeakerApproveStatus" Type="nvarchar" MaxLength="300" />
+          <Property Name="SpeakerBackStatus" Type="nvarchar" MaxLength="300" />
+          <Property Name="SpeakerEmpID" Type="int" />
+          <Property Name="SpeakerSignature" Type="varchar(max)" />
+          <Property Name="MemberResPriority" Type="int" />
+        </EntityType>
+        <EntityType Name="Audit_Trail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Action_By" Type="int" />
+          <Property Name="Terminal" Type="varchar" MaxLength="50" />
+          <Property Name="Action_Date" Type="datetime" />
+          <Property Name="Activity_Type" Type="varchar" MaxLength="10" />
+          <Property Name="Action_Form" Type="varchar" MaxLength="50" />
+          <Property Name="Action_Table" Type="varchar" MaxLength="50" />
+          <Property Name="Transaction_ID" Type="int" />
+          <Property Name="Project_Name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="MailTrack">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProNo" Type="varchar" MaxLength="50" />
+          <Property Name="TriggerType" Type="varchar" MaxLength="10" />
+          <Property Name="MailTo" Type="varchar" MaxLength="50" />
+          <Property Name="FormName" Type="varchar" MaxLength="50" />
+          <Property Name="MailTime" Type="datetime" />
+          <Property Name="MailStatus" Type="varchar" MaxLength="20" />
+          <Property Name="SpecialMsg" Type="varchar" MaxLength="500" />
+          <Property Name="MailTypeID" Type="int" />
+          <Property Name="SMTPServer" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="MLConf">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MH_ID" Type="int" />
+          <Property Name="SM_ID" Type="int" />
+          <Property Name="SM_Url" Type="varchar" MaxLength="250" />
+          <Property Name="Act_Type" Type="varchar" MaxLength="20" />
+          <Property Name="Dept_Code" Type="varchar" MaxLength="20" />
+          <Property Name="Emp_ID" Type="int" />
+          <Property Name="ML_ID" Type="int" />
+          <Property Name="Notify_For" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="MLMng">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ML_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Mail_Sub" Type="varchar" MaxLength="500" />
+          <Property Name="Mail_Body" Type="varchar" MaxLength="2500" />
+        </EntityType>
+        <EntityType Name="MNConf">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="SM_ID" Type="int" Nullable="false" />
+          <Property Name="MH_ID" Type="int" Nullable="false" />
+          <Property Name="RL_ID" Type="int" Nullable="false" />
+          <Property Name="Sv" Type="varchar" MaxLength="10" />
+          <Property Name="Vw" Type="varchar" MaxLength="10" />
+          <Property Name="Dl" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="RL">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Nm" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Priority" Type="int" />
+        </EntityType>
+        <EntityType Name="RLConf">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="RL_ID" Type="int" Nullable="false" />
+          <Property Name="Emp_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RPTConf">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="FormName" Type="varchar" MaxLength="50" />
+          <Property Name="Rpt_ID" Type="int" />
+          <Property Name="RL_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="RPTMng">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="FormName" Type="varchar" MaxLength="50" />
+          <Property Name="ReportName" Type="varchar" MaxLength="150" />
+          <Property Name="RptCode" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="SecMH">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Seq" Type="int" Nullable="false" />
+          <Property Name="Nm" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CssClass" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SecSM">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Seq" Type="int" Nullable="false" />
+          <Property Name="Nm" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Url" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="MH_ID" Type="int" Nullable="false" />
+          <Property Name="CssClass" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="UserLogin">
+          <Key>
+            <PropertyRef Name="UserLoginID" />
+          </Key>
+          <Property Name="UserLoginID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserLoginName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="Status" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PMRS_Bc.dbo.VW_MPInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VW_MPInfo">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="EmployeeCode" />
+            <PropertyRef Name="NationalID" />
+            <PropertyRef Name="DesignationName" />
+            <PropertyRef Name="DepartmentID" />
+            <PropertyRef Name="ConstitutentBangla" />
+            <PropertyRef Name="ConstitutentNumber" />
+            <PropertyRef Name="ParliamentNo" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="EmployeeCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="100" />
+          <Property Name="BanglaName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Address" Type="nvarchar" MaxLength="500" />
+          <Property Name="FatherName" Type="nvarchar" MaxLength="100" />
+          <Property Name="NationalID" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="UserType" Type="varchar" MaxLength="30" />
+          <Property Name="PhotoURL" Type="varchar" MaxLength="500" />
+          <Property Name="DesignationID" Type="int" />
+          <Property Name="DesignationName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DepartmentID" Type="int" Nullable="false" />
+          <Property Name="DepartmentName" Type="nvarchar" MaxLength="50" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="30" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Status" Type="int" />
+          <Property Name="ConstitutentBangla" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ConstitutentNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ParliamentNo" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PMRS_Bc.dbo.VW_Summary' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VW_Summary">
+          <Key>
+            <PropertyRef Name="MemberResolutionID" />
+          </Key>
+          <Property Name="MemberResolutionID" Type="int" Nullable="false" />
+          <Property Name="MemberResolutionDetail" Type="nvarchar" MaxLength="2500" />
+          <Property Name="MemberResolutionDate" Type="datetime" />
+          <Property Name="RDNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="ParliamentNo" Type="int" />
+          <Property Name="ParlSessID" Type="int" />
+          <Property Name="ParliamentBangla" Type="nvarchar" MaxLength="50" />
+          <Property Name="SessionNo" Type="int" />
+          <Property Name="SessionBangla" Type="nvarchar" MaxLength="50" />
+          <Property Name="BanglaName" Type="nvarchar" MaxLength="100" />
+          <Property Name="ConstitutentBangla" Type="nvarchar" MaxLength="100" />
+          <Property Name="ConstiBangla" Type="nvarchar" MaxLength="50" />
+          <Property Name="AcceptanceComment" Type="nvarchar" MaxLength="500" />
+          <Property Name="DeputySecApproveDate" Type="datetime" />
+          <Property Name="DeputySecApproveStatus" Type="nvarchar" MaxLength="1000" />
+          <Property Name="JointSecApproveDate" Type="datetime" />
+          <Property Name="JointSecApproveStatus" Type="nvarchar" MaxLength="1000" />
+          <Property Name="SecApproveDate" Type="datetime" />
+          <Property Name="SecApproveStatus" Type="nvarchar" MaxLength="1000" />
+          <Property Name="AddSecApproveDate" Type="datetime" />
+          <Property Name="AddSecApproveStatus" Type="nvarchar" MaxLength="1000" />
+          <Property Name="SpeakerApproveDate" Type="datetime" />
+          <Property Name="SpeakerApproveStatus" Type="nvarchar" MaxLength="1000" />
+          <Property Name="MemberResPriority" Type="int" />
+          <Property Name="BallotEnglish" Type="datetime" />
+          <Property Name="RaisedStatus" Type="int" />
+          <Property Name="ResolutionSLNo" Type="int" />
+          <Property Name="SerialBangla" Type="nvarchar" MaxLength="50" />
+          <Property Name="BallotDate" Type="nvarchar" MaxLength="4000" />
+          <Property Name="AddSecApproveDetail" Type="nvarchar" MaxLength="4000" />
+          <Property Name="SpeakerApproveDetail" Type="nvarchar" MaxLength="4000" />
+          <Property Name="SecApproveDetail" Type="nvarchar" MaxLength="4000" />
+          <Property Name="JointSecApproveDetail" Type="nvarchar" MaxLength="4000" />
+          <Property Name="DeputySecApproveDetail" Type="nvarchar" MaxLength="4000" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PMRS_Bc.dbo.VW_Tabular' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VW_Tabular">
+          <Key>
+            <PropertyRef Name="ConstitutentBangla" />
+          </Key>
+          <Property Name="BanglaName" Type="nvarchar" MaxLength="100" />
+          <Property Name="ConstitutentBangla" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="SerialNo" Type="nvarchar(max)" />
+          <Property Name="RDNo" Type="nvarchar(max)" />
+          <Property Name="SelectedRD" Type="nvarchar" MaxLength="50" />
+          <Property Name="SelectedSL" Type="nvarchar" MaxLength="50" />
+          <Property Name="ParlSessID" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PMRS_Bc.SC.VW_Login' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VW_Login">
+          <Key>
+            <PropertyRef Name="EmployeeCode" />
+            <PropertyRef Name="UserLoginID" />
+            <PropertyRef Name="DepartmentID" />
+            <PropertyRef Name="DepartmentName" />
+            <PropertyRef Name="DesignationName" />
+          </Key>
+          <Property Name="UserID" Type="int" />
+          <Property Name="EmployeeCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="100" />
+          <Property Name="UserLoginID" Type="int" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="Status" Type="int" />
+          <Property Name="UserLoginName" Type="nvarchar" MaxLength="50" />
+          <Property Name="DesignationID" Type="int" />
+          <Property Name="DepartmentID" Type="int" Nullable="false" />
+          <Property Name="DepartmentName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DesignationName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Function Name="fnGetBanglaAmount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="nvarchar">
+          <Parameter Name="TransactionAmount" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="FnGetResolutionSL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="ParlSessID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetBanglaApprovalComment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="nvarchar">
+          <Parameter Name="EngAppr" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="ResolutionCountForMP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EmpID" Type="int" Mode="In" />
+          <Parameter Name="Today" Type="date" Mode="In" />
+          <Parameter Name="r" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="ResolutionUpdateLog" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ResolutionID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_TabularSummaryMP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ParlSessID" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="PMRS_BcModel1StoreContainer">
+          <EntitySet Name="ApprovalStatus" EntityType="Self.ApprovalStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BallotInfo" EntityType="Self.BallotInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ConstitutentInfo" EntityType="Self.ConstitutentInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ConstitutentUserMappingInfo" EntityType="Self.ConstitutentUserMappingInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DepartmentInfo" EntityType="Self.DepartmentInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DesignationInfo" EntityType="Self.DesignationInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DocUpInfo" EntityType="Self.DocUpInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeInfo" EntityType="Self.EmployeeInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MemberResolutionInfo" EntityType="Self.MemberResolutionInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ParliamentSessionInfo" EntityType="Self.ParliamentSessionInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ResolutionApproval" EntityType="Self.ResolutionApproval" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Audit_Trail" EntityType="Self.Audit_Trail" Schema="SC" store:Type="Tables" />
+          <EntitySet Name="MailTrack" EntityType="Self.MailTrack" Schema="SC" store:Type="Tables" />
+          <EntitySet Name="MLConf" EntityType="Self.MLConf" Schema="SC" store:Type="Tables" />
+          <EntitySet Name="MLMng" EntityType="Self.MLMng" Schema="SC" store:Type="Tables" />
+          <EntitySet Name="MNConf" EntityType="Self.MNConf" Schema="SC" store:Type="Tables" />
+          <EntitySet Name="RL" EntityType="Self.RL" Schema="SC" store:Type="Tables" />
+          <EntitySet Name="RLConf" EntityType="Self.RLConf" Schema="SC" store:Type="Tables" />
+          <EntitySet Name="RPTConf" EntityType="Self.RPTConf" Schema="SC" store:Type="Tables" />
+          <EntitySet Name="RPTMng" EntityType="Self.RPTMng" Schema="SC" store:Type="Tables" />
+          <EntitySet Name="SecMH" EntityType="Self.SecMH" Schema="SC" store:Type="Tables" />
+          <EntitySet Name="SecSM" EntityType="Self.SecSM" Schema="SC" store:Type="Tables" />
+          <EntitySet Name="UserLogin" EntityType="Self.UserLogin" Schema="SC" store:Type="Tables" />
+          <EntitySet Name="VW_MPInfo" EntityType="Self.VW_MPInfo" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VW_MPInfo].[UserID] AS [UserID], 
+    [VW_MPInfo].[EmployeeCode] AS [EmployeeCode], 
+    [VW_MPInfo].[UserName] AS [UserName], 
+    [VW_MPInfo].[BanglaName] AS [BanglaName], 
+    [VW_MPInfo].[Address] AS [Address], 
+    [VW_MPInfo].[FatherName] AS [FatherName], 
+    [VW_MPInfo].[NationalID] AS [NationalID], 
+    [VW_MPInfo].[UserType] AS [UserType], 
+    [VW_MPInfo].[PhotoURL] AS [PhotoURL], 
+    [VW_MPInfo].[DesignationID] AS [DesignationID], 
+    [VW_MPInfo].[DesignationName] AS [DesignationName], 
+    [VW_MPInfo].[DepartmentID] AS [DepartmentID], 
+    [VW_MPInfo].[DepartmentName] AS [DepartmentName], 
+    [VW_MPInfo].[PhoneNumber] AS [PhoneNumber], 
+    [VW_MPInfo].[Email] AS [Email], 
+    [VW_MPInfo].[Status] AS [Status], 
+    [VW_MPInfo].[ConstitutentBangla] AS [ConstitutentBangla], 
+    [VW_MPInfo].[ConstitutentNumber] AS [ConstitutentNumber], 
+    [VW_MPInfo].[ParliamentNo] AS [ParliamentNo]
+    FROM [dbo].[VW_MPInfo] AS [VW_MPInfo]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VW_Summary" EntityType="Self.VW_Summary" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VW_Summary].[MemberResolutionID] AS [MemberResolutionID], 
+    [VW_Summary].[MemberResolutionDetail] AS [MemberResolutionDetail], 
+    [VW_Summary].[MemberResolutionDate] AS [MemberResolutionDate], 
+    [VW_Summary].[RDNo] AS [RDNo], 
+    [VW_Summary].[ParliamentNo] AS [ParliamentNo], 
+    [VW_Summary].[ParlSessID] AS [ParlSessID], 
+    [VW_Summary].[ParliamentBangla] AS [ParliamentBangla], 
+    [VW_Summary].[SessionNo] AS [SessionNo], 
+    [VW_Summary].[SessionBangla] AS [SessionBangla], 
+    [VW_Summary].[BanglaName] AS [BanglaName], 
+    [VW_Summary].[ConstitutentBangla] AS [ConstitutentBangla], 
+    [VW_Summary].[ConstiBangla] AS [ConstiBangla], 
+    [VW_Summary].[AcceptanceComment] AS [AcceptanceComment], 
+    [VW_Summary].[DeputySecApproveDate] AS [DeputySecApproveDate], 
+    [VW_Summary].[DeputySecApproveStatus] AS [DeputySecApproveStatus], 
+    [VW_Summary].[JointSecApproveDate] AS [JointSecApproveDate], 
+    [VW_Summary].[JointSecApproveStatus] AS [JointSecApproveStatus], 
+    [VW_Summary].[SecApproveDate] AS [SecApproveDate], 
+    [VW_Summary].[SecApproveStatus] AS [SecApproveStatus], 
+    [VW_Summary].[AddSecApproveDate] AS [AddSecApproveDate], 
+    [VW_Summary].[AddSecApproveStatus] AS [AddSecApproveStatus], 
+    [VW_Summary].[SpeakerApproveDate] AS [SpeakerApproveDate], 
+    [VW_Summary].[SpeakerApproveStatus] AS [SpeakerApproveStatus], 
+    [VW_Summary].[MemberResPriority] AS [MemberResPriority], 
+    [VW_Summary].[BallotEnglish] AS [BallotEnglish], 
+    [VW_Summary].[RaisedStatus] AS [RaisedStatus], 
+    [VW_Summary].[ResolutionSLNo] AS [ResolutionSLNo], 
+    [VW_Summary].[SerialBangla] AS [SerialBangla], 
+    [VW_Summary].[BallotDate] AS [BallotDate], 
+    [VW_Summary].[AddSecApproveDetail] AS [AddSecApproveDetail], 
+    [VW_Summary].[SpeakerApproveDetail] AS [SpeakerApproveDetail], 
+    [VW_Summary].[SecApproveDetail] AS [SecApproveDetail], 
+    [VW_Summary].[JointSecApproveDetail] AS [JointSecApproveDetail], 
+    [VW_Summary].[DeputySecApproveDetail] AS [DeputySecApproveDetail]
+    FROM [dbo].[VW_Summary] AS [VW_Summary]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VW_Tabular" EntityType="Self.VW_Tabular" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VW_Tabular].[BanglaName] AS [BanglaName], 
+    [VW_Tabular].[ConstitutentBangla] AS [ConstitutentBangla], 
+    [VW_Tabular].[SerialNo] AS [SerialNo], 
+    [VW_Tabular].[RDNo] AS [RDNo], 
+    [VW_Tabular].[SelectedRD] AS [SelectedRD], 
+    [VW_Tabular].[SelectedSL] AS [SelectedSL], 
+    [VW_Tabular].[ParlSessID] AS [ParlSessID]
+    FROM [dbo].[VW_Tabular] AS [VW_Tabular]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VW_Login" EntityType="Self.VW_Login" store:Type="Views" store:Schema="SC">
+            <DefiningQuery>SELECT 
+    [VW_Login].[UserID] AS [UserID], 
+    [VW_Login].[EmployeeCode] AS [EmployeeCode], 
+    [VW_Login].[UserName] AS [UserName], 
+    [VW_Login].[UserLoginID] AS [UserLoginID], 
+    [VW_Login].[Password] AS [Password], 
+    [VW_Login].[Status] AS [Status], 
+    [VW_Login].[UserLoginName] AS [UserLoginName], 
+    [VW_Login].[DesignationID] AS [DesignationID], 
+    [VW_Login].[DepartmentID] AS [DepartmentID], 
+    [VW_Login].[DepartmentName] AS [DepartmentName], 
+    [VW_Login].[DesignationName] AS [DesignationName]
+    FROM [SC].[VW_Login] AS [VW_Login]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PMRS_BcModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ApprovalStatu">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Comments" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BallotInfo">
+          <Key>
+            <PropertyRef Name="BallotID" />
+          </Key>
+          <Property Name="BallotID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ResolutionApproveID" Type="Int32" Nullable="false" />
+          <Property Name="ParlSessID" Type="Int32" Nullable="false" />
+          <Property Name="BallotDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RaisedStatus" Type="Int32" Nullable="false" />
+          <Property Name="BallotEmpID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ConstitutentInfo">
+          <Key>
+            <PropertyRef Name="ConstitutentID" />
+          </Key>
+          <Property Name="ConstitutentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ConstitutentArea" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ConstitutentBangla" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ConstitutentNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Status" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ConstitutentUserMappingInfo">
+          <Key>
+            <PropertyRef Name="UserMappingID" />
+          </Key>
+          <Property Name="UserMappingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ConstitutentID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="ParliamentNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DepartmentInfo">
+          <Key>
+            <PropertyRef Name="DepartmentID" />
+          </Key>
+          <Property Name="DepartmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepartmentCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DepartmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Status" Type="Int32" />
+        </EntityType>
+        <EntityType Name="DesignationInfo">
+          <Key>
+            <PropertyRef Name="DesignationID" />
+          </Key>
+          <Property Name="DesignationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DesignationCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DesignationName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="DesignationNameBN" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Grade" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="DocUpInfo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DocTypeCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DocTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DocName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FileName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="FilePath" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="DocRemarks" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="FormName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TrackNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PrNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UploadedBy" Type="Int32" />
+          <Property Name="UploadedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="EmployeeInfo">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="BanglaName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FatherName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="UserType" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="DesignationID" Type="Int32" />
+          <Property Name="DepartmentID" Type="Int32" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NationalID" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhotoURL" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="Signature" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MemberResolutionInfo">
+          <Key>
+            <PropertyRef Name="MemberResolutionID" />
+          </Key>
+          <Property Name="MemberResolutionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberResolutionDetail" Type="String" MaxLength="2500" FixedLength="false" Unicode="true" />
+          <Property Name="ResolutionSLNo" Type="Int32" />
+          <Property Name="MemberResolutionDate" Type="DateTime" Precision="3" />
+          <Property Name="MemberResolutionFIleURL" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ParlSessID" Type="Int32" />
+          <Property Name="EntryType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="AcceptStatus" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="AcceptanceComment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="RDNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="EnteredBy" Type="Int32" />
+          <Property Name="SendTo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsDraft" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="ParliamentSessionInfo">
+          <Key>
+            <PropertyRef Name="ParliamentSessionID" />
+          </Key>
+          <Property Name="ParliamentSessionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParliamentNo" Type="Int32" Nullable="false" />
+          <Property Name="SessionNo" Type="Int32" Nullable="false" />
+          <Property Name="FromDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ToDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ResolutionApproval">
+          <Key>
+            <PropertyRef Name="ResolutionApproveID" />
+          </Key>
+          <Property Name="ResolutionApproveID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ResolutionApproveSlNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="MemberResolutionID" Type="Int32" />
+          <Property Name="RDNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ParlSessID" Type="Int32" />
+          <Property Name="NoticeBackStatus" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="AdministrativeOfcDetail" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="AdministrativeOfcApproveDate" Type="DateTime" Precision="3" />
+          <Property Name="AdministrativeOfcApproveStatus" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="AdministrativeOfcBackStatus" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="AdministrativeOfcEmpID" Type="Int32" />
+          <Property Name="AdministrativeOfcSignature" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="AssitantSccDetail" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="AssitantSccApproveDate" Type="DateTime" Precision="3" />
+          <Property Name="AssitantSccApproveStatus" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="AssitantSccBackStatus" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="AssitantSccEmpID" Type="Int32" />
+          <Property Name="AssitantSccSignature" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SrAssitantSccDetail" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="SrAssitantSccApproveDate" Type="DateTime" Precision="3" />
+          <Property Name="SrAssitantSccApproveStatus" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="SrAssitantSccBackStatus" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="SrAssitantSccEmpID" Type="Int32" />
+          <Property Name="SrAssitantSccSignature" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DeputySecApproveDetail" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="DeputySecApproveDate" Type="DateTime" Precision="3" />
+          <Property Name="DeputySecApproveStatus" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="DeputySecBackStatus" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="DeputySecEmpID" Type="Int32" />
+          <Property Name="DeputySecSignature" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="AddSecApproveDetail" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="AddSecApproveDate" Type="DateTime" Precision="3" />
+          <Property Name="AddSecApproveStatus" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="AddSecBackStatus" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="AddSecEmpID" Type="Int32" />
+          <Property Name="AddSecSignature" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SecApproveDetail" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="SecApproveDate" Type="DateTime" Precision="3" />
+          <Property Name="SecApproveStatus" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="SecBackStatus" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="SecEmpID" Type="Int32" />
+          <Property Name="SecSignature" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SpeakerApproveDetail" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="SpeakerApproveDate" Type="DateTime" Precision="3" />
+          <Property Name="SpeakerApproveStatus" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="SpeakerBackStatus" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="SpeakerEmpID" Type="Int32" />
+          <Property Name="SpeakerSignature" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MemberResPriority" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Audit_Trail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Action_By" Type="Int32" />
+          <Property Name="Terminal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Action_Date" Type="DateTime" Precision="3" />
+          <Property Name="Activity_Type" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Action_Form" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Action_Table" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Transaction_ID" Type="Int32" />
+          <Property Name="Project_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MailTrack">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TriggerType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MailTo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FormName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MailTime" Type="DateTime" Precision="3" />
+          <Property Name="MailStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SpecialMsg" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="MailTypeID" Type="Int32" />
+          <Property Name="SMTPServer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MLConf">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MH_ID" Type="Int32" />
+          <Property Name="SM_ID" Type="Int32" />
+          <Property Name="SM_Url" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Act_Type" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Dept_Code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Emp_ID" Type="Int32" />
+          <Property Name="ML_ID" Type="Int32" />
+          <Property Name="Notify_For" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MLMng">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ML_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Mail_Sub" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Mail_Body" Type="String" MaxLength="2500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MNConf">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="SM_ID" Type="Int32" Nullable="false" />
+          <Property Name="MH_ID" Type="Int32" Nullable="false" />
+          <Property Name="RL_ID" Type="Int32" Nullable="false" />
+          <Property Name="Sv" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Vw" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Dl" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="RL">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Nm" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Priority" Type="Int32" />
+        </EntityType>
+        <EntityType Name="RLConf">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="RL_ID" Type="Int32" Nullable="false" />
+          <Property Name="Emp_ID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RPTConf">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="FormName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Rpt_ID" Type="Int32" />
+          <Property Name="RL_ID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="RPTMng">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="FormName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ReportName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="RptCode" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SecMH">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Seq" Type="Int32" Nullable="false" />
+          <Property Name="Nm" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CssClass" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SecSM">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Seq" Type="Int32" Nullable="false" />
+          <Property Name="Nm" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Url" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MH_ID" Type="Int32" Nullable="false" />
+          <Property Name="CssClass" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="UserLogin">
+          <Key>
+            <PropertyRef Name="UserLoginID" />
+          </Key>
+          <Property Name="UserLoginID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserLoginName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="Status" Type="Int32" />
+        </EntityType>
+        <EntityType Name="VW_MPInfo">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="EmployeeCode" />
+            <PropertyRef Name="NationalID" />
+            <PropertyRef Name="DesignationName" />
+            <PropertyRef Name="DepartmentID" />
+            <PropertyRef Name="ConstitutentBangla" />
+            <PropertyRef Name="ConstitutentNumber" />
+            <PropertyRef Name="ParliamentNo" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="BanglaName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FatherName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NationalID" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserType" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="PhotoURL" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="DesignationID" Type="Int32" />
+          <Property Name="DesignationName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DepartmentID" Type="Int32" Nullable="false" />
+          <Property Name="DepartmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="ConstitutentBangla" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ConstitutentNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ParliamentNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VW_Summary">
+          <Key>
+            <PropertyRef Name="MemberResolutionID" />
+          </Key>
+          <Property Name="MemberResolutionID" Type="Int32" Nullable="false" />
+          <Property Name="MemberResolutionDetail" Type="String" MaxLength="2500" FixedLength="false" Unicode="true" />
+          <Property Name="MemberResolutionDate" Type="DateTime" Precision="3" />
+          <Property Name="RDNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ParliamentNo" Type="Int32" />
+          <Property Name="ParlSessID" Type="Int32" />
+          <Property Name="ParliamentBangla" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SessionNo" Type="Int32" />
+          <Property Name="SessionBangla" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BanglaName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ConstitutentBangla" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ConstiBangla" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AcceptanceComment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="DeputySecApproveDate" Type="DateTime" Precision="3" />
+          <Property Name="DeputySecApproveStatus" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="JointSecApproveDate" Type="DateTime" Precision="3" />
+          <Property Name="JointSecApproveStatus" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="SecApproveDate" Type="DateTime" Precision="3" />
+          <Property Name="SecApproveStatus" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="AddSecApproveDate" Type="DateTime" Precision="3" />
+          <Property Name="AddSecApproveStatus" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="SpeakerApproveDate" Type="DateTime" Precision="3" />
+          <Property Name="SpeakerApproveStatus" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="MemberResPriority" Type="Int32" />
+          <Property Name="BallotEnglish" Type="DateTime" Precision="3" />
+          <Property Name="RaisedStatus" Type="Int32" />
+          <Property Name="ResolutionSLNo" Type="Int32" />
+          <Property Name="SerialBangla" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BallotDate" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="AddSecApproveDetail" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="SpeakerApproveDetail" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="SecApproveDetail" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="JointSecApproveDetail" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="DeputySecApproveDetail" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="VW_Tabular">
+          <Key>
+            <PropertyRef Name="ConstitutentBangla" />
+          </Key>
+          <Property Name="BanglaName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ConstitutentBangla" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SerialNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RDNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SelectedRD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SelectedSL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ParlSessID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="VW_Login">
+          <Key>
+            <PropertyRef Name="EmployeeCode" />
+            <PropertyRef Name="UserLoginID" />
+            <PropertyRef Name="DepartmentID" />
+            <PropertyRef Name="DepartmentName" />
+            <PropertyRef Name="DesignationName" />
+          </Key>
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="EmployeeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UserLoginID" Type="Int32" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="UserLoginName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DesignationID" Type="Int32" />
+          <Property Name="DepartmentID" Type="Int32" Nullable="false" />
+          <Property Name="DepartmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DesignationName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="PMRS_BcEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ApprovalStatus" EntityType="Self.ApprovalStatu" />
+          <EntitySet Name="BallotInfoes" EntityType="Self.BallotInfo" />
+          <EntitySet Name="ConstitutentInfoes" EntityType="Self.ConstitutentInfo" />
+          <EntitySet Name="ConstitutentUserMappingInfoes" EntityType="Self.ConstitutentUserMappingInfo" />
+          <EntitySet Name="DepartmentInfoes" EntityType="Self.DepartmentInfo" />
+          <EntitySet Name="DesignationInfoes" EntityType="Self.DesignationInfo" />
+          <EntitySet Name="DocUpInfoes" EntityType="Self.DocUpInfo" />
+          <EntitySet Name="EmployeeInfoes" EntityType="Self.EmployeeInfo" />
+          <EntitySet Name="MemberResolutionInfoes" EntityType="Self.MemberResolutionInfo" />
+          <EntitySet Name="ParliamentSessionInfoes" EntityType="Self.ParliamentSessionInfo" />
+          <EntitySet Name="ResolutionApprovals" EntityType="Self.ResolutionApproval" />
+          <EntitySet Name="Audit_Trail" EntityType="Self.Audit_Trail" />
+          <EntitySet Name="MailTracks" EntityType="Self.MailTrack" />
+          <EntitySet Name="MLConfs" EntityType="Self.MLConf" />
+          <EntitySet Name="MLMngs" EntityType="Self.MLMng" />
+          <EntitySet Name="MNConfs" EntityType="Self.MNConf" />
+          <EntitySet Name="RLs" EntityType="Self.RL" />
+          <EntitySet Name="RLConfs" EntityType="Self.RLConf" />
+          <EntitySet Name="RPTConfs" EntityType="Self.RPTConf" />
+          <EntitySet Name="RPTMngs" EntityType="Self.RPTMng" />
+          <EntitySet Name="SecMHs" EntityType="Self.SecMH" />
+          <EntitySet Name="SecSMs" EntityType="Self.SecSM" />
+          <EntitySet Name="UserLogins" EntityType="Self.UserLogin" />
+          <EntitySet Name="VW_MPInfo" EntityType="Self.VW_MPInfo" />
+          <EntitySet Name="VW_Summary" EntityType="Self.VW_Summary" />
+          <EntitySet Name="VW_Tabular" EntityType="Self.VW_Tabular" />
+          <EntitySet Name="VW_Login" EntityType="Self.VW_Login" />
+          <FunctionImport Name="ResolutionCountForMP">
+            <Parameter Name="EmpID" Mode="In" Type="Int32" />
+            <Parameter Name="Today" Mode="In" Type="DateTime" />
+            <Parameter Name="r" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ResolutionUpdateLog">
+            <Parameter Name="ResolutionID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_TabularSummaryMP">
+            <Parameter Name="ParlSessID" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PMRS_BcModel1StoreContainer" CdmEntityContainer="PMRS_BcEntities1">
+          <EntitySetMapping Name="ApprovalStatus">
+            <EntityTypeMapping TypeName="PMRS_BcModel1.ApprovalStatu">
+              <MappingFragment StoreEntitySet="ApprovalStatus">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BallotInfoes">
+            <EntityTypeMapping TypeName="PMRS_BcModel1.BallotInfo">
+              <MappingFragment StoreEntitySet="BallotInfo">
+                <ScalarProperty Name="BallotID" ColumnName="BallotID" />
+                <ScalarProperty Name="ResolutionApproveID" ColumnName="ResolutionApproveID" />
+                <ScalarProperty Name="ParlSessID" ColumnName="ParlSessID" />
+                <ScalarProperty Name="BallotDate" ColumnName="BallotDate" />
+                <ScalarProperty Name="RaisedStatus" ColumnName="RaisedStatus" />
+                <ScalarProperty Name="BallotEmpID" ColumnName="BallotEmpID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ConstitutentInfoes">
+            <EntityTypeMapping TypeName="PMRS_BcModel1.ConstitutentInfo">
+              <MappingFragment StoreEntitySet="ConstitutentInfo">
+                <ScalarProperty Name="ConstitutentID" ColumnName="ConstitutentID" />
+                <ScalarProperty Name="ConstitutentArea" ColumnName="ConstitutentArea" />
+                <ScalarProperty Name="ConstitutentBangla" ColumnName="ConstitutentBangla" />
+                <ScalarProperty Name="ConstitutentNumber" ColumnName="ConstitutentNumber" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ConstitutentUserMappingInfoes">
+            <EntityTypeMapping TypeName="PMRS_BcModel1.ConstitutentUserMappingInfo">
+              <MappingFragment StoreEntitySet="ConstitutentUserMappingInfo">
+                <ScalarProperty Name="UserMappingID" ColumnName="UserMappingID" />
+                <ScalarProperty Name="ConstitutentID" ColumnName="ConstitutentID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ParliamentNo" ColumnName="ParliamentNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DepartmentInfoes">
+            <EntityTypeMapping TypeName="PMRS_BcModel1.DepartmentInfo">
+              <MappingFragment StoreEntitySet="DepartmentInfo">
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+                <ScalarProperty Name="DepartmentCode" ColumnName="DepartmentCode" />
+                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DesignationInfoes">
+            <EntityTypeMapping TypeName="PMRS_BcModel1.DesignationInfo">
+              <MappingFragment StoreEntitySet="DesignationInfo">
+                <ScalarProperty Name="DesignationID" ColumnName="DesignationID" />
+                <ScalarProperty Name="DesignationCode" ColumnName="DesignationCode" />
+                <ScalarProperty Name="DesignationName" ColumnName="DesignationName" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="DesignationNameBN" ColumnName="DesignationNameBN" />
+                <ScalarProperty Name="Grade" ColumnName="Grade" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DocUpInfoes">
+            <EntityTypeMapping TypeName="PMRS_BcModel1.DocUpInfo">
+              <MappingFragment StoreEntitySet="DocUpInfo">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DocTypeCode" ColumnName="DocTypeCode" />
+                <ScalarProperty Name="DocTypeName" ColumnName="DocTypeName" />
+                <ScalarProperty Name="DocName" ColumnName="DocName" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+                <ScalarProperty Name="DocRemarks" ColumnName="DocRemarks" />
+                <ScalarProperty Name="FormName" ColumnName="FormName" />
+                <ScalarProperty Name="TrackNo" ColumnName="TrackNo" />
+                <ScalarProperty Name="PrNo" ColumnName="PrNo" />
+                <ScalarProperty Name="UploadedBy" ColumnName="UploadedBy" />
+                <ScalarProperty Name="UploadedDate" ColumnName="UploadedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeInfoes">
+            <EntityTypeMapping TypeName="PMRS_BcModel1.EmployeeInfo">
+              <MappingFragment StoreEntitySet="EmployeeInfo">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="EmployeeCode" ColumnName="EmployeeCode" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="BanglaName" ColumnName="BanglaName" />
+                <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="DesignationID" ColumnName="DesignationID" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="NationalID" ColumnName="NationalID" />
+                <ScalarProperty Name="PhotoURL" ColumnName="PhotoURL" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Signature" ColumnName="Signature" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MemberResolutionInfoes">
+            <EntityTypeMapping TypeName="PMRS_BcModel1.MemberResolutionInfo">
+              <MappingFragment StoreEntitySet="MemberResolutionInfo">
+                <ScalarProperty Name="MemberResolutionID" ColumnName="MemberResolutionID" />
+                <ScalarProperty Name="MemberResolutionDetail" ColumnName="MemberResolutionDetail" />
+                <ScalarProperty Name="ResolutionSLNo" ColumnName="ResolutionSLNo" />
+                <ScalarProperty Name="MemberResolutionDate" ColumnName="MemberResolutionDate" />
+                <ScalarProperty Name="MemberResolutionFIleURL" ColumnName="MemberResolutionFIleURL" />
+                <ScalarProperty Name="ParlSessID" ColumnName="ParlSessID" />
+                <ScalarProperty Name="EntryType" ColumnName="EntryType" />
+                <ScalarProperty Name="AcceptStatus" ColumnName="AcceptStatus" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="AcceptanceComment" ColumnName="AcceptanceComment" />
+                <ScalarProperty Name="RDNo" ColumnName="RDNo" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="EnteredBy" ColumnName="EnteredBy" />
+                <ScalarProperty Name="SendTo" ColumnName="SendTo" />
+                <ScalarProperty Name="IsDraft" ColumnName="IsDraft" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ParliamentSessionInfoes">
+            <EntityTypeMapping TypeName="PMRS_BcModel1.ParliamentSessionInfo">
+              <MappingFragment StoreEntitySet="ParliamentSessionInfo">
+                <ScalarProperty Name="ParliamentSessionID" ColumnName="ParliamentSessionID" />
+                <ScalarProperty Name="ParliamentNo" ColumnName="ParliamentNo" />
+                <ScalarProperty Name="SessionNo" ColumnName="SessionNo" />
+                <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+                <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ResolutionApprovals">
+            <EntityTypeMapping TypeName="PMRS_BcModel1.ResolutionApproval">
+              <MappingFragment StoreEntitySet="ResolutionApproval">
+                <ScalarProperty Name="ResolutionApproveID" ColumnName="ResolutionApproveID" />
+                <ScalarProperty Name="ResolutionApproveSlNo" ColumnName="ResolutionApproveSlNo" />
+                <ScalarProperty Name="MemberResolutionID" ColumnName="MemberResolutionID" />
+                <ScalarProperty Name="RDNo" ColumnName="RDNo" />
+                <ScalarProperty Name="ParlSessID" ColumnName="ParlSessID" />
+                <ScalarProperty Name="NoticeBackStatus" ColumnName="NoticeBackStatus" />
+                <ScalarProperty Name="AdministrativeOfcDetail" ColumnName="AdministrativeOfcDetail" />
+                <ScalarProperty Name="AdministrativeOfcApproveDate" ColumnName="AdministrativeOfcApproveDate" />
+                <ScalarProperty Name="AdministrativeOfcApproveStatus" ColumnName="AdministrativeOfcApproveStatus" />
+                <ScalarProperty Name="AdministrativeOfcBackStatus" ColumnName="AdministrativeOfcBackStatus" />
+                <ScalarProperty Name="AdministrativeOfcEmpID" ColumnName="AdministrativeOfcEmpID" />
+                <ScalarProperty Name="AdministrativeOfcSignature" ColumnName="AdministrativeOfcSignature" />
+                <ScalarProperty Name="AssitantSccDetail" ColumnName="AssitantSccDetail" />
+                <ScalarProperty Name="AssitantSccApproveDate" ColumnName="AssitantSccApproveDate" />
+                <ScalarProperty Name="AssitantSccApproveStatus" ColumnName="AssitantSccApproveStatus" />
+                <ScalarProperty Name="AssitantSccBackStatus" ColumnName="AssitantSccBackStatus" />
+                <ScalarProperty Name="AssitantSccEmpID" ColumnName="AssitantSccEmpID" />
+                <ScalarProperty Name="AssitantSccSignature" ColumnName="AssitantSccSignature" />
+                <ScalarProperty Name="SrAssitantSccDetail" ColumnName="SrAssitantSccDetail" />
+                <ScalarProperty Name="SrAssitantSccApproveDate" ColumnName="SrAssitantSccApproveDate" />
+                <ScalarProperty Name="SrAssitantSccApproveStatus" ColumnName="SrAssitantSccApproveStatus" />
+                <ScalarProperty Name="SrAssitantSccBackStatus" ColumnName="SrAssitantSccBackStatus" />
+                <ScalarProperty Name="SrAssitantSccEmpID" ColumnName="SrAssitantSccEmpID" />
+                <ScalarProperty Name="SrAssitantSccSignature" ColumnName="SrAssitantSccSignature" />
+                <ScalarProperty Name="DeputySecApproveDetail" ColumnName="DeputySecApproveDetail" />
+                <ScalarProperty Name="DeputySecApproveDate" ColumnName="DeputySecApproveDate" />
+                <ScalarProperty Name="DeputySecApproveStatus" ColumnName="DeputySecApproveStatus" />
+                <ScalarProperty Name="DeputySecBackStatus" ColumnName="DeputySecBackStatus" />
+                <ScalarProperty Name="DeputySecEmpID" ColumnName="DeputySecEmpID" />
+                <ScalarProperty Name="DeputySecSignature" ColumnName="DeputySecSignature" />
+                <ScalarProperty Name="AddSecApproveDetail" ColumnName="AddSecApproveDetail" />
+                <ScalarProperty Name="AddSecApproveDate" ColumnName="AddSecApproveDate" />
+                <ScalarProperty Name="AddSecApproveStatus" ColumnName="AddSecApproveStatus" />
+                <ScalarProperty Name="AddSecBackStatus" ColumnName="AddSecBackStatus" />
+                <ScalarProperty Name="AddSecEmpID" ColumnName="AddSecEmpID" />
+                <ScalarProperty Name="AddSecSignature" ColumnName="AddSecSignature" />
+                <ScalarProperty Name="SecApproveDetail" ColumnName="SecApproveDetail" />
+                <ScalarProperty Name="SecApproveDate" ColumnName="SecApproveDate" />
+                <ScalarProperty Name="SecApproveStatus" ColumnName="SecApproveStatus" />
+                <ScalarProperty Name="SecBackStatus" ColumnName="SecBackStatus" />
+                <ScalarProperty Name="SecEmpID" ColumnName="SecEmpID" />
+                <ScalarProperty Name="SecSignature" ColumnName="SecSignature" />
+                <ScalarProperty Name="SpeakerApproveDetail" ColumnName="SpeakerApproveDetail" />
+                <ScalarProperty Name="SpeakerApproveDate" ColumnName="SpeakerApproveDate" />
+                <ScalarProperty Name="SpeakerApproveStatus" ColumnName="SpeakerApproveStatus" />
+                <ScalarProperty Name="SpeakerBackStatus" ColumnName="SpeakerBackStatus" />
+                <ScalarProperty Name="SpeakerEmpID" ColumnName="SpeakerEmpID" />
+                <ScalarProperty Name="SpeakerSignature" ColumnName="SpeakerSignature" />
+                <ScalarProperty Name="MemberResPriority" ColumnName="MemberResPriority" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Audit_Trail">
+            <EntityTypeMapping TypeName="PMRS_BcModel1.Audit_Trail">
+              <MappingFragment StoreEntitySet="Audit_Trail">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Action_By" ColumnName="Action_By" />
+                <ScalarProperty Name="Terminal" ColumnName="Terminal" />
+                <ScalarProperty Name="Action_Date" ColumnName="Action_Date" />
+                <ScalarProperty Name="Activity_Type" ColumnName="Activity_Type" />
+                <ScalarProperty Name="Action_Form" ColumnName="Action_Form" />
+                <ScalarProperty Name="Action_Table" ColumnName="Action_Table" />
+                <ScalarProperty Name="Transaction_ID" ColumnName="Transaction_ID" />
+                <ScalarProperty Name="Project_Name" ColumnName="Project_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MailTracks">
+            <EntityTypeMapping TypeName="PMRS_BcModel1.MailTrack">
+              <MappingFragment StoreEntitySet="MailTrack">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ProNo" ColumnName="ProNo" />
+                <ScalarProperty Name="TriggerType" ColumnName="TriggerType" />
+                <ScalarProperty Name="MailTo" ColumnName="MailTo" />
+                <ScalarProperty Name="FormName" ColumnName="FormName" />
+                <ScalarProperty Name="MailTime" ColumnName="MailTime" />
+                <ScalarProperty Name="MailStatus" ColumnName="MailStatus" />
+                <ScalarProperty Name="SpecialMsg" ColumnName="SpecialMsg" />
+                <ScalarProperty Name="MailTypeID" ColumnName="MailTypeID" />
+                <ScalarProperty Name="SMTPServer" ColumnName="SMTPServer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MLConfs">
+            <EntityTypeMapping TypeName="PMRS_BcModel1.MLConf">
+              <MappingFragment StoreEntitySet="MLConf">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="MH_ID" ColumnName="MH_ID" />
+                <ScalarProperty Name="SM_ID" ColumnName="SM_ID" />
+                <ScalarProperty Name="SM_Url" ColumnName="SM_Url" />
+                <ScalarProperty Name="Act_Type" ColumnName="Act_Type" />
+                <ScalarProperty Name="Dept_Code" ColumnName="Dept_Code" />
+                <ScalarProperty Name="Emp_ID" ColumnName="Emp_ID" />
+                <ScalarProperty Name="ML_ID" ColumnName="ML_ID" />
+                <ScalarProperty Name="Notify_For" ColumnName="Notify_For" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MLMngs">
+            <EntityTypeMapping TypeName="PMRS_BcModel1.MLMng">
+              <MappingFragment StoreEntitySet="MLMng">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ML_Name" ColumnName="ML_Name" />
+                <ScalarProperty Name="Mail_Sub" ColumnName="Mail_Sub" />
+                <ScalarProperty Name="Mail_Body" ColumnName="Mail_Body" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MNConfs">
+            <EntityTypeMapping TypeName="PMRS_BcModel1.MNConf">
+              <MappingFragment StoreEntitySet="MNConf">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SM_ID" ColumnName="SM_ID" />
+                <ScalarProperty Name="MH_ID" ColumnName="MH_ID" />
+                <ScalarProperty Name="RL_ID" ColumnName="RL_ID" />
+                <ScalarProperty Name="Sv" ColumnName="Sv" />
+                <ScalarProperty Name="Vw" ColumnName="Vw" />
+                <ScalarProperty Name="Dl" ColumnName="Dl" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RLs">
+            <EntityTypeMapping TypeName="PMRS_BcModel1.RL">
+              <MappingFragment StoreEntitySet="RL">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Nm" ColumnName="Nm" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RLConfs">
+            <EntityTypeMapping TypeName="PMRS_BcModel1.RLConf">
+              <MappingFragment StoreEntitySet="RLConf">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="RL_ID" ColumnName="RL_ID" />
+                <ScalarProperty Name="Emp_ID" ColumnName="Emp_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RPTConfs">
+            <EntityTypeMapping TypeName="PMRS_BcModel1.RPTConf">
+              <MappingFragment StoreEntitySet="RPTConf">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FormName" ColumnName="FormName" />
+                <ScalarProperty Name="Rpt_ID" ColumnName="Rpt_ID" />
+                <ScalarProperty Name="RL_ID" ColumnName="RL_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RPTMngs">
+            <EntityTypeMapping TypeName="PMRS_BcModel1.RPTMng">
+              <MappingFragment StoreEntitySet="RPTMng">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FormName" ColumnName="FormName" />
+                <ScalarProperty Name="ReportName" ColumnName="ReportName" />
+                <ScalarProperty Name="RptCode" ColumnName="RptCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SecMHs">
+            <EntityTypeMapping TypeName="PMRS_BcModel1.SecMH">
+              <MappingFragment StoreEntitySet="SecMH">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Seq" ColumnName="Seq" />
+                <ScalarProperty Name="Nm" ColumnName="Nm" />
+                <ScalarProperty Name="CssClass" ColumnName="CssClass" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SecSMs">
+            <EntityTypeMapping TypeName="PMRS_BcModel1.SecSM">
+              <MappingFragment StoreEntitySet="SecSM">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Seq" ColumnName="Seq" />
+                <ScalarProperty Name="Nm" ColumnName="Nm" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="MH_ID" ColumnName="MH_ID" />
+                <ScalarProperty Name="CssClass" ColumnName="CssClass" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserLogins">
+            <EntityTypeMapping TypeName="PMRS_BcModel1.UserLogin">
+              <MappingFragment StoreEntitySet="UserLogin">
+                <ScalarProperty Name="UserLoginID" ColumnName="UserLoginID" />
+                <ScalarProperty Name="UserLoginName" ColumnName="UserLoginName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VW_MPInfo">
+            <EntityTypeMapping TypeName="PMRS_BcModel1.VW_MPInfo">
+              <MappingFragment StoreEntitySet="VW_MPInfo">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="EmployeeCode" ColumnName="EmployeeCode" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="BanglaName" ColumnName="BanglaName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+                <ScalarProperty Name="NationalID" ColumnName="NationalID" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="PhotoURL" ColumnName="PhotoURL" />
+                <ScalarProperty Name="DesignationID" ColumnName="DesignationID" />
+                <ScalarProperty Name="DesignationName" ColumnName="DesignationName" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ConstitutentBangla" ColumnName="ConstitutentBangla" />
+                <ScalarProperty Name="ConstitutentNumber" ColumnName="ConstitutentNumber" />
+                <ScalarProperty Name="ParliamentNo" ColumnName="ParliamentNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VW_Summary">
+            <EntityTypeMapping TypeName="PMRS_BcModel1.VW_Summary">
+              <MappingFragment StoreEntitySet="VW_Summary">
+                <ScalarProperty Name="MemberResolutionID" ColumnName="MemberResolutionID" />
+                <ScalarProperty Name="MemberResolutionDetail" ColumnName="MemberResolutionDetail" />
+                <ScalarProperty Name="MemberResolutionDate" ColumnName="MemberResolutionDate" />
+                <ScalarProperty Name="RDNo" ColumnName="RDNo" />
+                <ScalarProperty Name="ParliamentNo" ColumnName="ParliamentNo" />
+                <ScalarProperty Name="ParlSessID" ColumnName="ParlSessID" />
+                <ScalarProperty Name="ParliamentBangla" ColumnName="ParliamentBangla" />
+                <ScalarProperty Name="SessionNo" ColumnName="SessionNo" />
+                <ScalarProperty Name="SessionBangla" ColumnName="SessionBangla" />
+                <ScalarProperty Name="BanglaName" ColumnName="BanglaName" />
+                <ScalarProperty Name="ConstitutentBangla" ColumnName="ConstitutentBangla" />
+                <ScalarProperty Name="ConstiBangla" ColumnName="ConstiBangla" />
+                <ScalarProperty Name="AcceptanceComment" ColumnName="AcceptanceComment" />
+                <ScalarProperty Name="DeputySecApproveDate" ColumnName="DeputySecApproveDate" />
+                <ScalarProperty Name="DeputySecApproveStatus" ColumnName="DeputySecApproveStatus" />
+                <ScalarProperty Name="JointSecApproveDate" ColumnName="JointSecApproveDate" />
+                <ScalarProperty Name="JointSecApproveStatus" ColumnName="JointSecApproveStatus" />
+                <ScalarProperty Name="SecApproveDate" ColumnName="SecApproveDate" />
+                <ScalarProperty Name="SecApproveStatus" ColumnName="SecApproveStatus" />
+                <ScalarProperty Name="AddSecApproveDate" ColumnName="AddSecApproveDate" />
+                <ScalarProperty Name="AddSecApproveStatus" ColumnName="AddSecApproveStatus" />
+                <ScalarProperty Name="SpeakerApproveDate" ColumnName="SpeakerApproveDate" />
+                <ScalarProperty Name="SpeakerApproveStatus" ColumnName="SpeakerApproveStatus" />
+                <ScalarProperty Name="MemberResPriority" ColumnName="MemberResPriority" />
+                <ScalarProperty Name="BallotEnglish" ColumnName="BallotEnglish" />
+                <ScalarProperty Name="RaisedStatus" ColumnName="RaisedStatus" />
+                <ScalarProperty Name="ResolutionSLNo" ColumnName="ResolutionSLNo" />
+                <ScalarProperty Name="SerialBangla" ColumnName="SerialBangla" />
+                <ScalarProperty Name="BallotDate" ColumnName="BallotDate" />
+                <ScalarProperty Name="AddSecApproveDetail" ColumnName="AddSecApproveDetail" />
+                <ScalarProperty Name="SpeakerApproveDetail" ColumnName="SpeakerApproveDetail" />
+                <ScalarProperty Name="SecApproveDetail" ColumnName="SecApproveDetail" />
+                <ScalarProperty Name="JointSecApproveDetail" ColumnName="JointSecApproveDetail" />
+                <ScalarProperty Name="DeputySecApproveDetail" ColumnName="DeputySecApproveDetail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VW_Tabular">
+            <EntityTypeMapping TypeName="PMRS_BcModel1.VW_Tabular">
+              <MappingFragment StoreEntitySet="VW_Tabular">
+                <ScalarProperty Name="BanglaName" ColumnName="BanglaName" />
+                <ScalarProperty Name="ConstitutentBangla" ColumnName="ConstitutentBangla" />
+                <ScalarProperty Name="SerialNo" ColumnName="SerialNo" />
+                <ScalarProperty Name="RDNo" ColumnName="RDNo" />
+                <ScalarProperty Name="SelectedRD" ColumnName="SelectedRD" />
+                <ScalarProperty Name="SelectedSL" ColumnName="SelectedSL" />
+                <ScalarProperty Name="ParlSessID" ColumnName="ParlSessID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VW_Login">
+            <EntityTypeMapping TypeName="PMRS_BcModel1.VW_Login">
+              <MappingFragment StoreEntitySet="VW_Login">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="EmployeeCode" ColumnName="EmployeeCode" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserLoginID" ColumnName="UserLoginID" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="UserLoginName" ColumnName="UserLoginName" />
+                <ScalarProperty Name="DesignationID" ColumnName="DesignationID" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+                <ScalarProperty Name="DesignationName" ColumnName="DesignationName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ResolutionCountForMP" FunctionName="PMRS_BcModel1.Store.ResolutionCountForMP" />
+          <FunctionImportMapping FunctionImportName="ResolutionUpdateLog" FunctionName="PMRS_BcModel1.Store.ResolutionUpdateLog" />
+          <FunctionImportMapping FunctionImportName="SP_TabularSummaryMP" FunctionName="PMRS_BcModel1.Store.SP_TabularSummaryMP" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

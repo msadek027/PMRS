@@ -1,0 +1,105 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<script src="~/Areas/Transaction/ngCode/frmConstitutentMapping.js"></script>
+
+<div ng-app="myApp" ng-controller="myCtrl">
+    <div class="loader ng-cloak LoaderStyle" data-loading>
+        <img src="~/assets/images/square_loading.gif" width="100px;" height="100px;" style="top: 50%; left: 50%;" />
+    </div>
+    <div class="form-horizontal" ng-form="frmConstitutentMapping">
+        <div class="panel panel-default">
+            <div class="panel-header bg-aero">
+                <div class="form-group">
+                    <div class="col-md-5">
+                        <h2 class="panel-title">
+                            <strong>{{FormTitle}}</strong>
+                        </h2>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="text-right  m-t-10">
+                            <button class="btn btn-embossed btn-primary btn-rounded" ng-click="SaveData()" ng-class="{'btn-transparent': frmConstitutentMapping.$invalid }" ng-disabled="frmConstitutentMapping.$invalid" ng-hide="ViewPerm == 'NO'"><i class="fa fa-save"></i>&nbsp{{btnSaveValue}}</button>
+                            <button type="button" class="btn btn-embossed btn-danger btn-rounded" ng-click="Reset()"><i class="fa fa-refresh"></i>&nbsp Reset</button>
+                            <button type="button" class="btn btn-embossed btn-success btn-rounded" ng-hide="SearchPerm == 'NO'" ng-click="GetMapList()"><i class="fa fa-search"></i>&nbspSearch</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-content bg-light-blue">
+
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label class="control-label input-sm required">Constitutent No</label>
+                    </div>
+                    <div class="col-md-3">
+                        <ui-select class="form-control form-white input-sm" ng-model="frmConstitutentMapping.Constitutent" theme="select2" ng-disabled="disabled" required>
+                            <ui-select-match placeholder="Select a Constitutent">{{$select.selected.ConstitutentArea}}</ui-select-match>
+                            <ui-select-choices repeat="constitutent.ConstitutentID as constitutent in Constitutents | propsFilter: {ConstitutentArea: $select.search, ConstitutentBangla:$select.search, ConstitutentNumber:$select.search}">
+                                <div ng-bind-html="constitutent.ConstitutentBangla | highlight: $select.search"></div>
+                                <small>
+                                    Name: <span ng-bind-html="''+constitutent.ConstitutentArea | highlight: $select.search"></span>  &nbsp;&nbsp;&nbsp;
+                                    Number: <span ng-bind-html="''+constitutent.ConstitutentNumber | highlight: $select.search"></span>  &nbsp;&nbsp;&nbsp;
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="hidden" ng-model="uiID" />
+                    <div class="col-md-3">
+                        <label class="control-label input-sm required">MP Name</label>
+                    </div>
+                    <div class="col-md-3">
+                        <ui-select class="form-control form-white input-sm" ng-model="frmConstitutentMapping.Employee" theme="select2" ng-disabled="disabled" required>
+                            <ui-select-match placeholder="Select a MP">{{$select.selected.UserName}}</ui-select-match>
+                            <ui-select-choices repeat="employee.UserID as employee in Employees | propsFilter: {UserName: $select.search}">
+                                <div ng-bind-html="employee.UserName | highlight: $select.search"></div>
+                                <small>
+                                    নাম: <span ng-bind-html="''+employee.BanglaName | highlight: $select.search"></span>  &nbsp;&nbsp;&nbsp;
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label class="control-label input-sm required">Parliament No</label>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-control form-white input-sm" id="ParliamentNo" ng-model="ParliamentNo" required>
+                            <option value=11>11</option>
+                            <option value=12>12</option>
+                            <option value=13>13</option>
+                            <option value=14>14</option>
+                            <option value=15>15</option>
+                            <option value=16>16</option>
+                            <option value=17>17</option>
+                            <option value=18>18</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="EmployeeInfoModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="panel-content bg-light-blue">
+                    <div class="modal-header">
+                        <h2 class="panel-title">Constitutent Mapping List</h2>
+                        <button type="button" id="modalClose" class="close" data-dismiss="modal" aria-hidden="true"><i class="icons-office-52"></i></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div id="gridEmployeeInfo" ui-grid="gridEmployeeInfoOptions" class="grid" ui-grid-pagination style=" height: 350px; width: 100%;" ui-grid-auto-resize ui-grid-resize-columns></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

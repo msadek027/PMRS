@@ -1,0 +1,146 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Areas/PMRS/ngCode/frmBalloting.js"></script>
+
+<div ng-app="myApp" ng-controller="myCtrl">
+    <div class="loader ng-cloak LoaderStyle" data-loading>
+        <img src="~/assets/images/square_loading.gif" width="100px;" height="100px;" style="top: 50%; left: 50%;" />
+    </div>
+    <div class="form-horizontal" ng-form="frmBallotInfo">
+        <div class="panel panel-default">
+            <div class="panel-header bg-aero">
+                <div class="form-group">
+                    <div class="col-md-5">
+                        <h2 class="panel-title">
+                            <strong>{{FormTitle}}</strong>
+                        </h2>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="text-right  m-t-10">
+                            <button type="button" class="btn btn-embossed btn-danger btn-rounded" ng-click="Reset()"><i class="fa fa-refresh"></i>&nbsp Reset</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-content bg-light-blue">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label class="control-label input-sm required">সংসদীয় অধিবেশন নং</label>
+                    </div>
+                    <div class="col-md-3">
+                        <ui-select class="form-control form-white input-sm" ng-model="frmBallotInfo.ParliamentSession" theme="select2" ng-disabled="disabled" required ng-change="GetResolutionBySession()">
+                            <ui-select-match placeholder="অধিবেশন নির্বাচন করুন">{{$select.selected.ParliamentNo}}</ui-select-match>
+                            <ui-select-choices repeat="session.ParliamentSessionID as session in Sessions | propsFilter: {ParliamentNo: $select.search, SessionNo: $select.search}">
+                                <div ng-bind-html="session.ParliamentNo | highlight: $select.search"></div>
+                                <small>
+                                    Parliament No:  <span ng-bind-html="''+session.ParliamentNo | highlight: $select.search"></span>  &nbsp;&nbsp;&nbsp;
+                                    Session No:  <span ng-bind-html="''+session.SessionNo | highlight: $select.search"></span>  &nbsp;&nbsp;&nbsp;
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+                <br />
+                <div class="form-group">
+                    <div class="row" style="margin-left: 0.5%;margin-right: 0.5%;">
+                        <div id="gridEmployeeInfo" ui-grid="gridResolutionOptions" class="grid" ui-grid-pagination style=" height: 500px; width: 100%;" ui-grid-auto-resize ui-grid-resize-columns></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="ResolutionModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="panel-content bg-light-blue">
+                    <div class="modal-header">
+                        <h2 class="panel-title">সিদ্ধান্ত প্রস্তাবের বিবরন</h2>
+                        <button type="button" id="modalClose" class="close" data-dismiss="modal" aria-hidden="true"><i class="icons-office-52"></i></button>
+                    </div>
+                    <div class="modal-body" ng-form="frmResolutionModal">
+                        <fieldset>
+                            <div class="row">
+                                <input type="hidden" ng-model="uiID" />
+                                <input type="hidden" ng-model="ResolutionApproveID" />
+                                <div class="col-md-2">
+                                    <label class="control-label input-sm">আর ডি নং</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control input-sm" id="RDNo" name="RDNo" ng-maxlength="100" placeholder="আর ডি নং" ng-model="RDNo" disabled>
+                                </div>
+                                <div class="form-group ">
+                                    <div class="col-md-2">
+                                        <label class="control-label input-sm required">সদস্যের নাম</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control input-sm" id="UserName" ng-maxlength="500" placeholder="সংসদ সদস্যের নাম" ng-model="UserName" disabled>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="form-group ">
+                                    <div class="col-md-2">
+                                        <label class="control-label input-sm">সিদ্ধান্ত প্রস্তাবের তারিখ</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <datepicker date-format="dd/MM/yyyy"
+                                                    date-week-start-day="0"
+                                                    button-prev=' <i class="fa fa-arrow-circle-left"></i>'
+                                                    button-next='<i class="fa fa-arrow-circle-right"></i>'>
+                                            <input id="MemberResolutionDate" ng-model="MemberResolutionDate" type="text" class="angular-datepicker-input input-sm form-control clickable" placeholder="সিদ্ধান্ত প্রস্তাবের তারিখ" readonly disabled />
+                                        </datepicker>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="control-label input-sm">সিদ্ধান্ত প্রস্তাব</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        @*<textarea class="form-control input-sm" name="MemberResolutionDetail" placeholder="সিদ্ধান্ত প্রস্তাব" ng-maxlength="4000" id="MemberResolutionDetail" ng-model="MemberResolutionDetail" readonly disabled></textarea>*@
+                                        <div class="form-control" style="border: #319db5 solid 1px" ng-bind-html="MemberResolutionDetail" ng-model="MemberResolutionDetail" cols="50" rows="10">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <br />
+
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label class="control-label input-sm required">ব্যালোটের তারিখ</label>
+                                </div>
+                                <div class="col-md-3">
+                                    <datepicker date-format="dd/MM/yyyy"
+                                                date-week-start-day="0"
+                                                button-prev=' <i class="fa fa-arrow-circle-left"></i>'
+                                                button-next='<i class="fa fa-arrow-circle-right"></i>'>
+                                        <input id="BallotDate" ng-model="BallotDate" type="text" class="angular-datepicker-input input-sm form-control clickable" placeholder="সিদ্ধান্ত প্রস্তাবের তারিখ" readonly required />
+                                    </datepicker>
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="control-label input-sm required">ব্যালোট স্ট্যাটাস</label>
+                                </div>
+                                <div class="col-md-3" ng-class="{'has-error':frmResolutionModal.MemberResPriority.$error.maxlength}">
+                                    <select class="form-control form-white input-sm" id="RaisedStatus" ng-model="RaisedStatus" required>
+                                        <option value=1>ব্যালটে প্রাধান্য প্রাপ্ত</option>
+                                        <option value=0>বাতিল</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-2">
+                                <button class="btn btn-embossed btn-primary btn-rounded" ng-click="SaveData()" ng-class="{'btn-transparent': frmResolutionModal.$invalid }" ng-disabled="frmResolutionModal.$invalid" ng-hide="ViewPerm == 'NO'"><i class="fa fa-save"></i>&nbsp{{btnSaveValue}}</button>
+                            </div>
+                            </div>
+             
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

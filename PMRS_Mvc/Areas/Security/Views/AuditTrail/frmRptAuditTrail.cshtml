@@ -1,0 +1,96 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Areas/Security/ngCode/frmRptAuditTrail.js"></script>
+
+<div ng-app="myApp" ng-controller="myCtrl">
+
+    <div class="loader ng-cloak LoaderStyle" data-loading>
+        <img src="~/assets/images/square_loading.gif" width="100px;" height="100px;" />
+    </div>
+
+    <div class="form-horizontal" ng-form="frmRptAuditTrail">
+        <div class="panel panel-default">
+            <div class="panel-header bg-aero">
+                <div class="form-group ">
+                    <div class="col-md-5">
+                        <h2 class="panel-title">
+                            <strong>{{FormTitle}}</strong>
+                        </h2>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="text-right  m-t-10">
+                            <button class="btn btn-embossed btn-primary btn-rounded" ng-click="GetAuditTrail()" ng-class="{'btn-transparent': frmRptAuditTrail.$invalid}" ng-disabled="frmRptAuditTrail.$invalid"><i class="fa fa-save"></i>Generate</button>
+                            <button type="button" class="btn btn-embossed btn-danger btn-rounded" ng-click="Reset()"><i class="fa fa-refresh"></i>&nbsp Reset</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-content bg-light-blue">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label class="control-label  input-sm required">From Date</label>
+                    </div>
+                    <div class="col-md-3">
+                        <datepicker date-format="dd/MM/yyyy"
+                                    date-week-start-day="0"
+                                    button-prev=' <i class="fa fa-arrow-circle-left"></i>'
+                                    button-next='<i class="fa fa-arrow-circle-right"></i>'>
+                            <input id="FromDate" readonly placeholder="Calendar" ng-model="FromDate" type="text" class="angular-datepicker-input form-white input-sm form-control clickable" required />
+                        </datepicker>
+
+                    </div>
+                    <div class="col-md-3">
+                        <label class="control-label pull-right input-sm required">To Date</label>
+                    </div>
+                    <div class="col-md-3">
+                        <datepicker date-format="dd/MM/yyyy"
+                                    date-week-start-day="0"
+                                    button-prev=' <i class="fa fa-arrow-circle-left"></i>'
+                                    button-next='<i class="fa fa-arrow-circle-right"></i>'>
+                            <input id="ToDate" readonly placeholder="Calendar" ng-model="ToDate" type="text" class="angular-datepicker-input form-white input-sm form-control clickable" required />
+                        </datepicker>
+                    </div>
+                </div>
+
+                <div class="form-group">
+
+                    <div class="col-md-3">
+                        <label class="control-label  input-sm">Employee</label>
+                    </div>
+                    <div class="col-md-3">
+
+                        <ui-select class="form-control form-white input-sm" ng-model="frmRptAuditTrail.Emp_ID" theme="select2">
+                            <ui-select-match placeholder="Select Employee">{{$select.selected.EmployeeName}}</ui-select-match>
+                            <ui-select-choices repeat="employee.EmployeeID as employee in Employees | propsFilter: {EmployeeName: $select.search, DepartmentName: $select.search, DesignationName: $select.search}">
+                                <div ng-bind-html="employee.EmployeeName | highlight: $select.search"></div>
+                                <small>
+                                    Dept.:  <span ng-bind-html="''+employee.DepartmentName | highlight: $select.search"></span>  &nbsp;&nbsp;&nbsp;
+                                    Desg.: <span ng-bind-html="''+employee.DesignationName | highlight: $select.search"></span>
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="control-label pull-right input-sm">Action Type</label>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-control form-white input-sm" id="ApprovalStatus" ng-model="ActionType">
+                            <option value="">All</option>
+                            <option value="I">Insert</option>
+                            <option value="U">Update</option>
+                            <option value="Login">Login</option>
+                        </select>
+                    </div>
+                </div>
+
+                <br />
+                <div class="row">
+                    <div id="gridAuditTrail" ui-grid="gridAuditTrailOptions" class="grid" style="padding-left: 1%; height: 350px; width: 98.6%;" ui-grid-auto-resize ui-grid-resize-columns ui-grid-exporter></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

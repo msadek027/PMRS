@@ -1,0 +1,68 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Areas/Security/ngCode/frmROLConf.js"></script>
+
+<div ng-app="myApp" ng-controller="myCtrl">
+
+    <div class="loader ng-cloak LoaderStyle" data-loading>
+        <img src="~/assets/images/square_loading.gif" width="100px;" height="100px;" />
+    </div>
+
+    <div class="form-horizontal" ng-form="frmROLConf">
+        <div class="panel panel-default">
+            <div class="panel-header bg-aero">
+                <div class="form-group">
+                    <div class="col-md-5">
+                        <h2 class="panel-title">
+                            <strong>{{FormTitle}}</strong>
+                        </h2>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="text-right  m-t-10">
+                            <button class="btn btn-embossed btn-primary btn-rounded" ng-click="SaveData()" ng-class="{'btn-transparent': frmROLConf.$invalid}" ng-hide="ViewPerm == 'NO'" ng-disabled="frmROLConf.$invalid"><i class="fa fa-save"></i>&nbsp{{btnSaveValue}}</button>
+                            <button type="button" class="btn btn-embossed btn-danger btn-rounded" ng-click="Reset()"><i class="fa fa-refresh"></i>&nbsp Reset</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-content bg-light-blue">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label class="control-label input-sm required">Role Name</label>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-control form-white input-sm" id="RL_ID" ng-model="RL_ID" data-ng-options="c.ID as c.Nm for c in RLListCombo" ng-change="GetEmployeeByRoleList()" required>
+                            <option value="">Please Select</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label class="control-label input-sm required">Employee Name</label>
+                    </div>
+                    <div class="col-md-6">
+                        <ui-select class="form-control form-white input-sm" ng-model="frmROLConf.Emp_ID" theme="select2" required>
+                            <ui-select-match placeholder="Select Employee">{{$select.selected.UserName}}</ui-select-match>
+                            <ui-select-choices repeat="employee.UserID as employee in Employees | propsFilter: {UserName: $select.search,EmployeeCode:$select.search }">
+                                <div ng-bind-html="employee.UserName | highlight: $select.search"></div>
+                                <small>
+                                    Dept.:  <span ng-bind-html="''+employee.DepartmentName | highlight: $select.search"></span>  &nbsp;&nbsp;&nbsp;
+                                    Desg.: <span ng-bind-html="''+employee.DesignationName | highlight: $select.search"></span>
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+
+                <br />
+                <div class="row">
+                    <div id="gridRLConf" ui-grid="gridRLConfOptions" class="grid" style="padding-left: 1%; height: 350px; width: 98.6%;" ui-grid-auto-resize ui-grid-resize-columns></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

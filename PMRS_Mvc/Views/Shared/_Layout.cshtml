@@ -1,0 +1,711 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="admin-themes-lab">
+    <meta name="author" content="themes-lab">
+    <link rel="shortcut icon" href="~/assets/images/square_banner.png" type="image/png">
+    <title>PMRS</title>
+    <link href="~/assets/css/style.css" rel="stylesheet">
+    <link href="~/assets/css/theme.css" rel="stylesheet">
+    <link href="~/assets/css/ui.css" rel="stylesheet">
+    @*<link href="~/assets/css/tooltip.css" rel="stylesheet" />*@
+    <style>
+
+        .panel-header .form-group {
+            margin-bottom: -5px;
+        }
+
+        .modal-open {
+            overflow: scroll;
+        }
+
+        .blur {
+            /* overflow: hidden; */
+            -webkit-filter: blur(13px);
+            -moz-filter: blur(13px);
+            -o-filter: blur(13px);
+            -ms-filter: blur(13px);
+            filter: blur(13px);
+        }
+
+        .LoaderStyle {
+            margin: 0px;
+            padding: 0px;
+            position: fixed;
+            right: -52%;
+            top: 40%;
+            width: 100%;
+            height: 100%;
+            z-index: 30001;
+            opacity: .8;
+            filter: alpha(opacity=70);
+        }
+    </style>
+
+
+
+    <script src="~/assets/plugins/modernizr/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    <script src="~/assets/plugins/jquery/jquery-1.11.1.min.js"></script>
+    <script src="~/Scripts/angular.js"></script>
+
+    <script src="~/AngularModules/ui-select/angular-sanitize.js"></script>
+
+
+    @*****************UI Grid*****************@
+    <script src="~/Scripts/angular-animate.js"></script>
+    <script src="~/Scripts/angular-touch.js"></script>
+
+    <script src="~/AngularModules/ui-grid/ui-grid-unstable.js"></script>
+    <link href="~/AngularModules/ui-grid/ui-grid-unstable.css" rel="stylesheet" />
+
+    <script src="~/AngularModules/ui-grid/csv.js"></script>
+    <script src="~/AngularModules/ui-grid/pdfmake.js"></script>
+    <script src="~/AngularModules/ui-grid/vfs_fonts.js"></script>
+
+    @*****************Chart*****************@
+    <link href="~/AngularModules/Chart/nv.d3.min.css" rel="stylesheet" />
+    <script src="~/AngularModules/Chart/d3.min.js"></script>
+    <script src="~/AngularModules/Chart/nv.d3.min.js"></script>
+    <script src="~/AngularModules/Chart/angular-nvd3.js"></script>
+
+    <script src="~/AngularModules/app.js"></script>
+
+    @*****************UI select*****************@
+    <link href="~/AngularModules/ui-select/select.css" rel="stylesheet" />
+    @*<link href="~/AngularModules/ui-select/select2.css" rel="stylesheet" />*@
+    <script src="~/AngularModules/ui-select/select.js"></script>
+
+
+    @*****************CK Editor*****************@
+    <script src="~/AngularModules/CkEditor/ckeditor.js"></script>
+    <script src="~/AngularModules/CkEditor/ng-ckeditor.min.js"></script>
+
+
+
+
+    <script type="text/javascript">
+        window.MyApp = {};
+        MyApp.rootPath = '@Url.Content("~/")';
+    </script>
+</head>
+<!-- LAYOUT: Apply "submenu-hover" class to body element to have sidebar submenu show on mouse hover -->
+<!-- LAYOUT: Apply "sidebar-collapsed" class to body element to have collapsed sidebar -->
+<!-- LAYOUT: Apply "sidebar-top" class to body element to have sidebar on top of the page -->
+<!-- LAYOUT: Apply "sidebar-hover" class to body element to show sidebar only when your mouse is on left / right corner -->
+<!-- LAYOUT: Apply "submenu-hover" class to body element to show sidebar submenu on mouse hover -->
+<!-- LAYOUT: Apply "fixed-sidebar" class to body to have fixed sidebar -->
+<!-- LAYOUT: Apply "fixed-topbar" class to body to have fixed topbar -->
+<!-- LAYOUT: Apply "rtl" class to body to put the sidebar on the right side -->
+<!-- LAYOUT: Apply "boxed" class to body to have your page with 1200px max width -->
+<!-- THEME STYLE: Apply "theme-sdtl" for Sidebar Dark / Topbar Light -->
+<!-- THEME STYLE: Apply  "theme sdtd" for Sidebar Dark / Topbar Dark -->
+<!-- THEME STYLE: Apply "theme sltd" for Sidebar Light / Topbar Dark -->
+<!-- THEME STYLE: Apply "theme sltl" for Sidebar Light / Topbar Light -->
+<!-- THEME COLOR: Apply "color-default" for dark color: #2B2E33 -->
+<!-- THEME COLOR: Apply "color-primary" for primary color: #319DB5 -->
+<!-- THEME COLOR: Apply "color-red" for red color: #C9625F -->
+<!-- THEME COLOR: Apply "color-green" for green color: #18A689 -->
+<!-- THEME COLOR: Apply "color-orange" for orange color: #B66D39 -->
+<!-- THEME COLOR: Apply "color-purple" for purple color: #6E62B5 -->
+<!-- THEME COLOR: Apply "color-blue" for blue color: #4A89DC -->
+<!-- BEGIN BODY -->
+<body class="fixed-topbar fixed-sidebar theme-sdtd color-primary">
+    <!--[if lt IE 7]>
+        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <section>
+        <!-- BEGIN SIDEBAR -->
+        <div class="sidebar">
+            <div class="logopanel">
+                <h1>
+                    PMRS @*<a href="dashboard.html"></a>*@
+                </h1>
+            </div>
+            <div class="sidebar-inner">
+                <div class="sidebar-top">
+
+                    @*<form action="search-result.html" method="post" class="searchform" id="search-results">
+                            <input type="text" class="form-control" name="keyword" placeholder="Search...">
+                        </form>*@
+                    @*<div class="userlogged clearfix">
+                            <i class="icon icons-faces-users-01"></i>
+                            <div class="user-details">
+                                <h4>Mike Mayers</h4>
+                                <div class="dropdown user-login">
+                                </div>
+                            </div>
+                        </div>*@
+                </div>
+                <div class="menu-title">
+                    Navigation
+                    @*<div class="pull-right menu-settings">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" data-delay="300">
+                                <i class="icon-settings"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#" id="reorder-menu" class="reorder-menu">Reorder menu</a></li>
+                                <li><a href="#" id="remove-menu" class="remove-menu">Remove elements</a></li>
+                                <li><a href="#" id="hide-top-sidebar" class="hide-top-sidebar">Hide user &amp; search</a></li>
+                            </ul>
+                        </div>*@
+                </div>
+
+                <div id="MenuList">
+                </div>
+
+                @*<ul class="nav nav-sidebar">
+                        <li><a href="dashboard.html"><i class="icon-home"></i><span data-translate="dashboard">Dashboard</span></a></li>
+                        <li class="nav-parent">
+                            <a href="#"><i class="icon-puzzle"></i><span data-translate="builder">Builder</span> <span class="fa arrow"></span></a>
+                            <ul class="children collapse">
+                                <li><a target="_blank" href="../builder/admin-builder/index.html"> Admin</a></li>
+                                <li><a href="../builder/page-builder/index.html"> Page</a></li>
+                                <li><a href="ecommerce-pricing-table.html"> Pricing Table</a></li>
+                            </ul>
+                        </li>
+                        <li class=""><a href="../frontend/one-page.html" target="_blank"><i class="fa fa-laptop"></i><span class="pull-right badge badge-primary hidden-st">New</span><span data-translate="Frontend">Frontend</span></a></li>
+                        <li class="nav-parent">
+                            <a href="#"><i class="icon-bulb"></i><span data-translate="Mailbox">Mailbox</span> <span class="fa arrow"></span></a>
+                            <ul class="children collapse">
+                                <li><a href="mailbox.html"> Inbox</a></li>
+                                <li><a href="mailbox-send.html"> Send Email</a></li>
+                                <li><a href="mailbox-emails.html"><span class="pull-right badge badge-danger">Hot</span> Email Templates</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-parent">
+                            <a href=""><i class="icon-screen-desktop"></i><span data-translate="ui elements">UI Elements</span> <span class="fa arrow"></span></a>
+                            <ul class="children collapse">
+                                <li><a href="ui-buttons.html" data-translate="buttons"> Buttons</a></li>
+                                <li><a href="ui-components.html" data-translate="components"> Components</a></li>
+                                <li class="nav-parent">
+                                    <a href="ui-buttons.html"> rty  </a>
+                                    <ul class="children collapse">
+                                        <li><a href="ui-icons.html" data-translate="icons"> Icons</a></li>
+                                        <li><a href="ui-portlets.html" data-translate="portlets"> Portlets</a></li>
+                                        <li><a href="ui-nestable-list.html" data-translate="nestable list"> Nestable List</a></li>
+                                        <li><a href="ui-tree-view.html" data-translate="tree view"> Tree View</a></li>
+                                        <li><a href="ui-modals.html" data-translate="modals"> Modals</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="ui-animations.html" data-translate="animations css3"> Animations CSS3</a></li>
+                                <li><a href="ui-icons.html" data-translate="icons"> Icons</a></li>
+                                <li><a href="ui-portlets.html" data-translate="portlets"> Portlets</a></li>
+                                <li><a href="ui-nestable-list.html" data-translate="nestable list"> Nestable List</a></li>
+                                <li><a href="ui-tree-view.html" data-translate="tree view"> Tree View</a></li>
+                                <li><a href="ui-modals.html" data-translate="modals"> Modals</a></li>
+                                <li><a href="ui-notifications.html" data-translate="notifications"> Notifications</a></li>
+                                <li><a href="ui-typography.html" data-translate="typography"> Typography</a></li>
+                                <li><a href="ui-helper.html" data-translate="helper"> Helper Classes</a></li>
+                            </ul>
+                        </li>
+                    </ul>*@
+
+
+                @*<ul class="nav nav-sidebar">
+                        <li><a href="dashboard.html"><i class="icon-home"></i><span data-translate="dashboard">Dashboard</span></a></li>
+                        <li class="nav-parent">
+                            <a href="#"><i class="icon-puzzle"></i><span data-translate="builder">Builder</span> <span class="fa arrow"></span></a>
+                            <ul class="children collapse">
+                                <li><a target="_blank" href="../builder/admin-builder/index.html"> Admin</a></li>
+                                <li><a href="../builder/page-builder/index.html"> Page</a></li>
+                                <li><a href="ecommerce-pricing-table.html"> Pricing Table</a></li>
+                            </ul>
+                        </li>
+                        <li class=""><a href="../frontend/one-page.html" target="_blank"><i class="fa fa-laptop"></i><span class="pull-right badge badge-primary hidden-st">New</span><span data-translate="Frontend">Frontend</span></a></li>
+                        <li class="nav-parent">
+                            <a href="#"><i class="icon-bulb"></i><span data-translate="Mailbox">Mailbox</span> <span class="fa arrow"></span></a>
+                            <ul class="children collapse">
+                                <li><a href="mailbox.html"> Inbox</a></li>
+                                <li><a href="mailbox-send.html"> Send Email</a></li>
+                                <li><a href="mailbox-emails.html"><span class="pull-right badge badge-danger">Hot</span> Email Templates</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-parent">
+                            <a href=""><i class="icon-screen-desktop"></i><span data-translate="ui elements">UI Elements</span> <span class="fa arrow"></span></a>
+                            <ul class="children collapse">
+                                <li><a href="ui-buttons.html" data-translate="buttons"> Buttons</a></li>
+                                <li><a href="ui-components.html" data-translate="components"> Components</a></li>
+                                <li><a href="ui-tabs.html" data-translate="tabs"> Tabs</a></li>
+                                <li><a href="ui-animations.html" data-translate="animations css3"> Animations CSS3</a></li>
+                                <li><a href="ui-icons.html" data-translate="icons"> Icons</a></li>
+                                <li><a href="ui-portlets.html" data-translate="portlets"> Portlets</a></li>
+                                <li><a href="ui-nestable-list.html" data-translate="nestable list"> Nestable List</a></li>
+                                <li><a href="ui-tree-view.html" data-translate="tree view"> Tree View</a></li>
+                                <li><a href="ui-modals.html" data-translate="modals"> Modals</a></li>
+                                <li><a href="ui-notifications.html" data-translate="notifications"> Notifications</a></li>
+                                <li><a href="ui-typography.html" data-translate="typography"> Typography</a></li>
+                                <li><a href="ui-helper.html" data-translate="helper"> Helper Classes</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-parent">
+                            <a href=""><i class="icon-layers"></i><span data-translate="layouts">Layouts</span><span class="fa arrow"></span></a>
+                            <ul class="children collapse">
+                                <li><a href="layouts-api.html" data-translate=""> Layout API</a></li>
+                                <li><a href="layout-topbar-mega-menu.html" data-translate=""> Topbar Menu</a></li>
+                                <li><a href="layout-topbar-mega-menu.html" data-translate=""> Topbar Mega Menu</a></li>
+                                <li><a href="layout-topbar-mega-menu-dark.html" data-translate=""> Topbar Mega Dark</a></li>
+                                <li><a href="layout-sidebar-top.html" data-translate=""> Sidebar on Top</a></li>
+                                <li><a href="layout-sidebar-hover.html" data-translate=""> Sidebar on Hover</a></li>
+                                <li><a href="layout-submenu-hover.html" data-translate=""> Sidebar Submenu Hover</a></li>
+                                <li><a href="layout-sidebar-condensed.html" data-translate=""> Sidebar Condensed</a></li>
+                                <li><a href="layout-sidebar-light.html" data-translate=""> Sidebar Light</a></li>
+                                <li><a href="layout-right-sidebar.html" data-translate=""> Right Sidebar</a></li>
+                                <li><a href="layout-boxed.html" data-translate=""> Boxed Layout</a></li>
+                                <li><a href="layout-collapsed-sidebar.html" data-translate=""> Collapsed Sidebar</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-parent">
+                            <a href=""><i class="icon-note"></i><span data-translate="forms">Forms </span><span class="fa arrow"></span></a>
+                            <ul class="children collapse">
+                                <li><a href="forms.html"> Forms Elements</a></li>
+                                <li><a href="forms-validation.html"> Forms Validation</a></li>
+                                <li><a href="forms-plugins.html"> Advanced Plugins</a></li>
+                                <li><a href="forms-wizard.html"> <span class="pull-right badge badge-danger">low</span> <span data-translate="form-wizard">Form Wizard</span></a></li>
+                                <li><a href="forms-sliders.html" data-translate="sliders"> Sliders</a></li>
+                                <li><a href="forms-editors.html" data-translate="text editors"> Text Editors</a></li>
+                                <li><a href="forms-input-masks.html" data-translate="input masks"> Input Masks</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-parent">
+                            <a href=""><i class="fa fa-table"></i><span data-translate="medias manager">Tables</span><span class="fa arrow"></span></a>
+                            <ul class="children collapse">
+                                <li><a href="tables.html" data-translate="tables styling"> Tables Styling</a></li>
+                                <li><a href="tables-dynamic.html" data-translate="tables dynamic"> Tables Dynamic</a></li>
+                                <li><a href="tables-filter.html" data-translate="tables filter"> Tables Filter</a></li>
+                                <li><a href="tables-editable.html" data-translate="tables editable"> Tables Editable</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-parent">
+                            <a href=""><i class="icon-bar-chart"></i><span data-translate="charts">Charts </span><span class="fa arrow"></span></a>
+                            <ul class="children collapse">
+                                <li><a href="charts.html" data-translate="image croping"> Charts</a></li>
+                                <li><a href="charts-finance.html" data-translate="gallery sortable"> Financial Charts</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-parent">
+                            <a href=""><i class="icon-picture"></i><span data-translate="medias manager">Medias</span><span class="fa arrow"></span></a>
+                            <ul class="children collapse">
+                                <li><a href="medias-image-croping.html" data-translate="image croping"> Images Croping</a></li>
+                                <li><a href="medias-gallery-sortable.html" data-translate="gallery sortable"> Gallery Sortable</a></li>
+                                <li><a href="medias-hover-effects.html" data-translate="hover effects"> <span class="pull-right badge badge-primary">12</span> Hover Effects</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-parent nav-active active">
+                            <a href=""><i class="icon-docs"></i><span data-translate="pages">Pages </span><span class="fa arrow"></span></a>
+                            <ul class="children collapse">
+                                <li><a href="page-timeline.html"> Timeline</a></li>
+                                <li><a href="page-404.html"> Error 404</a></li>
+                                <li><a href="page-500.html"> Error 500</a></li>
+                                <li class="active"><a href="page-blank.html"> Blank Page</a></li>
+                                <li><a href="page-contact.html"> Contact</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-parent">
+                            <a href=""><i class="icon-user"></i><span data-translate="pages">User </span><span class="fa arrow"></span></a>
+                            <ul class="children collapse">
+                                <li><a href="user-profil.html"> <span class="pull-right badge badge-danger">Hot</span> Profil</a></li>
+                                <li><a href="user-lockscreen.html"> Lockscreen</a></li>
+                                <li><a href="user-login-v1.html"> Login / Register</a></li>
+                                <li><a href="user-login-v2.html"> Login / Register v2</a></li>
+                                <li><a href="user-session-timeout.html"> Session Timeout</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-parent">
+                            <a href=""><i class="icon-basket"></i><span data-translate="pages">eCommerce </span><span class="fa arrow"></span></a>
+                            <ul class="children collapse">
+                                <li><a href="ecommerce-cart.html"> Shopping Cart</a></li>
+                                <li><a href="ecommerce-invoice.html"> Invoice</a></li>
+                                <li><a href="ecommerce-pricing-table.html"><span class="pull-right badge badge-success">5</span> Pricing Table</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-parent">
+                            <a href=""><i class="icon-cup"></i><span>Extra </span><span class="fa arrow"></span></a>
+                            <ul class="children collapse">
+                                <li><a href="extra-fullcalendar.html"><span class="pull-right badge badge-primary">New</span> Fullcalendar</a></li>
+                                <li><a href="extra-widgets.html"> Widgets</a></li>
+                                <li><a href="page-coming-soon.html"> Coming Soon</a></li>
+                                <li><a href="extra-sliders.html"> Sliders</a></li>
+                                <li><a href="maps-google.html"> Google Maps</a></li>
+                                <li><a href="maps-vector.html"> Vector Maps</a></li>
+                            </ul>
+                        </li>
+                    </ul>*@
+
+                <!-- SIDEBAR WIDGET FOLDERS -->
+                @*<div class="sidebar-widgets">
+                        <p class="menu-title widget-title">Folders <span class="pull-right"><a href="#" class="new-folder"> <i class="icon-plus"></i></a></span></p>
+                        <ul class="folders">
+                            <li>
+                                <a href="#"><i class="icon-doc c-primary"></i>My documents</a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="icon-picture"></i>My images</a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="icon-lock"></i>Secure data</a>
+                            </li>
+                            <li class="add-folder">
+                                <input type="text" placeholder="Folder's name..." class="form-control input-sm">
+                            </li>
+                        </ul>
+                    </div>*@
+                <div class="sidebar-footer clearfix">
+                    @*<a class="pull-left footer-settings" href="#" data-rel="tooltip" data-placement="top" data-original-title="Settings">
+                            <i class="icon-settings"></i>
+                        </a>*@
+                    <a class="pull-left toggle_fullscreen" href="#" data-rel="tooltip" data-placement="top" data-original-title="Fullscreen">
+                        <i class="icon-size-fullscreen"></i>
+                    </a>
+                    <a class="pull-left" href="/Security/UserLogin/frmChangePass" data-rel="tooltip" data-placement="top" data-original-title="Change Password">
+                        <i class="icon-lock"></i>
+                    </a>
+                    <a class="pull-left" style="background-color: red" id="signOutLink" href="#" data-rel="tooltip" data-placement="top" data-original-title="Logout">
+                        <i style="color: white" class="fa fa-power-off"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- END SIDEBAR -->
+        <div class="main-content">
+            <!-- BEGIN TOPBAR -->
+            <div class="topbar">
+                <div class="header-left">
+                    <div class="topnav">
+                        <a class="menutoggle" href="#" data-toggle="sidebar-collapsed"><span class="menu__handle"><span>Menu</span></span></a>
+                    </div>
+
+                </div>
+                <div class="header-right">
+                    <ul class="header-menu nav navbar-nav">
+                        @*<li class="dropdown">
+                            <a style="color:white">
+                                <span class="col-sm-12"> <strong>Employee Name: </strong> @Session["empName"].ToString()</span>
+                            </a>
+                        </li>*@
+                        <li class="dropdown">
+                            <a style="color:white">
+                                <span class="col-sm-12"> <strong>Designation: </strong> @Session["Designation"].ToString()</span>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a style="color:white">
+                                <span class="col-sm-12"> <strong>Department: </strong> @Session["Department"].ToString()</span>
+                            </a>
+                        </li>
+                        <!-- BEGIN NOTIFICATION DROPDOWN -->
+                        @*<li class="dropdown" id="notifications-header">
+            <a href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                <i class="icon-bell"></i>
+                <span class="badge badge-danger badge-header">6</span>
+            </a>
+            <ul class="dropdown-menu">
+                <li class="dropdown-header clearfix">
+                    <p class="pull-left">12 Pending Notifications</p>
+                </li>
+                <li>
+                    <ul class="dropdown-menu-list withScroll" data-height="220">
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-star p-r-10 f-18 c-orange"></i>
+                                Steve have rated your photo
+                                <span class="dropdown-time">Just now</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-heart p-r-10 f-18 c-red"></i>
+                                John added you to his favs
+                                <span class="dropdown-time">15 mins</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-file-text p-r-10 f-18"></i>
+                                New document available
+                                <span class="dropdown-time">22 mins</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-picture-o p-r-10 f-18 c-blue"></i>
+                                New picture added
+                                <span class="dropdown-time">40 mins</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-bell p-r-10 f-18 c-orange"></i>
+                                Meeting in 1 hour
+                                <span class="dropdown-time">1 hour</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-bell p-r-10 f-18"></i>
+                                Server 5 overloaded
+                                <span class="dropdown-time">2 hours</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-comment p-r-10 f-18 c-gray"></i>
+                                Bill comment your post
+                                <span class="dropdown-time">3 hours</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-picture-o p-r-10 f-18 c-blue"></i>
+                                New picture added
+                                <span class="dropdown-time">2 days</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown-footer clearfix">
+                    <a href="#" class="pull-left">See all notifications</a>
+                    <a href="#" class="pull-right">
+                        <i class="icon-settings"></i>
+                    </a>
+                </li>
+            </ul>
+        </li>*@
+                        <!-- END NOTIFICATION DROPDOWN -->
+                        <!-- BEGIN USER DROPDOWN -->
+                        <li class="dropdown" id="user-header">
+                            <a href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                @if (Session != null && Session["Username"] != null)
+                                {
+                                    <span> <strong>Username: </strong> @Session["Username"].ToString()</span>
+                                 
+                                }
+
+                            </a>
+                            @*<ul class="dropdown-menu">
+                <li>
+                    <a href="#"><i class="icon-user"></i><span>My Account</span></a>
+                </li>
+                <li>
+                    <a href="#"><i class="icon-settings"></i><span>Change Password</span></a>
+                </li>
+                <li>
+                    <a id="signOutLink" href="#"><i class="icon-logout"></i><span>Logout</span></a>
+                </li>
+            </ul>*@
+                        </li>
+                  
+                        <li class="dropdown" id="user-header">
+                            @if (Session != null && Session["Photo"] != null)
+                            {
+                                <img src="@Session["Photo"].ToString()" alt="Alternate Text" />
+
+                            }
+
+
+                        </li>
+                        <!-- END USER DROPDOWN -->
+                        <!-- CHAT BAR ICON -->
+                        @*<li id="quickview-toggle"><a href="#"><i class="icon-bubbles"></i></a></li>*@
+                    </ul>
+                </div>
+                <!-- header-right -->
+            </div>
+            <!-- END TOPBAR -->
+            <!-- BEGIN PAGE CONTENT -->
+            <div class="page-content">
+                <div class="header">
+                    @* <h2></h2>*@
+                    @*<div class="breadcrumb-wrapper">
+                            <ol class="breadcrumb">
+                                <li>
+                                    <a href="#">Make</a>
+                                </li>
+                                <li>
+                                    <a href="#">Forms</a>
+                                </li>
+                                <li class="active">Form Elements</li>
+                            </ol>
+                        </div>*@
+                    @* </div>*@
+                    @*<br /><br />*@
+                    <div class="row">
+                        <div class="col-lg-12">
+                            @RenderBody()
+                            <!-- HERE COMES YOUR CONTENT -->
+                        </div>
+                    </div>
+                    @*<div class="footer">
+                        <div class="copyright">
+                            <p class="pull-left">
+                                <span>Powered by <strong>Square InformatiX Ltd</strong></span>
+                            </p>
+                        </div>
+                    </div>*@
+                </div>
+                <!-- END PAGE CONTENT -->
+            </div>
+        </div>
+        <!-- END MAIN CONTENT -->
+    </section>
+
+    <!-- END QUICKVIEW SIDEBAR -->
+    <!-- BEGIN PRELOADER -->
+    <div class="loader-overlay">
+        <div class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+    </div>
+
+    <!-- END PRELOADER -->
+
+    <a href="#" class="scrollup"><i class="fa fa-angle-up"></i></a>
+    @*<script src="~/assets/plugins/jquery/jquery-1.11.1.min.js"></script>*@
+    <script src="~/assets/plugins/jquery/jquery-migrate-1.2.1.min.js"></script>
+    <script src="~/assets/plugins/jquery-ui/jquery-ui-1.11.2.min.js"></script>
+    <script src="~/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/assets/plugins/jquery-cookies/jquery.cookies.min.js"></script> <!-- Jquery Cookies, for theme -->
+    <script src="~/assets/plugins/jquery-block-ui/jquery.blockUI.min.js"></script> <!-- simulate synchronous behavior when using AJAX -->
+    @*<script src="~/assets/plugins/translate/jqueryTranslator.min.js"></script>*@ <!-- Translate Plugin with JSON data -->
+    <script src="~/assets/plugins/bootbox/bootbox.min.js"></script> <!-- Modal with Validation -->
+    <script src="~/assets/plugins/mcustom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script> <!-- Custom Scrollbar sidebar -->
+    <script src="~/assets/plugins/bootstrap-dropdown/bootstrap-hover-dropdown.min.js"></script> <!-- Show Dropdown on Mouseover -->
+    <link href="~/assets/plugins/select2/select2.css" rel="stylesheet" />
+    @*<script src="~/assets/plugins/icheck/icheck.min.js"></script> <!-- Checkbox & Radio Inputs -->*@
+    <script src="~/assets/plugins/backstretch/backstretch.min.js"></script> <!-- Background Image -->
+    <script src="~/assets/plugins/bootstrap-progressbar/bootstrap-progressbar.min.js"></script> <!-- Animated Progress Bar -->
+    <script src="~/assets/js/builder.js"></script> <!-- Theme Builder -->
+    <script src="~/assets/js/sidebar_hover.js"></script> <!-- Sidebar on Hover -->
+    <script src="~/assets/js/plugins.js"></script> <!-- Main Plugin Initialization Script -->
+    <script src="~/assets/js/application.js"></script> <!-- Main Application Script -->
+    @*****************angular-toastr*****************@
+    <link href="~/AngularModules/Toastr/toastr.css" rel="stylesheet" />
+    <script src="~/AngularModules/Toastr/toastr.js"></script>
+
+
+    @*****************angular-toastr*****************@
+    <link href="~/AngularModules/AngularDatePicker/angular-datepicker.css" rel="stylesheet" />
+    <script src="~/AngularModules/AngularDatePicker/angular-datepicker.js"></script>
+
+
+
+    @*<script src="~/assets/plugins/multidatepicker/multidatespicker.min.js"></script> <!-- Multi dates Picker -->
+        <script src="~/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script> <!-- >Bootstrap Date Picker -->*@
+    <!-- BEGIN PAGE SCRIPT -->
+    <script src="~/assets/plugins/jquery-validation/jquery.validate.js"></script> <!-- Form Validation -->
+    <script src="~/assets/plugins/jquery-validation/additional-methods.min.js"></script> <!-- Form Validation Additional Methods - OPTIONAL -->
+    <script src="~/assets/plugins/html2canvas/html2canvas.min.js"></script>
+    <script src="~/assets/plugins/html2canvas/html2canvas.svg.js"></script>
+    <script src="~/assets/plugins/JsPDF/jspdf.debug.js"></script>
+    <script src="~/assets/plugins/JsPDF/jspdf.min.js"></script>
+    <!-- END PAGE SCRIPT -->
+</body>
+</html>
+
+<script>
+    LoadMenu();
+    function LoadMenu() {
+        $.ajax({
+            url: "/Home/CreateMenu",
+            type: 'GET',
+            //contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            success: function (data) {
+               // $('#MenuList').html(data);
+                $(data).insertAfter(".menu-title");
+
+            }
+        }); //End of ajax call
+    }
+
+    //$("#MenuList").collapse({ "toggle": false, 'parent': '#navaccordion' });
+
+
+    //$("#MenuList").click(function () {
+    //$(".sidebar-inner").hover(function () {
+
+    $(".sidebar-inner").on('mouseenter mouseleave click', function (e) {
+        //alert("adsd");
+        $(".mCSB_scrollTools").show();
+        $(".mCSB_container").removeClass('mCS_no_scrollbar');
+    });
+
+    $('#signOutLink').click(function () {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("LogOut", "Home", new { Area = "" })',
+            cache: false,
+            success: function (data) {
+                window.location.replace('@Url.Action("Login", "Home", new { Area = "" })');
+            },
+            error: function () {
+            }
+        });
+    });
+
+
+
+    $('.modal-content ').draggable();
+    //var asd = $(".sidebar-inner").mCustomScrollbar("scrollTo", $('.active'));
+    //alert(asd);
+    //$(".sidebar-inner").mCustomScrollbar("scrollTo", $('.active'));
+
+
+    $(".ui-grid-spilt-header-main").css('padding-top', $(".ui-grid-header-table").height());
+    $(".top").tooltip();
+
+
+    $('legend.collapsable').parents("fieldset").find('.form-group').hide();
+    $('legend.collapsable').parents("fieldset").find('.row').hide();
+    $('legend.collapsable').parents("fieldset").css({ "height": "35px" });
+    $('legend.collapsable').click(function () {
+        if ($(this).parents("fieldset").find('.form-group').is(':visible') || $(this).parents("fieldset").find('.row').is(':visible')) {
+            $(this).parents("fieldset").find('.form-group').hide();
+            $(this).parents("fieldset").find('.row').hide();
+            $(this).parents("fieldset").css({ "height": "35px"});
+        } else {
+            $(this).parents("fieldset").find('.form-group').show();
+            $(this).parents("fieldset").find('.row').show();
+            $(this).parents("fieldset").removeAttr("style");
+        }
+        //$(this).parents("fieldset").find("*:not('legend'):not('i')").slideToggle("slow");
+        //$(this).parents("fieldset").find("*:not('legend'):not('i')").toggle();
+        if ($(this).children("i").hasClass('fa-plus-square-o')) {
+            $(this).children("i").removeClass("fa-plus-square-o").addClass("fa-minus-square-o");
+        }
+        else if ($(this).children("i").hasClass('fa-minus-square-o')) {
+            $(this).children("i").removeClass("fa-minus-square-o").addClass("fa-plus-square-o");
+        }
+
+        return false;
+    });
+
+    //$("textarea").hover(function (e) {
+    //    alert('asd');
+    //    $(this).tooltip({
+    //        content: function(callback) {
+    //            callback("hello");
+    //        },
+    //        items: '*'
+    //    }).tooltip("open");
+
+    //});
+    $(function () {
+        $(".ng-valid-maxlength").tooltip();
+    });
+    $(document).ready(function () {
+       
+        $(".ng-valid-maxlength").hover(function () {
+        if ($(this).hasClass('ng-invalid-maxlength')) {
+            $(this).css('cursor', 'pointer').attr('title', 'Character limit is exceeded.');
+        }
+            
+    }, function() {
+        $(this).css('cursor', 'auto');
+
+    });
+    });
+</script>

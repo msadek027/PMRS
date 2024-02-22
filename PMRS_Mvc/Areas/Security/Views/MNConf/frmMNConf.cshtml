@@ -1,0 +1,102 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Areas/Security/ngCode/frmMNConf.js"></script>
+
+<div ng-app="myApp" ng-controller="myCtrl">
+
+    <div class="loader ng-cloak LoaderStyle" data-loading>
+        <img src="~/assets/images/square_loading.gif" width="100px;" height="100px;" />
+    </div>
+
+    <div class="form-horizontal" ng-form="frmMNConf">
+        <div class="panel panel-default">
+            <div class="panel-header bg-aero">
+                <div class="form-group ">
+                    <div class="col-md-5">
+                        <h2 class="panel-title">
+                            <strong>{{FormTitle}}</strong>
+                        </h2>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="text-right  m-t-10">
+                            <button class="btn btn-embossed btn-primary btn-rounded" ng-click="SaveData()" ng-class="{'btn-transparent': frmMNConf.$invalid}" ng-disabled="frmMNConf.$invalid"><i class="fa fa-save"></i>&nbsp{{btnSaveValue}}</button>
+                            <button type="button" class="btn btn-embossed btn-danger btn-rounded" ng-click="Reset()"><i class="fa fa-refresh"></i>&nbsp Reset</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-content bg-light-blue">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label class="control-label input-sm required">Role Name</label>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-control form-white input-sm" id="RL_ID" ng-model="RL_ID" data-ng-options="c.ID as c.Nm for c in RLListCombo" ng-change="GetMNConfListByMHRL()" required>
+                            <option value="">Please Select</option>
+                        </select>
+                        <input type="hidden" id="uiID" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label class="control-label input-sm required">Menu Head</label>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-control form-white input-sm" id="MH_ID" ng-model="MH_ID" data-ng-options="c.ID as c.Nm for c in MHListCombo" ng-change="GetSubMenuList()" required>
+                            <option value="">Please Select</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="control-label input-sm required">Sub Menu</label>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-control form-white input-sm" id="SM_ID" ng-model="SM_ID" data-ng-options="c.ID as c.Nm for c in SMListCombo" required>
+                            <option value="">Please Select</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-1">
+                        <label class="control-label input-sm">Save</label>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="onoffswitch">
+                            <input type="checkbox" name="Sv" class="onoffswitch-checkbox input-sm" id="Sv" ng-model="Sv" ng-true-value="YES" ng-false-value="NO">
+                            <label class=" onoffswitch-label" for="Sv">
+                                <span class="onoffswitch-inner">
+                                    <span class="onoffswitch-active"><span class="onoffswitch-switch">YES</span></span>
+                                    <span class="onoffswitch-inactive"><span class="onoffswitch-switch">NO</span></span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-1">
+                        <label class="control-label input-sm">Search</label>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="onoffswitch">
+                            <input type="checkbox" name="Dl" class="onoffswitch-checkbox input-sm" id="Dl" checked ng-model="Dl" ng-true-value="YES" ng-false-value="NO">
+                            <label class="onoffswitch-label" for="Dl">
+                                <span class="onoffswitch-inner">
+                                    <span class="onoffswitch-active"><span class="onoffswitch-switch">YES</span></span>
+                                    <span class="onoffswitch-inactive"><span class="onoffswitch-switch">NO</span></span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div id="gridMNConf" ui-grid="gridMNConfOptions" class="grid" style="padding-left: 1%; height: 350px; width: 98.6%;" ui-grid-auto-resize ui-grid-resize-columns></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

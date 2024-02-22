@@ -1,0 +1,149 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Areas/PMRS/ngCode/frmPRMSRpt.js"></script>
+
+@*<script>
+    $(document).ready(function () {
+        $("#ViewRpt").on('click', function (e) {
+            if ($("#ReportName").val() === '') {
+                alert("No Report To Show");
+                return;
+            }
+        });
+    });
+</script>*@
+
+@using (Html.BeginForm("frmPRMSRpt", "PRMSReport", FormMethod.Post, new { target = "_blank", name = "H1Form", id = "H1Form" }))
+{
+
+
+    <div ng-app="myApp" ng-controller="myCtrl">
+
+        <div class="loader ng-cloak LoaderStyle" data-loading>
+            <img src="~/assets/images/square_loading.gif" width="100px;" height="100px;" />
+        </div>
+
+        <div class="form-horizontal" ng-form="frmPRMSRpt">
+
+            <div class="panel panel-default">
+                <div class="panel-header bg-aero">
+                    <div class="form-group  ">
+                        <div class="col-md-5">
+                            <h2 class="panel-title">
+                                <strong>Reports</strong>
+                            </h2>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="text-right  m-t-10">
+                                <button type="button" class="btn btn-embossed btn-danger btn-rounded" ng-click="Reset()"><i class="fa fa-refresh"></i>&nbsp Reset</button>
+                                <button type="submit" id="ViewRpt" class="btn btn-embossed btn-success btn-rounded" ng-class="{'btn-transparent': frmPRMSRpt.$invalid}" ng-disabled="frmPRMSRpt.$invalid" ng-hide="SearchPerm == 'NO'"><i class="fa fa-search"></i>&nbsp View</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-content bg-light-blue">
+                    @if (ViewBag.Msg != "")
+                    {
+                        <div class="alert alert-warning alert-dismissible">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>Warning!</strong> @ViewBag.Msg!
+                        </div>
+                    }
+
+                    <div class="row">
+                        <div class="col-md-5">
+                            <fieldset>
+                                <legend>Report List</legend>
+                                <div class="row">
+                                    <input type="text" ng-model="ReportName" id="ReportName" name="ReportName" style="display: none" />
+                                    <div id="gridReport" ui-grid="gridReportOptions" ui-grid-cell-selection ui-grid-cellNav class="grid" style="margin-left: 10px; height: 250px; width: 96%;" ui-grid-auto-resize ui-grid-resize-columns></div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-md-7">
+                            <fieldset>
+                                <legend>Perameter List</legend>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label class="control-label input-sm">Report Name</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control input-sm clickable" name="ReportName" ng-model="ReportName" readonly />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label class="control-label input-sm">From</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <datepicker date-format="dd/MM/yyyy"
+                                                    date-week-start-day="0"
+                                                    button-prev='<i class="fa fa-arrow-circle-left"></i>'
+                                                    button-next='<i class="fa fa-arrow-circle-right"></i>'>
+                                            <input id="FromDate" name="FromDate" ng-model="FromDate" type="text" placeholder="Calender" class="angular-datepicker-input form-white input-sm form-control clickable" autocomplete="off" required readonly />
+                                        </datepicker>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="control-label input-sm">To</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <datepicker date-format="dd/MM/yyyy"
+                                                    date-week-start-day="0"
+                                                    button-prev='<i class="fa fa-arrow-circle-left"></i>'
+                                                    button-next='<i class="fa fa-arrow-circle-right"></i>'>
+                                            <input id="ToDate" name="ToDate" ng-model="ToDate" type="text" placeholder="Calender" class="angular-datepicker-input form-white input-sm form-control clickable" autocomplete="off" required readonly />
+                                        </datepicker>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label class="control-label input-sm required">সংসদীয় অধিবেশন নং</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control input-sm" id="ParliamentNo" placeholder="অধিবেশন নং" name="ParliamentNo" ng-model="ParliamentNo" ng-dblclick="GetSession()" readonly>
+                                        <input type="text" ng-model="ParliamentSessionID" name="ParliamentSessionID" style="display:none;" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label class="control-label input-sm required">ফরম্যাট</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <select class="form-control form-white input-sm" id="ReportFormat" name="ReportFormat" ng-model="ReportFormat" required>
+                                            <option value="PDF" selected>PDF</option>
+                                            <option value="Word">Office Word</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="SessionModal" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="panel-content bg-light-blue">
+                        <div class="modal-header">
+                            <h2 class="panel-title">Parliament Session List</h2>
+                            <button type="button" id="modalClose" class="close" data-dismiss="modal" aria-hidden="true"><i class="icons-office-52"></i></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div id="gridSession" ui-grid="gridSessionOptions" class="grid" ui-grid-pagination style=" height: 350px; width: 100%;" ui-grid-auto-resize ui-grid-resize-columns></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+}

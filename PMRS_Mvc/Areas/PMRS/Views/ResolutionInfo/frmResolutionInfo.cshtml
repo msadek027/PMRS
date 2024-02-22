@@ -1,0 +1,659 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Areas/PMRS/ngCode/frmResolutionInfo.js"></script>
+
+<script src="~/AngularModules/CkEditor/ckeditor.js"></script>
+<script src="~/AngularModules/CkEditor/ng-ckeditor.min.js"></script>
+
+<script>
+
+    (function (e, p) {
+        var m = location.href.match(/platform=(win8|win|mac|linux|cros)/);
+        e.id = (m && m[1]) ||
+            (p.indexOf('Windows NT 6.2') > -1 ? 'win8' : p.indexOf('Windows') > -1 ? 'win' : p.indexOf('Mac') > -1 ? 'mac' : p.indexOf('CrOS') > -1 ? 'cros' : 'linux');
+        e.className = e.className.replace(/\bno-js\b/, 'js');
+    })(document.documentElement, window.navigator.userAgent)
+</script>
+
+<style>
+    #info {
+        font-size: 20px;
+    }
+
+    #div_start {
+        float: left;
+        position: relative;
+        left: 48%;
+    }
+
+    #headline {
+        text-decoration: none
+    }
+
+    #results {
+        font-size: 14px;
+        font-weight: bold;
+        border: 4px solid #525252;
+        padding: 5px 5px 5px 5px;
+        width: 85%;
+        padding: 25px;
+        text-align: left;
+        min-width: 400px;
+        min-height: 150px;
+    }
+
+    #start_button {
+        border: 0;
+        background-color: transparent;
+        padding: 0;
+    }
+
+    .interim {
+        color: gray;
+    }
+
+    .final {
+        color: black;
+        padding-right: 3px;
+    }
+
+    buttons {
+        display: none;
+    }
+
+    .marquee {
+        margin: 20px auto;
+    }
+
+    #buttons {
+        margin: 10px 0;
+        position: relative;
+        top: -50px;
+    }
+
+    #copy {
+        margin-top: 0px;
+    }
+
+        #copy > div {
+            display: none;
+            margin: 0 70px;
+        }
+
+    a.c1 {
+        font-weight: normal;
+    }
+
+    #my_button td {
+        height: 30px !important;
+    }
+
+    .button {
+        padding: 5px 8px 5px 8px;
+        border: 2px solid lightgray;
+        margin-top: 3px;
+        margin-left: 8px;
+        background-color: #494949;
+        width: auto;
+        color: white;
+        font-size: 17px;
+    }
+
+    .grey .ui-grid-cell-contents {
+        background-color: #91e085;
+    }
+
+    .blur {
+        /* overflow: hidden; */
+        -webkit-filter: blur(13px);
+        -moz-filter: blur(13px);
+        -o-filter: blur(13px);
+        -ms-filter: blur(13px);
+        filter: blur(13px);
+    }
+</style>
+
+<div ng-app="myApp" ng-controller="myCtrl">
+    <div class="loader ng-cloak LoaderStyle" data-loading>
+        <img src="~/assets/images/square_loading.gif" width="100px;" height="100px;" style="top: 50%; left: 50%;" />
+    </div>
+    <div class="form-horizontal" ng-form="frmResolutionInfo">
+        <div class="panel panel-default">
+            <div class="panel-header bg-aero">
+                <div class="form-group">
+                    <div class="col-md-5">
+                        <h2 class="panel-title">
+                            <strong>{{FormTitle}}</strong>
+                        </h2>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="text-right  m-t-10">
+                            <button type="button" class="btn btn-embossed btn-warning btn-sm" ng-hide="SearchPerm == 'NO'" ng-click="GetResolutionList()"><i class="fa fa-refresh"></i>&nbsp Pending</button>
+
+                            <button class="btn btn-embossed btn-primary btn-sm" ng-click="SaveData()" ng-class="{'btn-transparent': frmResolutionInfo.$invalid }" ng-disabled="frmResolutionInfo.$invalid" ng-hide="ViewPerm == 'NO'"><i class="fa fa-check"></i>&nbsp{{btnSaveValue}}</button>
+
+                            <button type="button" class="btn btn-embossed btn-success btn-sm" ng-hide="SearchPerm == 'NO'" ng-click="GetPostedHistoryList()"><i class="fa fa-database"></i>History</button>
+                            <button type="button" class="btn btn-embossed btn-danger btn-sm" ng-click="Reset()"><i class="fa fa-refresh"></i>&nbsp Reset</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-content bg-light-blue">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label class="control-label input-sm required">সংসদীয় অধিবেশন নং</label>
+                    </div>
+                    <div class="col-md-3">
+                        <ui-select class="form-control form-white input-sm" ng-model="frmResolutionInfo.ParliamentSession" ng-change="GetActiveMPListByParliament()" theme="select2" required>
+                            <ui-select-match placeholder="অধিবেশন নির্বাচন করুন">{{$select.selected.ParliamentNo}}</ui-select-match>
+                            <ui-select-choices repeat="session.ParliamentSessionID as session in Sessions | propsFilter: {ParliamentNo: $select.search, SessionNo: $select.search}">
+                                <div ng-bind-html="session.ParliamentNo | highlight: $select.search"></div>
+                                <small>
+                                    Parliament No:  <span ng-bind-html="''+session.ParliamentNo | highlight: $select.search"></span>  &nbsp;&nbsp;&nbsp;
+                                    Session No:  <span ng-bind-html="''+session.SessionNo | highlight: $select.search"></span>  &nbsp;&nbsp;&nbsp;
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="control-label input-sm required">সদস্যের নাম</label>
+                    </div>
+                    <div class="col-md-3">
+                        <ui-select class="form-control form-white input-sm" ng-model="frmResolutionInfo.Employee" theme="select2" required>
+                            <ui-select-match placeholder="সদস্য নির্বাচন করুন">{{$select.selected.BanglaName}}</ui-select-match>
+                            <ui-select-choices repeat="emp.UserID as emp in Employees | propsFilter: {UserName: $select.search, ConstitutentNumber: $select.search}">
+                                <div ng-bind-html="emp.BanglaName | highlight: $select.search"></div>
+                                <small>
+                                    আসন:  <span ng-bind-html="''+emp.ConstitutentBangla | highlight: $select.search"></span>  &nbsp;&nbsp;&nbsp;
+                                    আসন নং: <span ng-bind-html="''+emp.ConstitutentNumber | highlight: $select.search"></span>
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+
+                <div class="form-group ">
+                    <div class="col-md-3">
+                        <label class="control-label input-sm required">সিদ্ধান্ত প্রস্তাব</label>
+                    </div>
+                    <div class="col-md-9">
+                        <textarea ng-model="MemberResolutionDetail" data-ck-editor ng-maxlength="4000" id="MemberResolutionDetail" required></textarea>
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <div class="col-md-3">
+                        <label class="control-label input-sm required">প্রাপ্তির তারিখ</label>
+                    </div>
+                    <div class="col-md-2">
+                        <datepicker date-format="dd/MM/yyyy"
+                                    date-week-start-day="0"
+                                    button-prev=' <i class="fa fa-arrow-circle-left"></i>'
+                                    button-next='<i class="fa fa-arrow-circle-right"></i>'>
+                            <input id="MemberResolutionDate" ng-model="MemberResolutionDate" type="text" class="angular-datepicker-input form-white input-sm form-control clickable" readonly placeholder="সিদ্ধান্ত প্রস্তাবের তারিখ" required />
+                        </datepicker>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label class="control-label input-sm required">ঘন্টা</label>
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-control form-white input-sm" id="Hour" ng-model="Hour" required>
+                            <option value="01">১ AM</option>
+                            <option value="02">২ AM</option>
+                            <option value="03">৩ AM</option>
+                            <option value="04">৪ AM</option>
+                            <option value="05">৫ AM</option>
+                            <option value="06">৬ AM</option>
+                            <option value="07">৭ AM</option>
+                            <option value="08">৮ AM</option>
+                            <option value="09">৯ AM</option>
+                            <option value="10">১০ AM</option>
+                            <option value="11">১১ AM</option>
+                            <option value="12">১২ PM</option>
+                            <option value="13">১ PM</option>
+                            <option value="14">২ PM</option>
+                            <option value="15">৩ PM</option>
+                            <option value="16">৪ PM</option>
+                            <option value="17">৫ PM</option>
+                            <option value="18">৬ PM</option>
+                            <option value="19">৭ PM</option>
+                            <option value="20">৮ PM</option>
+                            <option value="21">৯ PM</option>
+                            <option value="22">১০ PM</option>
+                            <option value="23">১১ PM</option>
+                            <option value="00">১২ AM</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-1">
+                        <label class="control-label input-sm required">মিনিট</label>
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-control form-white input-sm" id="Minute" ng-model="Minute" required>
+                            <option value="01">১</option>
+                            <option value="02">২</option>
+                            <option value="03">৩</option>
+                            <option value="04">৪</option>
+                            <option value="05">৫</option>
+                            <option value="06">৬</option>
+                            <option value="07">৭</option>
+                            <option value="08">৮</option>
+                            <option value="09">৯</option>
+                            <option value="10">১০</option>
+                            <option value="11">১১</option>
+                            <option value="12">১২</option>
+                            <option value="13">১৩</option>
+                            <option value="14">১৪</option>
+                            <option value="15">১৫</option>
+                            <option value="16">১৬</option>
+                            <option value="17">১৭</option>
+                            <option value="18">১৮</option>
+                            <option value="19">১৯</option>
+                            <option value="20">২০</option>
+                            <option value="21">২১</option>
+                            <option value="22">২২</option>
+                            <option value="23">২৩</option>
+                            <option value="24">২৪</option>
+                            <option value="25">২৫</option>
+                            <option value="26">২৬</option>
+                            <option value="27">২৭</option>
+                            <option value="28">২৮</option>
+                            <option value="29">২৯</option>
+                            <option value="30">৩০</option>
+                            <option value="31">৩১</option>
+                            <option value="32">৩২</option>
+                            <option value="33">৩৩</option>
+                            <option value="34">৩৪</option>
+                            <option value="35">৩৫</option>
+                            <option value="36">৩৬</option>
+                            <option value="37">৩৭</option>
+                            <option value="38">৩৮</option>
+                            <option value="39">৩৯</option>
+                            <option value="40">৪০</option>
+                            <option value="41">৪১</option>
+                            <option value="42">৪২</option>
+                            <option value="43">৪৩</option>
+                            <option value="44">৪৪</option>
+                            <option value="45">৪৫</option>
+                            <option value="46">৪৬</option>
+                            <option value="47">৪৭</option>
+                            <option value="48">৪৮</option>
+                            <option value="49">৪৯</option>
+                            <option value="50">৫০</option>
+                            <option value="51">৫১</option>
+                            <option value="52">৫২</option>
+                            <option value="53">৫৩</option>
+                            <option value="54">৫৪</option>
+                            <option value="55">৫৫</option>
+                            <option value="56">৫৬</option>
+                            <option value="57">৫৭</option>
+                            <option value="58">৫৮</option>
+                            <option value="59">৫৯</option>
+                            <option value="00">০০</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group ">
+                    <div class="col-md-3">
+                        <label class="control-label input-sm">সিদ্ধান্ত প্রস্তাবের গ্রহনযোগ্যতা</label>
+                    </div>
+                    <div class="col-md-4">
+                        <select class="form-control form-white input-sm" id="AcceptanceComment" name="AcceptanceComment" ng-model="AcceptanceComment" required>
+                            <option value="গ্রহনযোগ্য">গ্রহনযোগ্য</option>
+                            <option value="বন্ধনীযুক্ত অংশবাদে গ্রহনযোগ্য">বন্ধনীযুক্ত অংশবাদে গ্রহনযোগ্য</option>দ
+                            <option value="সংশোধিত আকারে এবং বন্ধনীযুক্ত অংশবাদে গ্রহনযোগ্য">সংশোধিত আকারে এবং বন্ধনীযুক্ত অংশবাদে গ্রহনযোগ্য</option>
+                            <option value="সুস্পষ্ট প্রস্তাব নয় বিধায় বাতিলযোগ্য ১৩৩(১) বিধি">সুস্পষ্ট প্রস্তাব নয় বিধায় বাতিলযোগ্য ১৩৩(১) বিধি</option>
+                        </select>
+                    </div>
+                    <div class="col-md-1">
+                        <label class="control-label input-sm required">আর ডি নং</label>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" class="form-control form-white input-sm" id="RDNo" name="RDNo" ng-maxlength="100" placeholder="আর ডি নং" ng-model="RDNo">
+                    </div>
+
+
+                    <div class="col-md-2">
+                        <button type="button" class="btn btn-embossed btn-success btn-rounded" ng-click="GetVoice()"><i class="fa fa-volume-up"></i>&nbspVoice Input</button>
+                    </div>
+                </div>
+                <br />
+                <div class="form-group" ng-hide="isVisible">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+                        <button class="btn btn-embossed btn-primary btn-rounded" ng-click="addgridMemberResolutionsData()"><i class="fa fa-plus"></i>প্রস্তাব যোগ করুন</button>
+                    </div>
+                    <div class="col-md-4">
+                    </div>
+                </div>
+
+                <fieldset ng-hide="isVisible">
+                    <legend class="collapsable clickable"><i class="fa fa-plus-square-o"></i> সিদ্ধান্ত প্রস্তাব সমুহ </legend>
+                    <div class="row" style="margin-left: -2px;margin-right: -2px;">
+                        <div id="gridMemberResolutions" ui-grid="gridMemberResolutionsOptions" ui-grid-cell-selection ui-grid-cellNav ui-grid-row-edit ui-grid-edit class="grid" style=" height: 175px; width: 100%;" ui-grid-auto-resize ui-grid-resize-columns></div>
+                    </div>
+                </fieldset>
+                <br />
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label class="control-label input-sm required">স্ট্যাটাস</label>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-control form-white input-sm" id="Status" ng-model="Status" required>
+                            <option value=1>সচল</option>
+                            <option value=0>বাতিল</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label class="control-label input-sm required">প্রাপোক</label>
+                    </div>
+                    <div class="col-md-3">
+                        @*<select class="form-control form-white input-sm" id="Status" ng-model="SignTo" required>
+            <option value='' selected>নির্বাচন করুন</option>
+            <option value='DeputySec'>সহকারী সচিব</option>
+            <option value='JointSec'>যুগ্ম সচিব</option>
+            <option value='Sec'>অতিরিক্ত সচিব</option>
+            <option value='AdditionalSec'>সচিব</option>
+            <option value='Speaker'>স্পিকার</option>
+        </select>*@
+
+                        <ui-select class="form-control form-white input-sm" ng-model="frmResolutionInfo.SignTo"  theme="select2" required>
+                            <ui-select-match placeholder="নির্বাচন করুন">{{$select.selected.UserName}}</ui-select-match>
+                            <ui-select-choices repeat="session.Grade as session in WorkflowList | propsFilter: {Grade: $select.search, SessionNo: $select.search}">
+                
+                                <small>
+                                    {{session.UserName}} (<span ng-bind-html="''+session.DesignationNameBN | highlight: $select.search"></span>)  &nbsp;&nbsp;&nbsp;
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="DepartmentModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="panel-content bg-light-blue">
+                    <div class="modal-header">
+                        <h2 class="panel-title">সিদ্ধান্ত প্রস্তাবের তালিকা</h2>
+                        <button type="button" id="modalClose" class="close" data-dismiss="modal" aria-hidden="true"><i class="icons-office-52"></i></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div id="gridEmployeeInfo" ui-grid="gridDepartmentOptions" class="grid" ui-grid-pagination style=" height: 350px; width: 100%;" ui-grid-auto-resize ui-grid-resize-columns></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="DepartmentModal1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="panel-content bg-light-blue">
+                    <div class="modal-header">
+                        <h2 class="panel-title">সিদ্ধান্ত প্রস্তাবের তালিকা</h2>
+                        <button type="button" id="modalClose" class="close" data-dismiss="modal" aria-hidden="true"><i class="icons-office-52"></i></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div id="gridEmployeeInfo" ui-grid="gridDepartmentOptions1" class="grid" ui-grid-pagination style=" height: 350px; width: 100%;" ui-grid-auto-resize ui-grid-resize-columns></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="VoiceModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="panel-content bg-light-blue">
+                    <div class="modal-header">
+                        <h2 class="panel-title">বাংলায় বলুন</h2>
+                        <button type="button" id="modalClose" class="close" data-dismiss="modal" aria-hidden="true"><i class="icons-office-52"></i></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div id="div_start">
+                                <button id="start_button" onclick="startButton(event)">
+                                    <img alt="Start"
+                                         style="width:60px; height:60px;" id="start_img"
+                                         src="~/assets/images/mic.gif">
+                                </button>
+                            </div><br>
+                            <br><br>
+
+                            <div class="compact marquee">
+                                <div id="info">
+                                    <p style="font-family:cambria; font-size:21px;" id="info_start">
+                                        Click on the microphone icon and begin speaking for as long
+                                        as you like. <br><br>
+                                    </p>
+                                    <p style="font-family:cambria; font-size:21px;"
+                                       id="info_speak_now" style="display:none">
+                                        Speak now.<br><br>
+                                    </p>
+                                    <p id="info_no_speech" style="display:none">
+                                        No speech was detected. You may need to adjust your
+                                        microphone settings.
+                                    </p>
+                                    <p id="info_no_microphone" style="display:none">
+                                        No microphone was found. Ensure that a microphone is
+                                        installed and that microphone settings are configured
+                                        correctly.
+                                    </p>
+                                    <p id="info_allow" style="display:none">
+                                        Click the "Allow" button above to enable your microphone.
+                                    </p>
+                                    <p id="info_denied" style="display:none">
+                                        Permission to use microphone was denied.
+                                    </p>
+                                    <p id="info_blocked" style="display:none">
+                                        Permission to use microphone is blocked. To change, go to
+                                        chrome://settings/contentExceptions#media-stream
+                                    </p>
+                                    <p id="info_upgrade" style="display:none">
+                                        Speech Recognition is not supported by this browser. Upgrade
+                                        to <a href="//www.google.com/chrome"
+                                              target="_blank">Chrome</a> version 25 or later.
+                                    </p>
+                                </div>
+
+                                <div id="results" oncanplaythrough="playf();">
+                                    <span class="final" id="final_span" name="final_span"></span>
+                                    <span class="interim" id="interim_span"></span>
+                                </div><br>
+                            </div>
+
+
+                            <script>
+
+                                var final_transcript = '';
+                                var recognizing = false;
+                                var ignore_onend;
+                                var start_timestamp;
+                                if (!('webkitSpeechRecognition' in window)) {
+                                    upgrade();
+                                } else {
+                                    start_button.style.display = 'inline-block';
+                                    var recognition = new webkitSpeechRecognition();
+                                    recognition.continuous = true;
+                                    recognition.interimResults = true;
+
+                                    recognition.onstart = function () {
+                                        recognizing = true;
+                                        showInfo('info_speak_now');
+                                        start_img.src = '/assets/images/mic-animate.gif';
+                                    };
+
+                                    recognition.onerror = function (event) {
+                                        if (event.error == 'no-speech') {
+                                            start_img.src = '/assets/images/mic.gif';
+                                            showInfo('info_no_speech');
+                                            ignore_onend = true;
+                                        }
+                                        if (event.error == 'audio-capture') {
+                                            start_img.src = '/assets/images/mic.gif';
+                                            showInfo('info_no_microphone');
+                                            ignore_onend = true;
+                                        }
+                                        if (event.error == 'not-allowed') {
+                                            if (event.timeStamp - start_timestamp < 100) {
+                                                showInfo('info_blocked');
+                                            } else {
+                                                showInfo('info_denied');
+                                            }
+                                            ignore_onend = true;
+                                        }
+                                    };
+
+                                    recognition.onend = function () {
+                                        recognizing = false;
+                                        if (ignore_onend) {
+                                            return;
+                                        }
+                                        start_img.src = '/assets/images/mic.gif';
+                                        if (!final_transcript) {
+                                            showInfo('info_start');
+                                            return;
+                                        }
+                                        showInfo('');
+                                        if (window.getSelection) {
+                                            window.getSelection().removeAllRanges();
+                                            var range = document.createRange();
+                                            range.selectNode(document.getElementById('final_span'));
+                                            window.getSelection().addRange(range);
+                                        }
+                                    };
+
+                                    recognition.onresult = function (event) {
+                                        var interim_transcript = '';
+                                        if (typeof (event.results) == 'undefined') {
+                                            recognition.onend = null;
+                                            recognition.stop();
+                                            upgrade();
+                                            return;
+                                        }
+                                        for (var i = event.resultIndex; i < event.results.length; ++i) {
+                                            if (event.results[i].isFinal) {
+                                                final_transcript += event.results[i][0].transcript;
+                                            } else {
+                                                interim_transcript += event.results[i][0].transcript;
+                                            }
+                                        }
+                                        final_transcript = capitalize(final_transcript);
+                                        final_span.innerHTML = linebreak(final_transcript);
+                                        interim_span.innerHTML = linebreak(interim_transcript);
+
+                                        if (final_transcript || interim_transcript) {
+                                            showButtons('inline-block');
+                                        }
+                                    };
+                                }
+
+                                function upgrade() {
+                                    //start_button.style.visibility = 'hidden';
+                                    //alert("upgrade");
+                                    //showInfo('info_upgrade');
+                                }
+
+                                var two_line = /\n\n/g;
+                                var one_line = /\n/g;
+                                function linebreak(s) {
+                                    return s.replace(two_line, '<p></p>').replace(one_line, '<br>');
+                                }
+
+                                var first_char = /\S/;
+                                function capitalize(s) {
+                                    return s.replace(first_char, function (m) { return m.toUpperCase(); });
+                                }
+
+                                function copyButton() {
+                                    if (recognizing) {
+                                        recognizing = false;
+                                        recognition.stop();
+                                    }
+                                    copy_info.style.display = 'inline-block';
+                                    showInfo('');
+                                }
+
+                                function startButton(event) {
+                                    if (recognizing) {
+                                        recognition.stop();
+                                        return;
+                                    }
+                                    final_transcript = '';
+                                    recognition.lang = "bn-BD";
+                                    recognition.start();
+                                    ignore_onend = false;
+                                    final_span.innerHTML = '';
+                                    interim_span.innerHTML = '';
+                                    start_img.src = 'https://speechtyping.com/images/mic-slash.gif';
+                                    showInfo('info_allow');
+                                    showButtons('none');
+                                    start_timestamp = event.timeStamp;
+                                }
+
+                                function showInfo(s) {
+                                    if (s) {
+                                        for (var child = info.firstChild; child; child = child.nextSibling) {
+                                            if (child.style) {
+                                                child.style.display = child.id == s ? 'inline' : 'none';
+                                            }
+                                        }
+                                        info.style.visibility = 'visible';
+                                    } else {
+                                        info.style.visibility = 'hidden';
+                                    }
+                                }
+
+                                var current_style;
+                                function showButtons(style) {
+                                    if (style == current_style) {
+                                        return;
+                                    }
+                                    counter();
+                                }
+
+                                function counter() {
+                                    document.getElementById('my_button').style.visibility = "visible";
+
+                                    var value = final_transcript;
+                                    if (value.length == 0) {
+                                        document.getElementById('wordCount').innerHTML = 0;
+                                        document.getElementById('totalChars').innerHTML = 0;
+                                        document.getElementById('charCount').innerHTML = 0;
+                                        document.getElementById('charCountNoSpace').innerHTML = 0;
+                                        return;
+                                    }
+
+                                    var regex = /\s+/gi;
+                                    var wordCount = value.trim().replace(regex, ' ').split(' ').length;
+                                    var totalChars = value.length;
+                                    var charCount = value.trim().length;
+                                    var charCountNoSpace = value.replace(regex, '').length;
+                                    document.getElementById('charCountNoSpace').innerHTML = charCountNoSpace;
+                                    document.getElementById('wordCount').innerHTML = wordCount;
+                                    document.getElementById('totalChars').innerHTML = totalChars;
+                                    document.getElementById('charCount').innerHTML = charCount;
+                                }
+                            </script>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

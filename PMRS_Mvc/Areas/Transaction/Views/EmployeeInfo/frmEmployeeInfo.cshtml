@@ -1,0 +1,166 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<script src="~/Areas/Transaction/ngCode/frmEmployeeInfo.js"></script>
+
+<div ng-app="myApp" ng-controller="employeeInfoCtrl">
+    <div class="loader ng-cloak LoaderStyle" data-loading>
+        <img src="~/assets/images/square_loading.gif" width="100px;" height="100px;" style="top: 50%; left: 50%;" />
+    </div>
+    <div class="form-horizontal" ng-form="frmEmployeeInfo">
+        <div class="panel panel-default">
+            <div class="panel-header bg-aero">
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <h2 class="panel-title">
+                            <strong>{{FormTitle}}</strong>
+                        </h2>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="text-right  m-t-10">
+                            <button type="button" class="btn btn-embossed btn-success btn-rounded" ng-click="GetAllMpInfo()"><i class="fa fa-search"></i>Sync MP</button>
+                            <button type="button" class="btn btn-embossed btn-success btn-rounded" ng-click="GetAllEmpInfo()"><i class="fa fa-search"></i>Sync Employee</button>
+                            <button type="button" class="btn btn-embossed btn-success btn-rounded" ng-click="GetAllSignatures()"><i class="fa fa-search"></i>Sync Signatures</button>
+                            <button class="btn btn-embossed btn-primary btn-rounded" ng-click="SaveData()" ng-class="{'btn-transparent': frmEmployeeInfo.$invalid }" ng-disabled="frmEmployeeInfo.$invalid" ng-hide="ViewPerm == 'NO'"><i class="fa fa-save"></i>&nbsp{{btnSaveValue}}</button>
+                            <button type="button" class="btn btn-embossed btn-danger btn-rounded" ng-click="Reset()"><i class="fa fa-refresh"></i>&nbsp Reset</button>
+                            <button type="button" class="btn btn-embossed btn-success btn-rounded" ng-hide="SearchPerm == 'NO'" ng-click="GetEmployeeList()"><i class="fa fa-search"></i>&nbspSearch</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-content bg-light-blue">
+                <div class="form-group ">
+                    <div class="col-md-3">
+                        <label class="control-label input-sm required">Employee Code</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control form-white input-sm" id="EmployeeCode" placeholder="Employee Code" ng-model="EmployeeCode" required>
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <div class="col-md-3">
+                        <label class="control-label input-sm required">Employee Name</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control form-white input-sm" id="UserName" ng-maxlength="50" placeholder="Employee Name" ng-model="UserName" required>
+                        <input type="hidden" ng-model="EmployeeID" />
+                    </div>
+                    <div class="col-md-3">
+                        <label class="control-label input-sm required">Name in Bangla</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control form-white input-sm" id="BanglaName" ng-maxlength="50" placeholder="Employee Name in Bangla" ng-model="BanglaName" required>
+                    </div>
+                </div>
+
+                <div class="form-group ">
+                    <div class="col-md-3">
+                        <label class="control-label input-sm required">Father's Name</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control form-white input-sm" id="Email" name="FatherName" ng-maxlength="100" placeholder="Father's Name" ng-model="FatherName" required>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="control-label input-sm">Address</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control form-white input-sm" id="Address" ng-maxlength="500" placeholder="Address" ng-model="Address">
+                    </div>
+                </div>
+
+                <div class="form-group ">
+                    <div class="col-md-3">
+                        <label class="control-label input-sm required">Email</label>
+                    </div>
+                    @*frmEmployeeInfo.Email.$error.maxlength ||*@
+                    <div class="col-md-3" >
+                        <input type="text" class="form-control form-white input-sm" id="Email" name="Email"  placeholder="Email" ng-model="Email"  required>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="control-label input-sm">Phone No</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control form-white input-sm" id="PhoneNumber" ng-maxlength="11" placeholder="Phone No" ng-model="PhoneNumber">
+                    </div>
+                </div>
+
+                <div class="form-group ">
+                    <div class="col-md-3">
+                        <label class="control-label input-sm required">User Type</label>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-control form-white input-sm" id="UserType" ng-model="UserType" required>
+                            <option value="EMP">Employee</option>
+                            <option value="MP">MP</option>
+                        </select></div>
+
+                    <div class="col-md-3">
+                        <label class="control-label input-sm required">National ID</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control form-white input-sm" id="Nation" ng-maxlength="18"  placeholder="NID" ng-model="Nation" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label class="control-label input-sm required">Designation</label>
+                    </div>
+                    <div class="col-md-3">
+                        <ui-select class="form-control form-white input-sm" ng-model="frmEmployeeInfo.EmployeeDesignation" theme="select2" ng-disabled="disabled" required>
+                            <ui-select-match placeholder="Select a Designation">{{$select.selected.DesignationName}}</ui-select-match>
+                            <ui-select-choices repeat="designation.DesignationID as designation in Designations | propsFilter: {DesignationName: $select.search}">
+                                <div ng-bind-html="designation.DesignationName | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="control-label input-sm required">Department</label>
+                    </div>
+                    <div class="col-md-3">
+                        <ui-select class="form-control form-white input-sm" ng-model="frmEmployeeInfo.EmployeeDepartment" theme="select2" ng-disabled="disabled" required>
+                            <ui-select-match placeholder="Select a Department">{{$select.selected.DepartmentName}}</ui-select-match>
+                            <ui-select-choices repeat="department.DepartmentID as department in Departments | propsFilter: {DepartmentName: $select.search}">
+                                <div ng-bind-html="department.DepartmentName | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label class="control-label input-sm required">Status</label>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-control form-white input-sm" id="EmployeeStatus" ng-model="EmployeeStatus" required>
+                            <option value=1>Active</option>
+                            <option value=0>Inactive</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="EmployeeInfoModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="panel-content bg-light-blue">
+                    <div class="modal-header">
+                        <h2 class="panel-title">Employee List</h2>
+                        <button type="button" id="modalClose" class="close" data-dismiss="modal" aria-hidden="true"><i class="icons-office-52"></i></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div id="gridEmployeeInfo" ui-grid="gridEmployeeInfoOptions" class="grid" ui-grid-pagination style=" height: 350px; width: 100%;" ui-grid-auto-resize ui-grid-resize-columns></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
