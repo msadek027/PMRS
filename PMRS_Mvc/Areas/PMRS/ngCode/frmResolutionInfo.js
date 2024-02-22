@@ -80,10 +80,10 @@
         { name: 'MemberResolutionID', displayName: "ID", visible: false },
         { name: 'ParliamentNo', displayName: "সংসদ নং", cellFilter: "banglaNumber", width: 100 },
         { name: 'SessionNo', displayName: "অধিবেশন নং", cellFilter: "banglaNumber", width: 100 },
-        { name: 'RDNo', displayName: "আর ডি নং", width: 100,height:200 },
-        { name: 'UserName', displayName: "প্রস্তাবনা", width: 250, visible: false },
-        { name: 'BanglaName', displayName: "প্রস্তাবনা", width: 200 },
-        { name: 'html', displayName: "সিদ্ধান্ত প্রস্তাব", width: 330, cellTemplate: '<div ng-bind-html="COL_FIELD"></div>' },
+        { name: 'RDNo', displayName: "আর ডি নং", width: 100, height: 200 },
+        { name: 'UserName', displayName: "প্রস্তাবনা", width: 150, visible: false },
+        { name: 'BanglaName', displayName: "প্রস্তাবনা", width: 100 },
+        { name: 'html', displayName: "সিদ্ধান্ত প্রস্তাব", width: 530, cellTemplate: '<div ng-bind-html="COL_FIELD"></div>' },
         { name: 'MemberResolutionDetail', displayName: "Original", visible: false },
         { name: 'MemberResolutionDate', displayName: "প্রস্তাবের তারিখ", cellFilter: "FullDateWithTime", width: 150 },
         { name: 'AcceptanceComment', displayName: "গ্রহনযোগ্যতা", width: 130 },
@@ -127,7 +127,7 @@
         paginationPageSize: 10,
         columnDefs: columnDepartmentList,
         rowTemplate: rowTemplate(),
-   
+
         onRegisterApi: function (gridApi) {
             $scope.gridDepartmentOptions = gridApi;
         }
@@ -141,14 +141,15 @@
         paginationPageSizes: [10, 20, 50, 100],
         paginationPageSize: 10,
         columnDefs: columnDepartmentList1,
+        rowTemplate: rowTemplate(),
         onRegisterApi: function (gridApi) {
             $scope.gridDepartmentOptions = gridApi;
         }
     };
 
     function rowTemplate() {
-        return '<div style="hight:100px;" ng-class="{\'grey\':row.entity.EntryType===\'MP\'}" ng-dblclick="grid.appScope.rowDblClickComp(row)" >' +
-            ' <div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader }"  ui-grid-cell></div></div>';
+
+        return ' <div style="border-bottom:1px solid #D4D4D4;" ng-dblclick="grid.appScope.rowDblClickComp(row)"  ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader }"  ui-grid-cell></div>';
     }
 
 
@@ -183,18 +184,18 @@
 
 
     var columnResolutionList = [
-/*        { name: 'MemberResolutionID', displayName: "ID", visible: false },*/
+        /*        { name: 'MemberResolutionID', displayName: "ID", visible: false },*/
         { name: 'RDNo', displayName: "আর ডি নং", },
         { name: 'Html', displayName: "সিদ্ধান্ত প্রস্তাব", width: 330, cellTemplate: '<div ng-bind-html="COL_FIELD"></div>' },
         { name: 'MemberResolutionDetail', displayName: "Original", visible: false },
-        { name: 'AcceptanceComment', displayName: "গ্রহনযোগ্যতা"},
+        { name: 'AcceptanceComment', displayName: "গ্রহনযোগ্যতা" },
         { name: 'AcceptStatus', displayName: "AcceptStatus", visible: false },
         {
             name: 'UpdateAction', displayName: "সম্পাদনা", enableFiltering: false, enableSorting: false, width: 200,
             cellTemplate: '<div style="text-align:center;position: relative;width:100%;padding:2px 2px 2px 6px;"><button  class="btn btn-info btn-sm" ng-click="grid.appScope.modifyGrid(row)"><i class="fa fa-remove"></i>&nbspসম্পাদনা</button></div>'
         },
         {
-            name: 'Action', displayName: "ডিলিট",enableFiltering: false, enableSorting: false, width: 200,
+            name: 'Action', displayName: "ডিলিট", enableFiltering: false, enableSorting: false, width: 200,
             cellTemplate: '<div style="text-align:center;position: relative;width:100%;padding:2px 2px 2px 6px;"><button  class="btn btn-danger btn-sm" ng-click="grid.appScope.RemovefromGrid(row)"><i class="fa fa-remove"></i>&nbspডিলিট</button></div>'
         },
     ];
@@ -267,7 +268,7 @@
             toastr.warning("এই আর ডি নম্বর ইতিমধ্যে ব্যবহৃত হয়েছে");
             return false;
         }
-        
+
 
         $scope.gridMemberResolutionsOptions.data.push({
             RDNo: $scope.RDNo,
@@ -314,8 +315,7 @@
             return false;
         }
 
-        else if (resolutionList.length === 0 && $scope.uiID !== '')
-        {
+        else if (resolutionList.length === 0 && $scope.uiID !== '') {
             debugger;
             $scope.SaveDb.MemberResolutionID = $scope.uiID;
             $scope.SaveDb.MemberResolutionDetail = $scope.MemberResolutionDetail;
@@ -368,7 +368,7 @@
                     datatype: "json",
                     data: JSON.stringify($scope.SaveDb)
                 }).then(function (response) {
-                    if (response.data.Status === "Yes") {     
+                    if (response.data.Status === "Yes") {
                         OperationMsg(response.data.Mode);
                         $scope.Reset();
                         if (response.data.Mode !== "Unique") {
@@ -401,7 +401,7 @@
         $scope.frmResolutionInfo.Employee = undefined;
 
         $scope.Status = $scope.ActiveSts;
-    
+
         $scope.btnSaveValue = "Save";
         $scope.isVisible = "false";
     };

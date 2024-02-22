@@ -57,8 +57,8 @@
         { name: 'ResolutionApproveID', displayName: "ID", visible: false },
         { name: 'MemberResolutionID', displayName: "ID", visible: false },
         { name: 'MemberResolutionDate', displayName: "প্রস্তাবের তারিখ", cellFilter: "FullDateWithTime", width: 150 },
-        { name: 'html', displayName: "সিদ্ধান্ত প্রস্তাব", width: 330, cellTemplate: '<div ng-bind-html="COL_FIELD"></div>' },
-        { name: 'MemberResolutionDetail', displayName: "মূল প্রস্তাব", width: 150, cellTemplate: '<div ng-bind-html="COL_FIELD"></div>', visible: true },
+        { name: 'html', displayName: "সিদ্ধান্ত প্রস্তাব", width: 450, cellTemplate: '<div ng-bind-html="COL_FIELD"></div>' },
+        { name: 'MemberResolutionDetail', displayName: "মূল প্রস্তাব", width: 350, cellTemplate: '<div ng-bind-html="COL_FIELD"></div>', visible: true },
 
         { name: 'MemberResolutionFIleURL', displayName: "URL", visible: false },
         { name: 'ConstitutentBangla', displayName: "নির্বাচনী এলাকা", width: 150 },
@@ -92,7 +92,13 @@
     };
 
     function rowTemplate() {
-        return '<div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader }"  ui-grid-cell></div></div>';
+        return '<div style="border-bottom:1px solid #D4D4D4;" ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader }"  ui-grid-cell></div></div>';
+    }
+     function rowTemplateApproval() {
+        return ' <div style="border-bottom:1px solid #D4D4D4;" ng-dblclick="grid.appScope.rowDblClickCompApproval(row)"  ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader }"  ui-grid-cell></div>';
+    }
+    function rowTemplateHistoryApproval() {
+        return ' <div style="border-bottom:1px solid #D4D4D4;"   ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader }"  ui-grid-cell></div>';
     }
 
     $scope.SelectRow = function (row) {
@@ -180,8 +186,8 @@
         { name: 'ParliamentNo', displayName: "সংসদ নং", cellFilter: "banglaNumber", width: 100 },
         { name: 'SessionNo', displayName: "অধিবেশন নং", cellFilter: "banglaNumber", width: 100 },
         { name: 'MemberResolutionDate', displayName: "প্রস্তাবের তারিখ", cellFilter: "FullDateWithTime", width: 150 },
-        { name: 'html', displayName: "সিদ্ধান্ত প্রস্তাব", width: 330, cellTemplate: '<div ng-bind-html="COL_FIELD"></div>' },
-        { name: 'MemberResolutionDetail', displayName: "মূল প্রস্তাব", width: 150, cellTemplate: '<div ng-bind-html="COL_FIELD"></div>', visible: true },
+        { name: 'html', displayName: "সিদ্ধান্ত প্রস্তাব", width: 450, cellTemplate: '<div ng-bind-html="COL_FIELD"></div>' },
+        { name: 'MemberResolutionDetail', displayName: "মূল প্রস্তাব", width: 350, cellTemplate: '<div ng-bind-html="COL_FIELD"></div>', visible: true },
         { name: 'MemberResolutionFIleURL', displayName: "URL", visible: false },
         { name: 'ConstitutentBangla', displayName: "নির্বাচনী এলাকা", width: 120 },
         { name: 'ParlSessID', displayName: "Session ID", visible: false },
@@ -200,8 +206,8 @@
     var columnDepartmentList1 = [
         { name: 'MemberResolutionID', displayName: "ID", visible: false },
 
-        { name: 'html', displayName: "সিদ্ধান্ত প্রস্তাব", width: 330, cellTemplate: '<div ng-bind-html="COL_FIELD"></div>' },
-        { name: 'MemberResolutionDetail', displayName: "মূল প্রস্তাব", width: 150, cellTemplate: '<div ng-bind-html="COL_FIELD"></div>', visible: true },
+        { name: 'html', displayName: "সিদ্ধান্ত প্রস্তাব", width: 450, cellTemplate: '<div ng-bind-html="COL_FIELD"></div>' },
+        { name: 'MemberResolutionDetail', displayName: "মূল প্রস্তাব", width: 350, cellTemplate: '<div ng-bind-html="COL_FIELD"></div>', visible: true },
        { name: 'MemberResolutionFIleURL', displayName: "URL", visible: false },
         { name: 'BanglaName', displayName: "প্রস্তাবনা", width: 200 },
         { name: 'ParliamentNo', displayName: "সংসদ নং", width: 150 },
@@ -241,6 +247,7 @@
         paginationPageSizes: [10, 20, 50, 100],
         paginationPageSize: 10,
         columnDefs: columnDepartmentList1,
+        rowTemplate: rowTemplateHistoryApproval(),
         onRegisterApi: function (gridApi) {
             $scope.gridDepartmentOptions = gridApi;
         }
@@ -286,10 +293,7 @@
         });
     };
 
-    function rowTemplateApproval() {
-        return '<div ng-dblclick="grid.appScope.rowDblClickCompApproval(row)" >' +
-            ' <div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader }"  ui-grid-cell></div></div>';
-    }
+
 
     $scope.rowDblClickCompApproval = function (row) {
         $scope.Reset();
