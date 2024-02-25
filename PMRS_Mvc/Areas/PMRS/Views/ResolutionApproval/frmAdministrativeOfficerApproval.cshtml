@@ -22,7 +22,7 @@
                     <div class="col-md-7">
                         <div class="text-right  m-t-10">
                             <button type="button" class="btn btn-embossed btn-warning btn-sm" ng-click="GetWaitingListForAdministrative()"><i class="fa fa-refresh"></i>&nbsp Pending</button>
-                            @*<button type="button" class="btn btn-embossed btn-info btn-rounded" ng-click="GetDraft()"><i class="fa fa-mars-double"></i>&nbspMy Draft</button>*@
+                            <button type="button" class="btn btn-embossed btn-info btn-sm" ng-click="GetDraft()"><i class="fa fa-mars-double"></i>&nbspMy Draft</button>
                             <button type="button" class="btn btn-embossed btn-success btn-sm" ng-hide="SearchPerm == 'NO'" ng-click="GetSearchForEditAdministrativeOfficer()"><i class="fa fa-search"></i>&nbspSearch</button>
                             <button type="button" class="btn btn-embossed btn-success btn-sm" ng-hide="SearchPerm == 'NO'" ng-click="GetPostedHistoryListByAdministrativeOfficer()"><i class="fa fa-database"></i>History</button>
                             <button type="button" class="btn btn-embossed btn-primary btn-sm" ng-click="MultipleSaveData()"><i class="fa fa-check"></i>&nbsp Approve All Selected</button>
@@ -35,10 +35,10 @@
 
             <div class="panel-content bg-light-blue">
                 <div class="form-group">
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <label class="control-label input-sm required">সংসদীয় অধিবেশন নং</label>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <ui-select class="form-control form-white input-sm" ng-model="frmAdministrativeOfficerApproval.ParliamentSession" theme="select2" ng-disabled="disabled" ng-change="GetWaitingListForAdministrative()" required>
                             <ui-select-match placeholder="অধিবেশন নির্বাচন করুন">{{$select.selected.ParliamentNo}}</ui-select-match>
                             <ui-select-choices repeat="session.ParliamentSessionID as session in Sessions | propsFilter: {ParliamentNo: $select.search, SessionNo: $select.search}">
@@ -50,12 +50,14 @@
                             </ui-select-choices>
                         </ui-select>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
+                        <select class="form-control form-white input-sm" required="required" data-ng-model="DataMode" ng-change="loadDataMode()">
+                            <option value="Forward">Forward</option>
+                            <option value="Backward">Backward</option>
+                        </select>
                     </div>
-                    <div class="col-md-3">
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-3">
+
+                        <div class="col-md-2">
                             <label class="control-label input-sm required">প্রাপোক</label>
                         </div>
                         <div class="col-md-3">
@@ -68,7 +70,7 @@
                                     </small>
                                 </ui-select-choices>
                             </ui-select>
-                        </div>
+                      
                     </div>
                     <div class="row">
                         <div id="gridEmployeeInfo" ui-grid="gridResolutionOptions" class="grid" ui-grid-pagination style="padding-left: 1%; height: 700px; width: 98.6%;"  ui-grid-auto-resize ui-grid-resize-columns ></div>
@@ -213,9 +215,9 @@
                                     <div class="col-md-3">
                                         <button class="btn btn-embossed btn-primary btn-rounded" ng-click="SaveData()" ng-class="{'btn-transparent': !ApproveDetail || !frmAdministrativeOfficerApproval.AppStatus }" ng-disabled="!ApproveDetail || !frmAdministrativeOfficerApproval.AppStatus" ng-hide="ViewPerm == 'NO'"><i class="fa fa-save"></i>&nbsp{{btnSaveValue}}</button>
                                     </div>
-                                    @*<div class="col-md-3">
-                                <button class="btn btn-embossed btn-info btn-rounded" ng-click="SaveDataDraft()"><i class="fa fa-save"></i>&nbspDraft</button>
-                            </div>*@
+                                    <div class="col-md-3">
+                                    <button class="btn btn-embossed btn-info btn-rounded" ng-click="SaveDataDraft()"><i class="fa fa-save"></i>&nbspDraft</button>
+                                  </div>
                                 </div>
                             </fieldset>
                         </div>

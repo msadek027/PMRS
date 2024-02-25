@@ -151,7 +151,128 @@ namespace PMRS_Mvc.Areas.PMRS.Controllers
         }
         #endregion
 
+        #region Draft Administrative Off
+        public ActionResult DraftAdministrativeOfficer(ResolutionApproval master)
+        {
+            try
+            {
+                master.AdministrativeOfcDetail = master.AdministrativeOfcDetail;
+                master.RDNo = master.RDNo;
+                master.ParlSessID = master.ParlSessID;
+                master.AdministrativeOfcApproveStatus = "31";
 
+                if (primaryDAO.UpdateAdministrativeApproval(master))
+                {
+                    return Json(new { Code = primaryDAO.MaxCode, Mode = primaryDAO.IUMode, Status = "Yes", ID = primaryDAO.MaxID });
+                }
+                return View("frmResolutionApproval");
+            }
+            catch (Exception)
+            {
+                return View("frmResolutionApproval");
+            }
+        }
+        public ActionResult DraftAssistantSecretary(ResolutionApproval master)
+        {
+            try
+            {
+                master.AssitantSccDetail = master.AssitantSccDetail;
+                master.RDNo = master.RDNo;
+                master.ParlSessID = master.ParlSessID;
+                master.AssitantSccApproveStatus = "31";
+
+                if (primaryDAO.UpdateAssistantSecApproval(master))
+                {
+                    return Json(new { Code = primaryDAO.MaxCode, Mode = primaryDAO.IUMode, Status = "Yes", ID = primaryDAO.MaxID });
+                }
+                return View("frmResolutionApproval");
+            }
+            catch (Exception)
+            {
+                return View("frmResolutionApproval");
+            }
+        }
+        public ActionResult DraftSrAssistantSecretary(ResolutionApproval master)
+        {
+            try
+            {
+                master.SrAssitantSccDetail = master.SrAssitantSccDetail;
+                master.RDNo = master.RDNo;
+                master.ParlSessID = master.ParlSessID;
+                master.SrAssitantSccApproveStatus = "31";
+
+                if (primaryDAO.UpdateSrAssistantSecApproval(master))
+                {
+                    return Json(new { Code = primaryDAO.MaxCode, Mode = primaryDAO.IUMode, Status = "Yes", ID = primaryDAO.MaxID });
+                }
+                return View("frmResolutionApproval");
+            }
+            catch (Exception)
+            {
+                return View("frmResolutionApproval");
+            }
+        }
+        public ActionResult DraftDeputySecretary(ResolutionApproval master)
+        {
+            try
+            {
+                master.DeputySecApproveDetail = master.DeputySecApproveDetail;
+                master.RDNo = master.RDNo;
+                master.ParlSessID = master.ParlSessID;
+                master.DeputySecApproveStatus = "31";
+
+                if (primaryDAO.UpdateDeputySecretaryApproval(master))
+                {
+                    return Json(new { Code = primaryDAO.MaxCode, Mode = primaryDAO.IUMode, Status = "Yes", ID = primaryDAO.MaxID });
+                }
+                return View("frmResolutionApproval");
+            }
+            catch (Exception)
+            {
+                return View("frmResolutionApproval");
+            }
+        }
+        public ActionResult DraftAddSecretary(ResolutionApproval master)
+        {
+            try
+            {
+                master.AddSecApproveDetail = master.AddSecApproveDetail;
+                master.RDNo = master.RDNo;
+                master.ParlSessID = master.ParlSessID;
+                master.AddSecApproveStatus = "31";
+
+                if (primaryDAO.UpdateAdditionalSecretaryApproval(master))
+                {
+                    return Json(new { Code = primaryDAO.MaxCode, Mode = primaryDAO.IUMode, Status = "Yes", ID = primaryDAO.MaxID });
+                }
+                return View("frmResolutionApproval");
+            }
+            catch (Exception)
+            {
+                return View("frmResolutionApproval");
+            }
+        }
+        public ActionResult DraftSecretary(ResolutionApproval master)
+        {
+            try
+            {
+                master.SecApproveDetail = master.SecApproveDetail;
+                master.RDNo = master.RDNo;
+                master.ParlSessID = master.ParlSessID;
+                master.SecApproveStatus = "31";
+
+                if (primaryDAO.UpdateSecretaryApproval(master))
+                {
+                    return Json(new { Code = primaryDAO.MaxCode, Mode = primaryDAO.IUMode, Status = "Yes", ID = primaryDAO.MaxID });
+                }
+                return View("frmResolutionApproval");
+            }
+            catch (Exception)
+            {
+                return View("frmResolutionApproval");
+            }
+        }
+        #endregion
 
         #region Administrative Off
         public ActionResult frmAdministrativeOfficerApproval()
@@ -682,7 +803,7 @@ namespace PMRS_Mvc.Areas.PMRS.Controllers
                 if (master.SendTo == "10")
                 {
 
-                    approval.AdministrativeOfcDetail = master.AddSecApproveDetail;
+                    approval.AdministrativeOfcDetail = master.AdministrativeOfcDetail;
                     approval.RDNo = master.RDNo;
                     approval.ParlSessID = master.ParlSessID;
                     approval.AdministrativeOfcApproveStatus = "0";
@@ -764,7 +885,7 @@ namespace PMRS_Mvc.Areas.PMRS.Controllers
                 if (master.SendTo == "10")
                 {
 
-                    approval.AdministrativeOfcDetail = master.AddSecApproveDetail;
+                    approval.AdministrativeOfcDetail = master.AdministrativeOfcDetail;
                     approval.RDNo = master.RDNo;
                     approval.ParlSessID = master.ParlSessID;
                     approval.AdministrativeOfcApproveStatus = "1";

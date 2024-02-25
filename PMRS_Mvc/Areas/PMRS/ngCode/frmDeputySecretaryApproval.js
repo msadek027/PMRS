@@ -167,8 +167,9 @@
         $scope.gridDepartmentOptions.data = [];
 
         $http({
-            method: "GET",
-            url: MyApp.rootPath + "ResolutionApproval/GetDSDraft"
+            method: "POST",
+            url: MyApp.rootPath + "ResolutionApproval/GetWaitingListForDeputySecretary",
+            data: { session: $scope.frmDeputySecretaryApproval.ParliamentSession, DataMode: "Draft" }
         }).then(function (response) {
             if (response.data.length > 0) {
                 $('#DepartmentModal').modal('toggle');
@@ -472,7 +473,7 @@
         if ($scope.uiID === '' || typeof $scope.uiID === 'undefined') {
             $http({
                 method: "post",
-                url: MyApp.rootPath + "ResolutionApproval/SaveDSDraft",
+                url: MyApp.rootPath + "ResolutionApproval/DraftDeputySecretary",
                 datatype: "json",
                 data: JSON.stringify($scope.SaveDb)
             }).then(function (response) {
@@ -494,7 +495,7 @@
         } else {
             $http({
                 method: "post",
-                url: MyApp.rootPath + "ResolutionApproval/UpdateDSApproval",
+                url: MyApp.rootPath + "ResolutionApproval/DraftDeputySecretary",
                 datatype: "json",
                 data: JSON.stringify($scope.SaveDb)
             }).then(function (response) {
