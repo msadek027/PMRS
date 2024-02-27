@@ -1,7 +1,7 @@
 ﻿app.controller("myCtrl", function ($scope, $http, $filter) {
     $scope.EventPerm(18);
     $scope.btnSaveValue = "Posting";
-
+    $scope.DataMode = "Forward";
     $http({
         method: "GET",
         url: MyApp.rootPath + "ParliamentSessionInfo/GetActiveSession"
@@ -34,7 +34,7 @@
         $http({
             method: "POST",
             url: MyApp.rootPath + "ResolutionApproval/GetWaitingListForAdministrative",
-            data: { session: $scope.frmAdministrativeOfficerApproval.ParliamentSession }
+            data: { session: $scope.frmAdministrativeOfficerApproval.ParliamentSession, DataMode: $scope.DataMode }
         }).then(function (response) {
             if (response.data.length > 0) {
                 $scope.gridResolutionOptions.data = response.data;
@@ -46,7 +46,9 @@
             toastr.warning("No Data Found!");
         });
     };
-
+    $scope.loadDataMode = function () {
+        $scope.GetWaitingListForAdministrative();
+    }
     var columnResolutionList = [
         {
             field: 'selectData',
@@ -156,10 +158,10 @@
     $scope.GetDraft = function () {
 
         $scope.gridDepartmentOptions.data = [];
-
         $http({
-            method: "GET",
-            url: MyApp.rootPath + "ResolutionApproval/GetASDraft"
+            method: "POST",
+            url: MyApp.rootPath + "ResolutionApproval/GetWaitingListForAdministrative",
+            data: { session: $scope.frmAdministrativeOfficerApproval.ParliamentSession, DataMode: "Draft" }
         }).then(function (response) {
             if (response.data.length > 0) {
                 $('#DepartmentModal').modal('toggle');
@@ -332,7 +334,7 @@
         $scope.SaveDb.AdministrativeOfcApproveDate = (dt.getFullYear() + '-' + dt.getMonth() + '-' + dt.getDate());
         $scope.SaveDb.AdministrativeOfcApproveStatus = "1";
         $scope.SaveDb.SendTo = $scope.frmAdministrativeOfficerApproval.SignTo;
-
+        $scope.SaveDb.DataMode = $scope.DataMode;
         if (($scope.uiID === '' || typeof $scope.uiID === 'undefined') && $scope.SaveDb.SendTo != '' && $scope.SaveDb.SendTo != 'undefined' && $scope.SaveDb.SendTo != undefined) {
             $http({
                 method: "post",
@@ -377,6 +379,7 @@
                 $scope.SaveDb.AdministrativeOfcApproveDate = (dt.getFullYear() + '-' + dt.getMonth() + '-' + dt.getDate());
                 $scope.SaveDb.AdministrativeOfcApproveStatus = "1";
                 $scope.SaveDb.SendTo = $scope.frmAdministrativeOfficerApproval.SignTo;
+                $scope.SaveDb.DataMode = $scope.DataMode;
                 if ($scope.uiID === '' || typeof $scope.uiID === 'undefined' && $scope.SaveDb.SendTo != '' && $scope.SaveDb.SendTo != 'undefined' && $scope.SaveDb.SendTo != undefined) {
                     $http({
                         method: "post",
@@ -426,6 +429,7 @@
         $scope.SaveDb.AdministrativeOfcApproveDate = $scope.ApproveDate;
         $scope.SaveDb.AdministrativeOfcApproveStatus = $scope.frmAdministrativeOfficerApproval.AppStatus;
         $scope.SaveDb.SendTo = $scope.frmAdministrativeOfficerApproval.SignTo;
+        $scope.SaveDb.DataMode = "Forward";
         $http({
             method: "post",
             url: MyApp.rootPath + "ResolutionApproval/UpdateAdministrativeApproval",
@@ -455,15 +459,18 @@
 
         $scope.SaveDb = {};
 
+       
+
         $scope.SaveDb.ResolutionApproveID = $scope.uiID;
         $scope.SaveDb.MemberResolutionID = $scope.MemberResolutionID;
         $scope.SaveDb.RDNo = $scope.RDNo;
-
+        $scope.SaveDb.ParlSessID = $scope.frmAdministrativeOfficerApproval.ParliamentSession;
         $scope.SaveDb.AdministrativeOfcDetail = $scope.ApproveDetail;
+
 
         $http({
             method: "post",
-            url: MyApp.rootPath + "ResolutionApproval/SaveDraftAdministrativeOfficer",
+            url: MyApp.rootPath + "ResolutionApproval/DraftAdministrativeOfficer",
             datatype: "json",
             data: JSON.stringify($scope.SaveDb)
         }).then(function (response) {

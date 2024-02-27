@@ -157,8 +157,9 @@
         $scope.gridDepartmentOptions.data = [];
 
         $http({
-            method: "GET",
-            url: MyApp.rootPath + "ResolutionApproval/GetASDraft"
+            method: "POST",
+            url: MyApp.rootPath + "ResolutionApproval/GetWaitingListForAssistantSecretary",
+            data: { session: $scope.frmAssistantSecretaryApproval.ParliamentSession, DataMode: "Draft" }
         }).then(function (response) {
             if (response.data.length > 0) {
                 $('#DepartmentModal').modal('toggle');
@@ -458,12 +459,13 @@
         $scope.SaveDb.ResolutionApproveID = $scope.uiID;
         $scope.SaveDb.MemberResolutionID = $scope.MemberResolutionID;
         $scope.SaveDb.RDNo = $scope.RDNo;
+        $scope.SaveDb.ParlSessID = $scope.frmAssistantSecretaryApproval.ParliamentSession;
 
         $scope.SaveDb.AssitantSccDetail = $scope.ApproveDetail;
 
         $http({
             method: "post",
-            url: MyApp.rootPath + "ResolutionApproval/SaveASDraft",
+            url: MyApp.rootPath + "ResolutionApproval/DraftAssistantSecretary",
             datatype: "json",
             data: JSON.stringify($scope.SaveDb)
         }).then(function (response) {

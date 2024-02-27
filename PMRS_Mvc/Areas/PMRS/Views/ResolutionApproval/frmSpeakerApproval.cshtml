@@ -181,36 +181,52 @@
                                 <legend>প্রস্তাব যাচাইকরন</legend>
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <label class="control-label input-sm required">সিদ্ধান্ত প্রস্তাবের অনুমোদন</label>
+                                        <label class="control-label input-sm required">প্রাপোক</label>
                                     </div>
                                     <div class="col-md-9">
-                                        <ui-select class="form-control form-white input-sm" ng-model="frmSpeakerApproval.AppStatus" theme="select2">
-                                            <ui-select-match>{{$select.selected.Comments}}</ui-select-match>
-                                            <ui-select-choices repeat="sts.ID as sts in AprSts | propsFilter: {Comments: $select.search}">
-                                                <div ng-bind-html="sts.Comments | highlight: $select.search"></div>
+                                        <ui-select class="form-control form-white input-sm" ng-model="frmSpeakerApproval.SignTo" theme="select2" ng-init="frmSpeakerApproval.SignTo = 1" required>
+                                            <ui-select-match placeholder="নির্বাচন করুন">{{$select.selected.UserName}}</ui-select-match>
+                                            <ui-select-choices repeat="session.Grade as session in WorkflowList | propsFilter: {Grade: $select.search, SessionNo: $select.search}">
+                                                <small>
+                                                    {{session.UserName}} (<span ng-bind-html="''+session.DesignationNameBN | highlight: $select.search"></span>)  &nbsp;&nbsp;&nbsp;
+                                                </small>
                                             </ui-select-choices>
                                         </ui-select>
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <label class="control-label input-sm required">সিদ্ধান্ত প্রস্তাব সম্পাদনা</label>
-                                    </div>
-                                    <div class="col-md-9">
-                                        <textarea ck-editor class="form-control form-white input-sm" name="ApproveDetail" placeholder="সিদ্ধান্তের পক্ষে মতামত" ng-maxlength="4000" id="ApproveDetail" ng-model="ApproveDetail" required>{{ApproveDetail}}</textarea>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-3"></div>
-                                    <div class="col-md-3">
-                                        <button class="btn btn-embossed btn-primary btn-rounded" ng-click="SaveData()" ng-class="{'btn-transparent': !ApproveDetail || !frmSpeakerApproval.AppStatus }" ng-disabled="!ApproveDetail || !frmSpeakerApproval.AppStatus" ng-hide="ViewPerm == 'NO'"><i class="fa fa-save"></i>&nbsp{{btnSaveValue}}</button>
-                                    </div>
-                                    @*<div class="col-md-3">
-                                        <button class="btn btn-embossed btn-info btn-rounded" ng-click="SaveDataDraft()"><i class="fa fa-save"></i>&nbspDraft</button>
+                                    @*<div class="row">
+                                        <div class="col-md-3">
+                                            <label class="control-label input-sm required">সিদ্ধান্ত প্রস্তাবের অনুমোদন</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <ui-select class="form-control form-white input-sm" ng-model="frmSpeakerApproval.AppStatus" theme="select2">
+                                                <ui-select-match>{{$select.selected.Comments}}</ui-select-match>
+                                                <ui-select-choices repeat="sts.ID as sts in AprSts | propsFilter: {Comments: $select.search}">
+                                                    <div ng-bind-html="sts.Comments | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                        </div>
                                     </div>*@
-                                </div>
-                            </fieldset>
+
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label class="control-label input-sm required">সিদ্ধান্ত প্রস্তাব সম্পাদনা</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <textarea ck-editor class="form-control form-white input-sm" name="ApproveDetail" placeholder="সিদ্ধান্তের পক্ষে মতামত" ng-maxlength="4000" id="ApproveDetail" ng-model="ApproveDetail" required>{{ApproveDetail}}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3"></div>
+                                        <div class="col-md-3">
+                                            <button class="btn btn-embossed btn-primary btn-rounded" ng-click="SaveData()" ng-class="{'btn-transparent': !ApproveDetail || !frmSpeakerApproval.AppStatus }" ng-disabled="!ApproveDetail || !frmSpeakerApproval.AppStatus" ng-hide="ViewPerm == 'NO'"><i class="fa fa-save"></i>Acept</button>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <button class="btn btn-embossed btn-info btn-rounded" ng-click="RejectData()"><i class="fa fa-save"></i>&nbsp Reject</button>
+                </div>
+                                    </div>
+</fieldset>
                         </div>
                     </div>
                 </div>

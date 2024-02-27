@@ -2512,11 +2512,11 @@
     <Compile Include="Areas\PMRS\Controllers\PrioritySetController.cs" />
     <Compile Include="Areas\PMRS\Controllers\ResolutionApprovalController.cs" />
     <Compile Include="Areas\PMRS\Controllers\ResolutionInfoController.cs" />
-    <Compile Include="Areas\PMRS\DAO\BallotInfoDAO.cs" />
-    <Compile Include="Areas\PMRS\DAO\PrioritySetDAO.cs" />
-    <Compile Include="Areas\PMRS\DAO\PRMSReportDAO.cs" />
-    <Compile Include="Areas\PMRS\DAO\ResolutionApprovalDAO.cs" />
-    <Compile Include="Areas\PMRS\DAO\ResolutionInfoDAO.cs" />
+    <Compile Include="Areas\PMRS\Models\DAO\BallotInfoDAO.cs" />
+    <Compile Include="Areas\PMRS\Models\DAO\PrioritySetDAO.cs" />
+    <Compile Include="Areas\PMRS\Models\DAO\PRMSReportDAO.cs" />
+    <Compile Include="Areas\PMRS\Models\DAO\ResolutionApprovalDAO.cs" />
+    <Compile Include="Areas\PMRS\Models\DAO\ResolutionInfoDAO.cs" />
     <Compile Include="Areas\PMRS\PMRSAreaRegistration.cs" />
     <Compile Include="Areas\Security\Controllers\AuditTrailController.cs" />
     <Compile Include="Areas\Security\Controllers\MHController.cs" />
@@ -2849,7 +2849,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\MP\Views\Shared\" />
-    <Folder Include="Areas\PMRS\Models\" />
     <Folder Include="Areas\PMRS\Views\Shared\" />
     <Folder Include="Areas\Security\Models\" />
     <Folder Include="Areas\Security\Views\RPTConf\" />

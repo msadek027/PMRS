@@ -55,6 +55,24 @@
             toastr.warning("No Data Found!");
         });
     };
+    $scope.GetDraftResolutionList = function () {
+        $http({
+            method: "GET",
+            url: MyApp.rootPath + "ResolutionInfo/GetDraftResolutionList"
+        }).then(function (response) {
+            if (response.data.length > 0) {
+                $('#DepartmentModal').modal('toggle');
+                $scope.gridDepartmentOptions.data = response.data;
+            }
+            else {
+                toastr.warning("No Data Found!");
+            }
+        }, function () {
+            toastr.warning("No Data Found!");
+        });
+
+    };
+
     $scope.GetPostedHistoryList = function () {
         $http({
             method: "GET",
@@ -389,7 +407,76 @@
 
     };
 
+    $scope.SaveDraft = function () {
+
+        debugger;
+        var resolutionList = $scope.gridMemberResolutionsOptions.data;
+
+        $scope.SaveDb = {};
+
+        if ($scope.frmResolutionInfo.ParliamentSession === '') {
+            toastr.error("অধিবেশন নং নির্বাচন করুন");
+            return false;
+        }
+
+        if ($scope.frmResolutionInfo.Employee === '') {
+            toastr.error("মাননীয় সংসদ সদস্য নির্বাচন করুন");
+            return false;
+        }
+
+        if ($scope.MemberResolutionDate === '') {
+            toastr.error("সিদ্ধান্ত-প্রস্তাব প্রাপ্তির তারিখ দিন");
+            return false;
+        }
+
+        if ($scope.Hour === '' || $scope.Minute === '') {
+            toastr.error("সিদ্ধান্ত-প্রস্তাব প্রাপ্তির সময় উল্লেখ করুন");
+            return false;
+        }
+
+        if (resolutionList.length === 0 && ($scope.uiID === '' || typeof $scope.uiID === 'undefined')) {
+            toastr.error("কোন সিদ্ধান্ত প্রস্তাব পাওয়া যায়নি");
+            return false;
+        }
+
+        else if (resolutionList.length === 0 && $scope.uiID !== '') {
+            debugger;
+            $scope.SaveDb.MemberResolutionID = $scope.uiID;
+            $scope.SaveDb.MemberResolutionDetail = $scope.MemberResolutionDetail;
+            $scope.SaveDb.MemberResolutionDate = $scope.MemberResolutionDate + " " + $scope.Hour + ":" + $scope.Minute;
+            $scope.SaveDb.MemberResolutionFIleURL = $scope.MemberResolutionFIleURL;
+            $scope.SaveDb.RDNo = $scope.RDNo;
+            $scope.SaveDb.AcceptanceComment = $scope.AcceptanceComment;
+            $scope.SaveDb.ParlSessID = $scope.frmResolutionInfo.ParliamentSession;
+            $scope.SaveDb.UserID = $scope.frmResolutionInfo.Employee;
+            $scope.SaveDb.Status = $scope.Status;
+            $scope.SaveDb.SendTo = $scope.frmResolutionInfo.SignTo
+
+            $http({
+                method: "post",
+                url: MyApp.rootPath + "ResolutionInfo/DraftResolution",
+                datatype: "json",
+                data: JSON.stringify($scope.SaveDb)
+            }).then(function (response) {
+                if (response.data.Status === "Yes") {
+                    OperationMsg(response.data.Mode);
+                    if (response.data.Mode !== "Unique") {
+                        $scope.uiCode = response.data.ID;
+                        $scope.uiID = response.data.ID;
+                        $scope.btnSaveValue = "Update";
+
+                        location.reload();
+                    }
+                } else {
+                    toastr.error("Failed!");
+                }
+            });
+        }
+      
+
+    };
     $scope.Reset = function () {
+    
         $scope.uiID = "";
         $scope.uiCode = "";
         $scope.gridMemberResolutionsOptions.data = [];

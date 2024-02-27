@@ -38,6 +38,12 @@ namespace PMRS_Mvc.Areas.PMRS.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
+        public ActionResult GetDraftResolutionList()
+        {
+            var data = primaryDAO.GetDraftResolutionList();
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
         public ActionResult GetPostedHistoryList()
         {
             var data = primaryDAO.GetSentResolutionList();
@@ -184,7 +190,24 @@ namespace PMRS_Mvc.Areas.PMRS.Controllers
                 return View("frmResolutionInfo");
             }
         }
-
+        [HttpPost]
+        public ActionResult DraftResolution(MemberResolutionInfo master)
+        {
+            try
+            {
+               
+                master.IsDraft = true;
+                if (primaryDAO.DraftResolution(master))
+                {
+                    return Json(new { Code = primaryDAO.MaxCode, Mode = primaryDAO.IUMode, Status = "Yes", ID = primaryDAO.MaxID });
+                }
+                return View("frmResolutionInfo");
+            }
+            catch (Exception)
+            {
+                return View("frmResolutionInfo");
+            }
+        }
         [HttpPost]
         public ActionResult UpdateUpload(string ID, string filepath)
         {

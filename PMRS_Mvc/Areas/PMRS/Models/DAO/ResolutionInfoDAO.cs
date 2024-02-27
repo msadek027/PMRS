@@ -23,7 +23,38 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
                 var thList = (from t in db.MemberResolutionInfoes
                               join em in db.EmployeeInfoes on t.UserID equals em.UserID
                               join prl in db.ParliamentSessionInfoes on t.ParlSessID equals prl.ParliamentSessionID
-                              where t.Status==1 && !(from xxx in db.ResolutionApprovals select (xxx.MemberResolutionID)).Contains(t.MemberResolutionID)
+                              where t.Status == 1 && (t.IsDraft == false || t.IsDraft==null)  && !(from xxx in db.ResolutionApprovals select (xxx.MemberResolutionID)).Contains(t.MemberResolutionID)
+                              select new
+                              {
+                                  t.MemberResolutionID,
+                                  t.MemberResolutionDetail,
+                                  t.MemberResolutionDate,
+                                  html = t.MemberResolutionDetail,
+                                  t.MemberResolutionFIleURL,
+                                  t.ParlSessID,
+                                  prl.ParliamentNo,
+                                  prl.SessionNo,
+                                  t.UserID,
+                                  t.RDNo,
+                                  t.AcceptStatus,
+                                  t.EntryType,
+                                  t.AcceptanceComment,
+                                  em.UserName,
+                                  em.BanglaName,
+                                  t.Status,
+                              }).OrderByDescending(x => x.MemberResolutionID).ToList();
+                return thList;
+            }
+        }
+        public object GetDraftResolutionList()
+        {
+            using (PMRS_BcEntities db = new PMRS_BcEntities())
+            {
+
+                var thList = (from t in db.MemberResolutionInfoes
+                              join em in db.EmployeeInfoes on t.UserID equals em.UserID
+                              join prl in db.ParliamentSessionInfoes on t.ParlSessID equals prl.ParliamentSessionID
+                              where t.Status == 1 && t.IsDraft== true && !(from xxx in db.ResolutionApprovals select (xxx.MemberResolutionID)).Contains(t.MemberResolutionID)
                               select new
                               {
                                   t.MemberResolutionID,
@@ -208,7 +239,81 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
 
             return false;
         }
+        public bool DraftResolution(MemberResolutionInfo master)
+        {
+            bool isTrue = false;
+            IUMode = "U";
 
+            if (master != null)
+            {
+                try
+                {
+                    if (master.AcceptanceComment == "সুস্পষ্ট প্রস্তাব নয় বিধায় বাতিলযোগ্য ১৩৩(১) বিধি")
+                    {
+                        master.AcceptStatus = "false";
+                    }
+                    else
+                    {
+                        master.AcceptStatus = "True";
+                    }
+
+
+
+
+                    using (PMRS_BcEntities db = new PMRS_BcEntities())
+                    {
+                        var chkQry = "Select count(*) SLNO from MemberResolutionInfo where ParlSessID = " + master.ParlSessID + " AND RDNo=N'" + master.RDNo + "' AND MemberResolutionID != " + master.MemberResolutionID + " ";
+                        var rdChk = db.Database.SqlQuery<int>(chkQry).First();
+
+                        if (Convert.ToInt32(rdChk) > 0)
+                        {
+                            IUMode = "Unique";
+                            return true;
+                        }
+                        else
+                        {
+                            db.MemberResolutionInfoes.Attach(master);
+
+                            var entry = db.Entry(master);
+                            entry.State = EntityState.Modified;
+
+                            entry.Property(e => e.MemberResolutionDetail).IsModified = true;
+                            entry.Property(e => e.MemberResolutionFIleURL).IsModified = true;
+                            entry.Property(e => e.ParlSessID).IsModified = true;
+                            entry.Property(e => e.UserID).IsModified = true;
+                            entry.Property(e => e.AcceptanceComment).IsModified = true;
+                            entry.Property(e => e.Status).IsModified = true;
+                            entry.Property(e => e.AcceptStatus).IsModified = true;
+                            entry.Property(e => e.RDNo).IsModified = true;
+
+                            entry.Property(e => e.ResolutionSLNo).IsModified = false;
+                            entry.Property(e => e.EntryType).IsModified = false;
+                            entry.Property(e => e.MemberResolutionDate).IsModified = false;
+
+                            entry.Property(e => e.IsDraft).IsModified = true;
+
+                            db.SaveChanges();
+
+                            isTrue = true;
+                            MaxCode = master.MemberResolutionID.ToString();
+                            MaxID = master.MemberResolutionID.ToString();
+
+                            _adt.InsertAudit("frmResolutionInfo", "MemberResolutionInfo", IUMode, "", master.MemberResolutionID);
+                            return isTrue;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    if (ex.InnerException.InnerException.Message.Contains("UNIQUE"))
+                    {
+                        IUMode = "Unique";
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
         public bool UpdateResolution(MemberResolutionInfo master)
         {
             bool isTrue = false;
