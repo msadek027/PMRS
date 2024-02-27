@@ -1,7 +1,7 @@
 ﻿app.controller("myCtrl", function ($scope, $http, $filter) {
     $scope.EventPerm(18);
     $scope.btnSaveValue = "Posting";
-
+    $scope.DataMode = "Forward";
     $http({
         method: "GET",
         url: MyApp.rootPath + "ParliamentSessionInfo/GetActiveSession"
@@ -33,7 +33,7 @@
         $http({
             method: "POST",
             url: MyApp.rootPath + "ResolutionApproval/GetWatingListForSrAssistantSecretary",
-            data: { session: $scope.frmSrAssistantSecretaryApproval.ParliamentSession }
+            data: { session: $scope.frmSrAssistantSecretaryApproval.ParliamentSession, DataMode: $scope.DataMode }
         }).then(function (response) {
             if (response.data.length > 0) {
                 $scope.gridResolutionOptions.data = response.data;
@@ -45,7 +45,9 @@
             toastr.warning("No Data Found!");
         });
     };
-
+    $scope.loadDataMode = function () {
+        $scope.GetWatingListForSrAssistantSecretary();
+    }
     var columnResolutionList = [
         {
             field: 'selectData',
@@ -93,6 +95,12 @@
 
     function rowTemplate() {
         return '<div style="border-bottom:1px solid #D4D4D4;" ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader }"  ui-grid-cell></div></div>';
+    }
+     function rowTemplateApproval() {
+        return ' <div style="border-bottom:1px solid #D4D4D4;" ng-dblclick="grid.appScope.rowDblClickCompApproval(row)"  ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader }"  ui-grid-cell></div>';
+    }
+    function rowTemplateHistoryApproval() {
+        return ' <div style="border-bottom:1px solid #D4D4D4;"   ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader }"  ui-grid-cell></div>';
     }
 
     $scope.SelectRow = function (row) {
@@ -203,13 +211,13 @@
         { name: 'RDNo', displayName: "আর ডি নং", width: 100 },
         { name: 'html', displayName: "সিদ্ধান্ত প্রস্তাব", width: 450, cellTemplate: '<div ng-bind-html="COL_FIELD"></div>' },
         { name: 'MemberResolutionDetail', displayName: "মূল প্রস্তাব", width: 350, cellTemplate: '<div ng-bind-html="COL_FIELD"></div>', visible: true },
-        { name: 'MemberResolutionFIleURL', displayName: "URL", visible: false },
+       { name: 'MemberResolutionFIleURL', displayName: "URL", visible: false },
         { name: 'BanglaName', displayName: "প্রস্তাবনা", width: 200 },
         { name: 'ParliamentNo', displayName: "সংসদ নং", width: 150 },
         { name: 'SessionNo', displayName: "অধিবেশন নং", width: 150 },
         { name: 'AcceptanceComment', displayName: "Acceptance Comment", visible: false },
         { name: 'UserName', displayName: "প্রস্তাবনা", width: 250, visible: false },
-
+ 
         { name: 'MemberResPriority', displayName: "প্রায়োরিটি", width: 150, visible: false },
         { name: 'Status', displayName: "Status", width: 150, visible: false },
         { name: 'AdministrativeOfcSignature', displayName: "প্রশাসনিক কর্মকর্তা", width: 120, cellTemplate: '<img src="{{row.entity.AdministrativeOfcSignature}}" alt="Not Signed" width="200">' },
@@ -242,6 +250,7 @@
         paginationPageSizes: [10, 20, 50, 100],
         paginationPageSize: 10,
         columnDefs: columnDepartmentList1,
+        rowTemplate: rowTemplateHistoryApproval(),
         onRegisterApi: function (gridApi) {
             $scope.gridDepartmentOptions = gridApi;
         }
@@ -286,9 +295,8 @@
             toastr.warning("No Data Found!");
         });
     };
-    function rowTemplateApproval() {
-        return ' <div style="border-bottom:1px solid #D4D4D4;" ng-dblclick="grid.appScope.rowDblClickCompApproval(row)"  ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader }"  ui-grid-cell></div>';
-    }
+
+
 
     $scope.rowDblClickCompApproval = function (row) {
         $scope.Reset();
@@ -324,11 +332,12 @@
         $scope.SaveDb.MemberResolutionID = row.entity.MemberResolutionID;
         $scope.SaveDb.RDNo = row.entity.RDNo;
         $scope.SaveDb.ParlSessID = row.entity.ParlSessID;
-
+     
         $scope.SaveDb.SrAssitantSccDetail = (row.entity.html == '' || row.entity.html == null || row.entity.html == "null") ? row.entity.MemberResolutionDetail : row.entity.html;
         $scope.SaveDb.SrAssitantSccApproveDate = (dt.getFullYear() + '-' + dt.getMonth() + '-' + dt.getDate());
         $scope.SaveDb.SrAssitantSccApproveStatus = "1";
         $scope.SaveDb.SendTo = $scope.frmSrAssistantSecretaryApproval.SignTo;
+        $scope.SaveDb.DataMode = $scope.DataMode;
         if ($scope.uiID === '' || typeof $scope.uiID === 'undefined' && $scope.SaveDb.SendTo != '' && $scope.SaveDb.SendTo != 'undefined' && $scope.SaveDb.SendTo != undefined) {
             $http({
                 method: "post",
@@ -373,6 +382,7 @@
                 $scope.SaveDb.SrAssitantSccApproveDate = (dt.getFullYear() + '-' + dt.getMonth() + '-' + dt.getDate());
                 $scope.SaveDb.SrAssitantSccApproveStatus = "1";
                 $scope.SaveDb.SendTo = $scope.frmSrAssistantSecretaryApproval.SignTo;
+                $scope.SaveDb.DataMode = $scope.DataMode;
                 if ($scope.uiID === '' || typeof $scope.uiID === 'undefined' && $scope.SaveDb.SendTo != '' && $scope.SaveDb.SendTo != 'undefined' && $scope.SaveDb.SendTo != undefined) {
                     $http({
                         method: "post",
@@ -422,7 +432,7 @@
         $scope.SaveDb.SrAssitantSccApproveStatus = $scope.frmSrAssistantSecretaryApproval.AppStatus;
 
         $scope.SaveDb.SendTo = $scope.frmSrAssistantSecretaryApproval.SignTo;
-
+        $scope.SaveDb.DataMode = $scope.DataMode;
         $http({
             method: "post",
             url: MyApp.rootPath + "ResolutionApproval/UpdateSrAssistantSecApproval",

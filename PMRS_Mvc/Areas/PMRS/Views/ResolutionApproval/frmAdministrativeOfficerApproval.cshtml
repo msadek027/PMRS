@@ -16,14 +16,14 @@
                 <div class="form-group">
                     <div class="col-md-5">
                         <h2 class="panel-title">
-                            <strong>Administrative Officer Approval</strong>
+                            <strong>প্রশাসনিক কর্মকর্তার অনুমোদন</strong>
                         </h2>
                     </div>
                     <div class="col-md-7">
                         <div class="text-right  m-t-10">
 
                             <button type="button" class="btn btn-embossed btn-warning btn-sm" ng-click="GetWaitingListForAdministrative()"><i class="fa fa-refresh"></i>&nbsp বিচারাধীন</button>
-                            <button type="button" class="btn btn-embossed btn-info btn-sm" ng-click="GetDraft()"><i class="fa fa-mars-double"></i>&nbspMy Draft</button>
+                            <button type="button" class="btn btn-embossed btn-info btn-sm" ng-click="GetDraft()"><i class="fa fa-mars-double"></i>&nbsp খসড়া</button>
                             <button type="button" class="btn btn-embossed btn-success btn-sm" ng-hide="SearchPerm == 'NO'" ng-click="GetSearchForEditAdministrativeOfficer()"><i class="fa fa-search"></i>&nbsp অনুসন্ধান</button>
                             <button type="button" class="btn btn-embossed btn-success btn-sm" ng-hide="SearchPerm == 'NO'" ng-click="GetPostedHistoryListByAdministrativeOfficer()"><i class="fa fa-database"></i>রেকর্ড</button>
                             <button type="button" class="btn btn-embossed btn-primary btn-sm" ng-click="MultipleSaveData()"><i class="fa fa-check"></i>&nbsp সমস্ত নির্বাচিত অনুমোদন করুন</button>
@@ -124,125 +124,128 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="panel-content bg-light-blue">
-                    <div class="modal-header">
-                        <h2 class="panel-title">সিদ্ধান্ত প্রস্তাবের বিবরন</h2>
-                        <button type="button" id="modalClose" class="close" data-dismiss="modal" aria-hidden="true"><i class="icons-office-52"></i></button>
+               
+                            <div class="modal-header">
+                                <h2 class="panel-title">সিদ্ধান্ত প্রস্তাবের বিবরন</h2>
+                                <button type="button" id="modalClose" class="close" data-dismiss="modal" aria-hidden="true"><i class="icons-office-52"></i></button>
+                            </div>
+                
+
+                            <div class="modal-body">
+                        
+                                    <div class="text-right  m-t-10">
+                                        <button class="btn btn-embossed btn-primary btn-rounded" ng-click="SaveData()" ng-class="{'btn-transparent': !ApproveDetail || !frmAdministrativeOfficerApproval.AppStatus }" ng-disabled="!ApproveDetail || !frmAdministrativeOfficerApproval.AppStatus" ng-hide="ViewPerm == 'NO'"><i class="fa fa-save"></i>&nbsp পাঠান</button>
+                                        <button class="btn btn-embossed btn-info btn-rounded" ng-click="SaveDataDraft()"><i class="fa fa-save"></i>&nbsp খসড়া</button>
+                                    </div>
+                             
+                                    <div class="row">
+                                        <fieldset>
+                                            <legend>প্রস্তাব উত্থাপন</legend>
+                                            <div class="row">
+                                                <input type="hidden" id="MemberResolutionID" ng-model="MemberResolutionID">
+                                                <input type="hidden" ng-model="uiID" />
+                                                <div class="col-md-3">
+                                                    <label class="control-label input-sm">আর ডি নং</label>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <input type="text" class="form-control input-sm" id="RDNo" name="RDNo" ng-maxlength="100" placeholder="আর ডি নং" ng-model="RDNo" disabled>
+                                                </div>
+
+                                                <div class="col-md-3">
+                                                    <label class="control-label input-sm required">সদস্যের নাম</label>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <input type="text" class="form-control input-sm" id="UserName" ng-maxlength="500" placeholder="সংসদ সদস্যের নাম" ng-model="UserName" disabled>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label class="control-label input-sm">সিদ্ধান্ত প্রস্তাবের তারিখ</label>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <datepicker date-format="dd/MM/yyyy"
+                                                                date-week-start-day="0"
+                                                                button-prev='
+                                        <i class="fa fa-arrow-circle-left"></i>'
+                                        button-next='<i class="fa fa-arrow-circle-right"></i>'>
+                                        <input id="MemberResolutionDate" ng-model="MemberResolutionDate" type="text" class="angular-datepicker-input input-sm form-control clickable" placeholder="সিদ্ধান্ত প্রস্তাবের তারিখ" readonly disabled />
+                                    </datepicker>
+                                                </div>
+
+                                                <div class="col-md-3">
+                                                    <label class="control-label input-sm">গ্রহনযোগ্যতার মতামত</label>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <input type="text" class="form-control input-sm" id="AcceptanceComment" name="AcceptanceComment" ng-maxlength="100" placeholder="গ্রহনযোগ্যতার মতামত" ng-model="AcceptanceComment" disabled>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label class="control-label input-sm required">সিদ্ধান্ত প্রস্তাব</label>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <div class="form-control" style="border: #319db5 solid 1px" ng-bind-html="MemberResolutionDetail" ng-model="MemberResolutionDetail" cols="50" rows="10">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                        @*<fieldset>
+                    <legend class="collapsable clickable"><i class="fa fa-plus-square-o"></i>সিদ্ধান্ত প্রস্তাবের সম্পাদনা</legend>
+                    <div class="row" style="margin-left: -2px;margin-right: -2px;">
+                        <div id="gridMemberResolutions" ui-grid="gridMemberResolutionsOptions" ui-grid-cell-selection ui-grid-cellnav ui-grid-row-edit ui-grid-edit class="grid" style=" height: 175px; width: 100%;" ui-grid-auto-resize ui-grid-resize-columns></div>
                     </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <fieldset>
-                                <legend>প্রস্তাব উত্থাপন</legend>
-                                <div class="row">
-                                    <input type="hidden" id="MemberResolutionID" ng-model="MemberResolutionID">
-                                    <input type="hidden" ng-model="uiID" />
-                                    <div class="col-md-3">
-                                        <label class="control-label input-sm">আর ডি নং</label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <input type="text" class="form-control input-sm" id="RDNo" name="RDNo" ng-maxlength="100" placeholder="আর ডি নং" ng-model="RDNo" disabled>
-                                    </div>
+                </fieldset>*@
+                                        <fieldset>
+                                            <legend>প্রস্তাব যাচাইকরন</legend>
 
-                                    <div class="col-md-3">
-                                        <label class="control-label input-sm required">সদস্যের নাম</label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <input type="text" class="form-control input-sm" id="UserName" ng-maxlength="500" placeholder="সংসদ সদস্যের নাম" ng-model="UserName" disabled>
-                                    </div>
-                                </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label class="control-label input-sm required">প্রাপোক</label>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <ui-select class="form-control form-white input-sm" ng-model="frmAdministrativeOfficerApproval.SignTo" theme="select2" required>
+                                                        <ui-select-match placeholder="নির্বাচন করুন">{{$select.selected.UserName}}</ui-select-match>
+                                                        <ui-select-choices repeat="session.Grade as session in WorkflowList | propsFilter: {Grade: $select.search, SessionNo: $select.search}">
 
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <label class="control-label input-sm">সিদ্ধান্ত প্রস্তাবের তারিখ</label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <datepicker date-format="dd/MM/yyyy"
-                                                    date-week-start-day="0"
-                                                    button-prev='
-                                            <i class="fa fa-arrow-circle-left"></i>'
-                                            button-next='<i class="fa fa-arrow-circle-right"></i>'>
-                                            <input id="MemberResolutionDate" ng-model="MemberResolutionDate" type="text" class="angular-datepicker-input input-sm form-control clickable" placeholder="সিদ্ধান্ত প্রস্তাবের তারিখ" readonly disabled />
-                                        </datepicker>
-                                    </div>
+                                                            <small>
+                                                                {{session.UserName}} (<span ng-bind-html="''+session.DesignationNameBN | highlight: $select.search"></span>)  &nbsp;&nbsp;&nbsp;
+                                                            </small>
+                                                        </ui-select-choices>
+                                                    </ui-select>
 
-                                    <div class="col-md-3">
-                                        <label class="control-label input-sm">গ্রহনযোগ্যতার মতামত</label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <input type="text" class="form-control input-sm" id="AcceptanceComment" name="AcceptanceComment" ng-maxlength="100" placeholder="গ্রহনযোগ্যতার মতামত" ng-model="AcceptanceComment" disabled>
-                                    </div>
-                                </div>
+                                                </div>
+                                            </div>
 
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <label class="control-label input-sm required">সিদ্ধান্ত প্রস্তাব</label>
-                                    </div>
-                                    <div class="col-md-9">
-                                        <div class="form-control" style="border: #319db5 solid 1px" ng-bind-html="MemberResolutionDetail" ng-model="MemberResolutionDetail" cols="50" rows="10">
-                                        </div>
-                                    </div>
-                                </div>
-                            </fieldset>
-                            <fieldset>
-                                <legend class="collapsable clickable"><i class="fa fa-plus-square-o"></i>সিদ্ধান্ত প্রস্তাবের সম্পাদনা</legend>
-                                <div class="row" style="margin-left: -2px;margin-right: -2px;">
-                                    <div id="gridMemberResolutions" ui-grid="gridMemberResolutionsOptions" ui-grid-cell-selection ui-grid-cellnav ui-grid-row-edit ui-grid-edit class="grid" style=" height: 175px; width: 100%;" ui-grid-auto-resize ui-grid-resize-columns></div>
-                                </div>
-                            </fieldset>
-                            <fieldset>
-                                <legend>প্রস্তাব যাচাইকরন</legend>
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <label class="control-label input-sm required">প্রাপোক</label>
-                                    </div>
-                                    <div class="col-md-9">
-                                        <ui-select class="form-control form-white input-sm" ng-model="frmAdministrativeOfficerApproval.SignTo" theme="select2" required>
-                                            <ui-select-match placeholder="নির্বাচন করুন">{{$select.selected.UserName}}</ui-select-match>
-                                            <ui-select-choices repeat="session.Grade as session in WorkflowList | propsFilter: {Grade: $select.search, SessionNo: $select.search}">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label class="control-label input-sm required">সিদ্ধান্ত প্রস্তাবের যাচাইকরন</label>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <ui-select class="form-control form-white input-sm" ng-model="frmAdministrativeOfficerApproval.AppStatus" theme="select2">
+                                                        <ui-select-match>{{$select.selected.Comments}}</ui-select-match>
+                                                        <ui-select-choices repeat="sts.ID as sts in AprSts | propsFilter: {Comments: $select.search}">
+                                                            <div ng-bind-html="sts.Comments | highlight: $select.search"></div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                </div>
+                                            </div>
 
-                                                <small>
-                                                    {{session.UserName}} (<span ng-bind-html="''+session.DesignationNameBN | highlight: $select.search"></span>)  &nbsp;&nbsp;&nbsp;
-                                                </small>
-                                            </ui-select-choices>
-                                        </ui-select>
+                                            <div class="row">
 
+                                                <div class="col-md-3">
+                                                    <label class="control-label input-sm required">সিদ্ধান্ত প্রস্তাব সম্পাদনা</label>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <textarea ck-editor class="form-control form-white input-sm" name="ApproveDetail" placeholder="সিদ্ধান্তের পক্ষে মতামত" ng-maxlength="4000" id="ApproveDetail" ng-model="ApproveDetail" required>{{ApproveDetail}}</textarea>
+                                                </div>
+                                            </div>
+
+                                        </fieldset>
                                     </div>
-                                </div>
-
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label class="control-label input-sm required">সিদ্ধান্ত প্রস্তাবের যাচাইকরন</label>
                             </div>
-                            <div class="col-md-9">
-                                <ui-select class="form-control form-white input-sm" ng-model="frmAdministrativeOfficerApproval.AppStatus" theme="select2">
-                                    <ui-select-match>{{$select.selected.Comments}}</ui-select-match>
-                                    <ui-select-choices repeat="sts.ID as sts in AprSts | propsFilter: {Comments: $select.search}">
-                                        <div ng-bind-html="sts.Comments | highlight: $select.search"></div>
-                                    </ui-select-choices>
-                                </ui-select>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label class="control-label input-sm required">সিদ্ধান্ত প্রস্তাব সম্পাদনা</label>
-                            </div>
-                            <div class="col-md-9">
-                                <textarea ck-editor class="form-control form-white input-sm" name="ApproveDetail" placeholder="সিদ্ধান্তের পক্ষে মতামত" ng-maxlength="4000" id="ApproveDetail" ng-model="ApproveDetail" required>{{ApproveDetail}}</textarea>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3"></div>
-                            <div class="col-md-3">
-                                <button class="btn btn-embossed btn-primary btn-rounded" ng-click="SaveData()" ng-class="{'btn-transparent': !ApproveDetail || !frmAdministrativeOfficerApproval.AppStatus }" ng-disabled="!ApproveDetail || !frmAdministrativeOfficerApproval.AppStatus" ng-hide="ViewPerm == 'NO'"><i class="fa fa-save"></i>&nbsp{{btnSaveValue}}</button>
-                            </div>
-                            <div class="col-md-3">
-                                <button class="btn btn-embossed btn-info btn-rounded" ng-click="SaveDataDraft()"><i class="fa fa-save"></i>&nbspDraft</button>
-                            </div>
-                        </div>
-                        </fieldset>
-                    </div>
-                    </div>
-                </div>
+</div>
             </div>
         </div>
     </div>

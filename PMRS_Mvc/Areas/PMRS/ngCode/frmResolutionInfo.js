@@ -115,7 +115,7 @@
 
     var columnDepartmentList1 = [
         { name: 'MemberResolutionID', displayName: "ID", visible: false },
-        { name: 'RDNo', displayName: "আর ডি নং", width: 100 },
+
         { name: 'MemberResolutionDetail', displayName: "সিদ্ধান্ত প্রস্তাব", width: 380, cellTemplate: '<div ng-bind-html="COL_FIELD"></div>' },
         { name: 'MemberResolutionFIleURL', displayName: "URL", visible: false },
         { name: 'BanglaName', displayName: "প্রস্তাবনা", width: 200 },
@@ -123,7 +123,7 @@
         { name: 'SessionNo', displayName: "অধিবেশন নং", width: 150 },
         { name: 'AcceptanceComment', displayName: "Acceptance Comment", visible: false },
         { name: 'UserName', displayName: "প্রস্তাবনা", width: 250, visible: false },
-
+        { name: 'RDNo', displayName: "আর ডি নং", width: 100, visible: false },
         { name: 'MemberResPriority', displayName: "প্রায়োরিটি", width: 150, visible: false },
         { name: 'Status', displayName: "Status", width: 150, visible: false },
         { name: 'AdministrativeOfcSignature', displayName: "প্রশাসনিক কর্মকর্তা", width: 120, cellTemplate: '<img src="{{row.entity.AdministrativeOfcSignature}}" alt="Not Signed" width="200">' },
@@ -159,7 +159,7 @@
         paginationPageSizes: [10, 20, 50, 100],
         paginationPageSize: 10,
         columnDefs: columnDepartmentList1,
-        rowTemplate: rowTemplateApproval(),
+        rowTemplate: rowTemplate(),
         onRegisterApi: function (gridApi) {
             $scope.gridDepartmentOptions = gridApi;
         }
@@ -239,15 +239,12 @@
         paginationPageSizes: [10, 20, 50, 100],
         paginationPageSize: 10,
         columnDefs: columnResolutionList,
-        rowTemplate: rowTemplateApproval(),
         enableColumnResizing: true,
         //onRegisterApi: function (gridApi) {
         //    $scope.gridMemberResolutionsOptions = gridApi;
         //}
     };
-    function rowTemplateApproval() {
-        return ' <div style="border-bottom:1px solid #D4D4D4;"  ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader }"  ui-grid-cell></div>';
-    }
+
 
     $scope.addgridMemberResolutionsData = function () {
 
