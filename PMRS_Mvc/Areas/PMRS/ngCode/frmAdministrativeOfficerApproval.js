@@ -58,7 +58,7 @@
         { name: 'ResolutionApproveID', displayName: "ID", visible: false },
         { name: 'MemberResolutionID', displayName: "ID", visible: false },
         { name: 'MemberResolutionDate', displayName: "প্রস্তাবের তারিখ", cellFilter: "FullDateWithTime", width: 150 },
-        { name: 'html', displayName: "সিদ্ধান্ত প্রস্তাব", width: 650, cellTemplate: '<div ng-bind-html="COL_FIELD"></div>' },
+        { name: 'html', displayName: "সিদ্ধান্ত প্রস্তাব", width: 450, cellTemplate: '<div ng-bind-html="COL_FIELD"></div>' },
         { name: 'MemberResolutionDetail', displayName: "মূল প্রস্তাব", visible: false, width: 150, cellTemplate: '<div ng-bind-html="COL_FIELD"></div>' },
         { name: 'MemberResolutionFIleURL', displayName: "URL", visible: false },
         { name: 'ConstitutentBangla', displayName: "নির্বাচনী এলাকা", width: 150 },
@@ -180,7 +180,7 @@
         { name: 'ParliamentNo', displayName: "সংসদ নং", cellFilter: "banglaNumber", width: 100 },
         { name: 'SessionNo', displayName: "অধিবেশন নং", cellFilter: "banglaNumber", width: 100 },
         { name: 'MemberResolutionDate', displayName: "প্রস্তাবের তারিখ", cellFilter: "FullDateWithTime", width: 150 },
-        { name: 'html', displayName: "সিদ্ধান্ত প্রস্তাব", width: 630, cellTemplate: '<div ng-bind-html="COL_FIELD"></div>' },
+        { name: 'html', displayName: "সিদ্ধান্ত প্রস্তাব", width: 450, cellTemplate: '<div ng-bind-html="COL_FIELD"></div>' },
         //{ name: 'MemberResolutionDetail', displayName: "মূল প্রস্তাব", visible: true, width: 150, cellTemplate: '<div ng-bind-html="COL_FIELD"></div>' },
 
         { name: 'MemberResolutionFIleURL', displayName: "URL", visible: false },
@@ -198,17 +198,16 @@
     var columnDepartmentList1 = [
         { name: 'MemberResolutionID', displayName: "ID", visible: false },
         { name: 'RDNo', displayName: "আর ডি নং", width: 100 },
-        { name: 'html', displayName: "সিদ্ধান্ত প্রস্তাব", width: 330, cellTemplate: '<div ng-bind-html="COL_FIELD"></div>' },
-        { name: 'MemberResolutionDetail', displayName: "মূল প্রস্তাব", visible: true, width: 150, cellTemplate: '<div ng-bind-html="COL_FIELD"></div>' },
+        { name: 'html', displayName: "সিদ্ধান্ত প্রস্তাব", width: 450, cellTemplate: '<div ng-bind-html="COL_FIELD"></div>' },
+        { name: 'MemberResolutionDetail', displayName: "মূল প্রস্তাব", visible: true, width: 350, cellTemplate: '<div ng-bind-html="COL_FIELD"></div>' },
 
         { name: 'MemberResolutionFIleURL', displayName: "URL", visible: false },
-      
         { name: 'BanglaName', displayName: "প্রস্তাবনা", width: 200 },
         { name: 'ParliamentNo', displayName: "সংসদ নং", width: 150 },
         { name: 'SessionNo', displayName: "অধিবেশন নং", width: 150 },
         { name: 'AcceptanceComment', displayName: "Acceptance Comment", visible: false },
         { name: 'UserName', displayName: "প্রস্তাবনা", width: 250, visible: false },
-  
+
         { name: 'MemberResPriority', displayName: "প্রায়োরিটি", width: 150, visible: false },
         { name: 'AdministrativeOfcSignature', displayName: "প্রশাসনিক কর্মকর্তা", width: 120, cellTemplate: '<img src="{{row.entity.AdministrativeOfcSignature}}" alt="Not Signed" width="200">' },
         { name: 'AssitantSccSignature', displayName: "সহকারী সচিব", width: 120, cellTemplate: '<img src="{{row.entity.AssitantSccSignature}}" alt="Not Signed" width="200">' },
@@ -242,7 +241,6 @@
         paginationPageSizes: [10, 20, 50, 100],
         paginationPageSize: 10,
         columnDefs: columnDepartmentList1,
-        rowTemplate: rowTemplateApproval(),
         onRegisterApi: function (gridApi) {
             $scope.gridDepartmentOptions = gridApi;
         }

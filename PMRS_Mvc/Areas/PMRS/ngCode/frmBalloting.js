@@ -123,7 +123,7 @@
         else {
             alert($scope.gridResolutionOptions.data.length);
             $scope.RandomNumber = Math.floor((Math.random() * $scope.gridResolutionOptions.data.length) + 1);
-            alert($scope.RandomNumber);  
+            alert($scope.RandomNumber);
         }
     };
 
