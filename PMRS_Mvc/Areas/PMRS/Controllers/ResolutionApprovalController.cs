@@ -963,7 +963,7 @@ namespace PMRS_Mvc.Areas.PMRS.Controllers
                     approval.ParlSessID = master.ParlSessID;
                     approval.SpeakerApproveDate = DateTime.Now;
 
-                    approval.SpeakerApproveStatus = "1";
+                    approval.SpeakerApproveStatus = "0";
                     approval.SpeakerBackStatus = "1";
                     primaryDAO.UpdateSpeakerApproval(approval);
 

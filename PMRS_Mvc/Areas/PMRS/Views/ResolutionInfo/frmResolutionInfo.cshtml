@@ -132,7 +132,9 @@
                             <button type="button" class="btn btn-embossed btn-warning btn-sm" ng-hide="SearchPerm == 'NO'" ng-click="GetResolutionList()"><i class="fa fa-refresh"></i>&nbsp Pending</button>
 
                             <button class="btn btn-embossed btn-primary btn-sm" ng-click="SaveData()" ng-class="{'btn-transparent': frmResolutionInfo.$invalid }" ng-disabled="frmResolutionInfo.$invalid" ng-hide="ViewPerm == 'NO'"><i class="fa fa-check"></i>&nbsp{{btnSaveValue}}</button>
-
+                           
+                            <button type="button" class="btn btn-success btn-info btn-sm" ng-click="SaveDraft()"><i class="fa fa-mars-stroke"></i>&nbspDraft</button>
+                            <button type="button" class="btn btn-embossed btn-info btn-sm" ng-click="GetDraftResolutionList()"><i class="fa fa-mars-double"></i>&nbspMy Draft</button>
                             <button type="button" class="btn btn-embossed btn-success btn-sm" ng-hide="SearchPerm == 'NO'" ng-click="GetPostedHistoryList()"><i class="fa fa-database"></i>History</button>
                             <button type="button" class="btn btn-embossed btn-danger btn-sm" ng-click="Reset()"><i class="fa fa-refresh"></i>&nbsp Reset</button>
 

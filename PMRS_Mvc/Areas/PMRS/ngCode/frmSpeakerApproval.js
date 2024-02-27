@@ -79,8 +79,8 @@
         { name: 'SecSignature', displayName: " সচিব", width: 120, cellTemplate: '<img src="{{row.entity.SecSignature}}" alt="Not Signed" width="150">' },
       
         {
-            name: 'Action ', displayName: "অনুমোদন", enableFiltering: false, enableSorting: false, width: "100",
-            cellTemplate: '<div style="padding:2px 2px 2px 2px;"><button  class="btn-success" ng-click="grid.appScope.DirectSave(row)"><i class="fa fa-save"></i></button> <button  class="btn-danger " ng-click="grid.appScope.rowDblClickCompCons(row)"><i class="fa fa-edit"></i></button></div>'
+            name: 'Action ', displayName: "অনুমোদন", enableFiltering: false, enableSorting: false, width: "300",
+            cellTemplate: '<div style="padding:2px 2px 2px 2px;"><button  class="btn-success" ng-click="grid.appScope.DirectSave(row)"><i class="fa fa-save">Acept</i></button><button  class="btn-success" ng-click="grid.appScope.DirectRejectSave(row)"><i class="fa fa-save">Reject</i></button> <button  class="btn-danger " ng-click="grid.appScope.rowDblClickCompCons(row)"><i class="fa fa-edit">Edit</i></button></div>'
         }
     ];
     var columnDepartmentList1 = [
@@ -364,7 +364,41 @@
             });
         }
     };
+    $scope.DirectRejectSave = function (row) {
+     
+        var dt = new Date();
 
+        $scope.SaveDb = {};
+
+        $scope.SaveDb.ResolutionApproveID = row.entity.ResolutionApproveID;
+        $scope.SaveDb.MemberResolutionID = row.entity.MemberResolutionID;
+        $scope.SaveDb.RDNo = row.entity.RDNo;
+        $scope.SaveDb.ParlSessID = row.entity.ParlSessID;
+
+        $scope.SaveDb.SpeakerApproveDetail = (row.entity.html == '' || row.entity.html == null || row.entity.html == "null") ? row.entity.MemberResolutionDetail : row.entity.html;
+        $scope.SaveDb.SpeakerApproveDate = (dt.getFullYear() + '-' + dt.getMonth() + '-' + dt.getDate());
+        $scope.SaveDb.SpeakerApproveStatus = "2";
+
+        $scope.SaveDb.SendTo = $scope.frmSpeakerApproval.SignTo;
+
+        if ($scope.uiID === '' || typeof $scope.uiID === 'undefined') {
+            $http({
+                method: "post",
+                url: MyApp.rootPath + "ResolutionApproval/UpdateSpeakerApproval",
+                datatype: "json",
+                data: JSON.stringify($scope.SaveDb)
+            }).then(function (response) {
+                if (response.data.Status === "Yes") {
+                    OperationMsg(response.data.Mode);
+                    if (response.data.Mode !== "Unique") {
+                        $scope.GetWaitingListForSpeaker();
+                    }
+                } else {
+                    toastr.error("Failed!");
+                }
+            });
+        }
+    };
     $scope.MultipleSaveData = function () {
 
         var resolutionList = $scope.gridResolutionOptions.data;
@@ -412,8 +446,47 @@
 
     $scope.SaveData = function () {
 
-        if ($scope.frmSpeakerApproval.AppStatus === '' || $scope.frmSpeakerApproval.AppStatus === undefined) {
-            toastr.warning("সিদ্ধান্ত-প্রস্তাবের মতামত প্রদান করুন");
+       
+        if ($scope.frmSpeakerApproval.SignTo === '' || $scope.frmSpeakerApproval.SignTo === undefined) {
+            toastr.warning("প্রাপোক নির্বাচন করুন");
+            return false;
+        }
+        $scope.SaveDb = {};
+
+        $scope.SaveDb.ResolutionApproveID = $scope.uiID;
+        $scope.SaveDb.MemberResolutionID = $scope.MemberResolutionID;
+        $scope.SaveDb.RDNo = $scope.RDNo;
+        $scope.SaveDb.ParlSessID = $scope.frmSpeakerApproval.ParliamentSession;
+
+        $scope.SaveDb.SpeakerApproveDetail = $scope.ApproveDetail;
+        $scope.SaveDb.SpeakerApproveDate = $scope.ApproveDate;
+        $scope.SaveDb.SpeakerApproveStatus = "1";// $scope.frmSpeakerApproval.AppStatus;
+
+        $http({
+            method: "post",
+            url: MyApp.rootPath + "ResolutionApproval/UpdateSpeakerApproval",
+            datatype: "json",
+            data: JSON.stringify($scope.SaveDb)
+        }).then(function (response) {
+            if (response.data.Status === "Yes") {
+                OperationMsg(response.data.Mode);
+                if (response.data.Mode !== "Unique") {
+                    $scope.uiCode = response.data.ID;
+                    $scope.uiID = response.data.ID;
+                    $scope.btnSaveValue = "Update";
+                    $scope.ModalReset();
+                    $scope.GetWaitingListForSpeaker();
+                    $('#ResolutionModal').modal('hide');
+                }
+            } else {
+                toastr.error("Failed!");
+            }
+        });
+    };
+    $scope.RejectData = function () {
+
+        if ($scope.frmSpeakerApproval.SignTo === '' || $scope.frmSpeakerApproval.SignTo === undefined) {
+            toastr.warning("প্রাপোক নির্বাচন করুন");
             return false;
         }
 
@@ -426,7 +499,7 @@
 
         $scope.SaveDb.SpeakerApproveDetail = $scope.ApproveDetail;
         $scope.SaveDb.SpeakerApproveDate = $scope.ApproveDate;
-        $scope.SaveDb.SpeakerApproveStatus = $scope.frmSpeakerApproval.AppStatus;
+        $scope.SaveDb.SpeakerApproveStatus = "2";// $scope.frmSpeakerApproval.AppStatus;
 
         $http({
             method: "post",
