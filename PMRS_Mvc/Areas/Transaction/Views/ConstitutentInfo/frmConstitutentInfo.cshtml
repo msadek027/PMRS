@@ -20,9 +20,9 @@
                     <div class="col-md-7">
 
                         <div class="text-right  m-t-10">
-                            <button class="btn btn-embossed btn-primary btn-rounded" ng-click="SaveData()" ng-class="{'btn-transparent': frmConsitutentInfo.$invalid}" ng-disabled="frmConsitutentInfo.$invalid" ng-hide="ViewPerm == 'NO'"><i class="fa fa-save"></i>&nbsp{{btnSaveValue}}</button>
-                            <button type="button" class="btn btn-embossed btn-danger btn-rounded" ng-click="Reset()"><i class="fa fa-refresh"></i>&nbsp Reset</button>
-                            <button type="button" class="btn btn-embossed btn-success btn-rounded" ng-hide="SearchPerm == 'NO'" ng-click="GetConsitutentInfoList()"><i class="fa fa-search"></i>&nbspSearch</button>
+                            <button class="btn btn-embossed btn-primary btn-rounded" ng-click="SaveData()" ng-class="{'btn-transparent': frmConsitutentInfo.$invalid}" ng-disabled="frmConsitutentInfo.$invalid" ng-hide="ViewPerm == 'NO'"><i class="fa fa-save"></i>&nbsp সংরক্ষণ</button>
+                            <button type="button" class="btn btn-embossed btn-danger btn-rounded" ng-click="Reset()"><i class="fa fa-refresh"></i>&nbsp রিসেট</button>
+                            <button type="button" class="btn btn-embossed btn-success btn-rounded" ng-hide="SearchPerm == 'NO'" ng-click="GetConsitutentInfoList()"><i class="fa fa-search"></i>&nbsp অনুসন্ধান</button>
                         </div>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
             <div class="panel-content bg-light-blue">             
                 <div class="form-group">
                     <div class="col-md-3">
-                        <label class="control-label input-sm required">Consitutent Name</label>
+                        <label class="control-label input-sm required">সংবিধানের নাম</label>
                     </div>
                     <div class="col-md-4">
                         <input type="text" class="form-control form-white input-sm" id="ConstitutentArea" ng-maxlength="50" placeholder="Consitutent Name" ng-model="ConstitutentArea" required>
@@ -40,7 +40,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-3">
-                        <label class="control-label input-sm required">Consitutent Name Bangla</label>
+                        <label class="control-label input-sm required">সংবিধানের নাম বাংলা</label>
                     </div>
                     <div class="col-md-4">
                         <input type="text" class="form-control form-white input-sm" id="ConstitutentBangla" ng-maxlength="50" placeholder="Consitutent Bangla Name" ng-model="ConstitutentBangla" required>
@@ -48,7 +48,9 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-3">
-                        <label class="control-label input-sm required">Consitutent Number</label>
+                        <label class="control-label input-sm required">
+                            সংবিধানের নম্বর
+                        </label>
                     </div>
                     <div class="col-md-4">
                         <input type="text" class="form-control form-white input-sm" id="ConstitutentNumber" ng-maxlength="50" placeholder="Consitutent Number" ng-model="ConstitutentNumber" required>
@@ -57,13 +59,13 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-3">
-                        <label class="control-label input-sm required">Status</label>
+                        <label class="control-label input-sm required">স্ট্যাটাস</label>
                     </div>
                     <div class="col-md-2">
                         <select class="form-control form-white input-sm" id="Status" ng-model="Status" required>
                             @*<option value="">Please Select</option>*@
-                            <option value="1">Active</option>
-                            <option value="0">Inactive</option>
+                            <option value=1>সক্রিয়</option>
+                            <option value=0>নিষ্ক্রিয়</option>
                         </select>
                     </div>
                 </div>
@@ -76,7 +78,9 @@
             <div class="modal-content">
                 <div class="panel-content bg-light-blue">
                     <div class="modal-header">
-                        <h2 class="panel-title">Consitutent List</h2>
+                        <h2 class="panel-title">
+                            গঠনকারী তালিকা
+                        </h2>
                         <button type="button" id="modalClose" class="close" data-dismiss="modal" aria-hidden="true"><i class="icons-office-52"></i></button>
                     </div>
                     <div class="modal-body">

@@ -16,18 +16,18 @@
                 <div class="form-group">
                     <div class="col-md-5">
                         <h2 class="panel-title">
-                            <strong>Speaker Approval</strong>
+                            <strong>স্পিকারের অনুমোদন</strong>
                         </h2>
                     </div>
                     <div class="col-md-7">
                         <div class="text-right  m-t-10">
-                            <button type="button" class="btn btn-embossed btn-warning btn-sm" ng-click="GetWaitingListForSpeaker()"><i class="fa fa-refresh"></i>&nbsp Pending</button>
+                            @*<button type="button" class="btn btn-embossed btn-warning btn-sm" ng-click="GetWaitingListForSpeaker()"><i class="fa fa-refresh"></i>&nbsp Pending</button>*@
 
                             @*<button type="button" class="btn btn-embossed btn-info btn-sm" ng-click="GetDraft()"><i class="fa fa-mars-double"></i>&nbspMy Draft</button>*@
                             @*<button type="button" class="btn btn-embossed btn-success btn-sm" ng-hide="SearchPerm == 'NO'" ng-click="GetSearchForEditSpeaker()"><i class="fa fa-search"></i>&nbspSearch</button>*@
-                            <button type="button" class="btn btn-embossed btn-success btn-sm" ng-hide="SearchPerm == 'NO'" ng-click="GetPostedHistoryListBySpeaker()"><i class="fa fa-database"></i>History</button>
-                            <button type="button" class="btn btn-embossed btn-primary btn-sm" ng-click="MultipleSaveData()"><i class="fa fa-check"></i>&nbsp Approve All Selected</button>
-                            <button type="button" class="btn btn-embossed btn-danger btn-sm" ng-click="Reset()"><i class="fa fa-refresh"></i>&nbsp Reset</button>
+                            <button type="button" class="btn btn-embossed btn-success btn-sm" ng-hide="SearchPerm == 'NO'" ng-click="GetPostedHistoryListBySpeaker()"><i class="fa fa-database"></i>রেকর্ড</button>
+                            <button type="button" class="btn btn-embossed btn-primary btn-sm" ng-click="MultipleSaveData()"><i class="fa fa-check"></i>&nbsp সমস্ত নির্বাচিত অনুমোদন করুন</button>
+                            <button type="button" class="btn btn-embossed btn-danger btn-sm" ng-click="Reset()"><i class="fa fa-refresh"></i>&nbsp রিসেট</button>
 
 
                         </div>
@@ -67,7 +67,7 @@
                     </div>
 
                     <div class="row">
-                        <div id="gridEmployeeInfo" ui-grid="gridResolutionOptions" class="grid" ui-grid-pagination style="padding-left: 1%; height: 350px; width: 98.6%;" ui-grid-auto-resize ui-grid-resize-columns></div>
+                        <div id="gridEmployeeInfo" ui-grid="gridResolutionOptions" class="grid" ui-grid-pagination style="padding-left: 1%; height: 450px; width: 98.6%;" ui-grid-auto-resize ui-grid-resize-columns></div>
                     </div>
                 </div>
             </div>
@@ -118,6 +118,10 @@
                         <button type="button" id="modalClose" class="close" data-dismiss="modal" aria-hidden="true"><i class="icons-office-52"></i></button>
                     </div>
                     <div class="modal-body">
+                        <div class="text-right  m-t-10">
+                            <button class="btn btn-embossed btn-primary btn-rounded" ng-click="SaveData()" ng-class="{'btn-transparent': !ApproveDetail || !frmSpeakerApproval.AppStatus }" ng-disabled="!ApproveDetail || !frmSpeakerApproval.AppStatus" ng-hide="ViewPerm == 'NO'"><i class="fa fa-save"></i>গ্রহণ</button>
+                            <button class="btn btn-embossed btn-info btn-rounded" ng-click="RejectData()"><i class="fa fa-save"></i>&nbsp প্রত্যাখ্যান </button>
+                        </div>
                         <div class="row">
                             <fieldset>
                                 <legend>প্রস্তাব উত্থাপন</legend>
@@ -170,12 +174,12 @@
                                 </div>
                             </fieldset>
 
-                            <fieldset>
-                                <legend class="collapsable clickable"><i class="fa fa-plus-square-o"></i>সিদ্ধান্ত প্রস্তাবের সম্পাদনা</legend>
-                                <div class="row" style="margin-left: -2px;margin-right: -2px;">
-                                    <div id="gridMemberResolutions" ui-grid="gridMemberResolutionsOptions" ui-grid-cell-selection ui-grid-cellNav ui-grid-row-edit ui-grid-edit class="grid" style=" height: 175px; width: 100%;" ui-grid-auto-resize ui-grid-resize-columns></div>
-                                </div>
-                            </fieldset>
+                            @*<fieldset>
+                <legend class="collapsable clickable"><i class="fa fa-plus-square-o"></i>সিদ্ধান্ত প্রস্তাবের সম্পাদনা</legend>
+                <div class="row" style="margin-left: -2px;margin-right: -2px;">
+                    <div id="gridMemberResolutions" ui-grid="gridMemberResolutionsOptions" ui-grid-cell-selection ui-grid-cellNav ui-grid-row-edit ui-grid-edit class="grid" style=" height: 175px; width: 100%;" ui-grid-auto-resize ui-grid-resize-columns></div>
+                </div>
+            </fieldset>*@
 
                             <fieldset>
                                 <legend>প্রস্তাব যাচাইকরন</legend>
@@ -195,27 +199,23 @@
                                     </div>
                                 </div>
 
-                                    @*<div class="row">
-                                        <div class="col-md-3">
-                                            <label class="control-label input-sm required">সিদ্ধান্ত প্রস্তাবের অনুমোদন</label>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <ui-select class="form-control form-white input-sm" ng-model="frmSpeakerApproval.AppStatus" theme="select2">
-                                                <ui-select-match>{{$select.selected.Comments}}</ui-select-match>
-                                                <ui-select-choices repeat="sts.ID as sts in AprSts | propsFilter: {Comments: $select.search}">
-                                                    <div ng-bind-html="sts.Comments | highlight: $select.search"></div>
-                                                </ui-select-choices>
-                                            </ui-select>
-                                        </div>
-                                    </div>*@
+                                @*<div class="row">
+                    <div class="col-md-3">
+                        <label class="control-label input-sm required">সিদ্ধান্ত প্রস্তাবের অনুমোদন</label>
+                    </div>
+                    <div class="col-md-9">
+                        <ui-select class="form-control form-white input-sm" ng-model="frmSpeakerApproval.AppStatus" theme="select2">
+                            <ui-select-match>{{$select.selected.Comments}}</ui-select-match>
+                            <ui-select-choices repeat="sts.ID as sts in AprSts | propsFilter: {Comments: $select.search}">
+                                <div ng-bind-html="sts.Comments | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>*@
 
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <label class="control-label input-sm required">সিদ্ধান্ত প্রস্তাব সম্পাদনা</label>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <textarea ck-editor class="form-control form-white input-sm" name="ApproveDetail" placeholder="সিদ্ধান্তের পক্ষে মতামত" ng-maxlength="4000" id="ApproveDetail" ng-model="ApproveDetail" required>{{ApproveDetail}}</textarea>
-                                        </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label class="control-label input-sm required">সিদ্ধান্ত প্রস্তাব সম্পাদনা</label>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-3"></div>
@@ -226,7 +226,17 @@
                                             <button class="btn btn-embossed btn-info btn-rounded" ng-click="RejectData()"><i class="fa fa-save"></i>&nbsp Reject</button>
                 </div>
                                     </div>
-</fieldset>
+                                </div>
+                                @*<div class="row">
+                                    <div class="col-md-3"></div>
+                                    <div class="col-md-3">
+                                        <button class="btn btn-embossed btn-primary btn-rounded" ng-click="SaveData()" ng-class="{'btn-transparent': !ApproveDetail || !frmSpeakerApproval.AppStatus }" ng-disabled="!ApproveDetail || !frmSpeakerApproval.AppStatus" ng-hide="ViewPerm == 'NO'"><i class="fa fa-save"></i>Acept</button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button class="btn btn-embossed btn-info btn-rounded" ng-click="RejectData()"><i class="fa fa-save"></i>&nbsp Reject</button>
+                                    </div>
+                                </div>*@
+                            </fieldset>
                         </div>
                     </div>
                 </div>

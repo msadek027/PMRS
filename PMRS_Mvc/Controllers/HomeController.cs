@@ -136,14 +136,14 @@ namespace PMRS_Mvc.Controllers
                             Session["empID"] = lgn.UserID;
                             Session["empName"] = lgn.UserName;
                             Session["EmployeeCode"] = lgn.EmployeeCode;
-                            Session["Username"] = lgn.UserName;
+                            Session["Username"] = lgn.BanglaName;
                             Session["Photo"] = lgn.PhotoURL;
                             Session["Signature"] = lgn.Signature;
                             Session["UserId"] = lgn.UserID;
                             Session["Grade"] = deg.Grade;
                         if (deg != null)
                             {
-                                Session["Designation"] = deg.DesignationName;
+                                Session["Designation"] = deg.DesignationNameBN;
                             }
                             else
                             {
@@ -287,7 +287,7 @@ namespace PMRS_Mvc.Controllers
                 htmlMenu = htmlMenu + "<ul class='nav nav-sidebar'>";
                 htmlMenu = htmlMenu +
                 //"<li class='nav-parent'><a href='/Home/Index'><i class='icon-star' style='color: #66d659;'></i><span>Dashboard</span></a></li>";
-                "<li><a href='/Home/Index'><i class='icon-star' style='color: #66d659;'></i><span>Dashboard</span></a></li>";
+                "<li><a href='/Home/Index'><i class='icon-star' style='color: #66d659;'></i><span>ড্যাশবোর্ড</span></a></li>";
 
                 foreach (var u in mhList)
                 {

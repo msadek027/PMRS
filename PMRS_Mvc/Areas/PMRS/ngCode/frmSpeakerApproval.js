@@ -80,7 +80,7 @@
       
         {
             name: 'Action ', displayName: "অনুমোদন", enableFiltering: false, enableSorting: false, width: "300",
-            cellTemplate: '<div style="padding:2px 2px 2px 2px;"><button  class="btn-success" ng-click="grid.appScope.DirectSave(row)"><i class="fa fa-save">Acept</i></button><button  class="btn-success" ng-click="grid.appScope.DirectRejectSave(row)"><i class="fa fa-save">Reject</i></button> <button  class="btn-danger " ng-click="grid.appScope.rowDblClickCompCons(row)"><i class="fa fa-edit">Edit</i></button></div>'
+            cellTemplate: '<div style="padding:2px 2px 2px 2px;"><button style="margin-right:5px;"  class="btn-success" ng-click="grid.appScope.DirectSave(row)"><i class="fa fa-save">গ্রহনযোগ্য</i></button><button  class="btn-success" ng-click="grid.appScope.DirectRejectSave(row)"><i class="btn-danger ">প্রত্যাখ্যান</i></button> <button  class="btn-danger " ng-click="grid.appScope.rowDblClickCompCons(row)"><i class="fa fa-edit"></i></button></div>'
         }
     ];
     var columnDepartmentList1 = [

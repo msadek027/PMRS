@@ -25,9 +25,9 @@
                     <div class="col-md-7">
 
                         <div class="text-right  m-t-10">
-                            <button class="btn btn-embossed btn-primary btn-rounded" ng-click="SaveData()" ng-class="{'btn-transparent': frmMHConfig.$invalid}" ng-disabled="frmMHConfig.$invalid"><i class="fa fa-save"></i>&nbsp{{btnSaveValue}}</button>
-                            <button type="button" class="btn btn-embossed btn-danger btn-rounded" ng-click="Reset()"><i class="fa fa-refresh"></i>&nbsp Reset</button>
-                            <button type="button" class="btn btn-embossed btn-success btn-rounded" ng-click="GetHeadMenuList()"><i class="fa fa-search"></i>&nbspSearch</button>
+                            <button class="btn btn-embossed btn-primary btn-rounded" ng-click="SaveData()" ng-class="{'btn-transparent': frmMHConfig.$invalid}" ng-disabled="frmMHConfig.$invalid"><i class="fa fa-save"></i>&nbsp সংরক্ষণ</button>
+                            <button type="button" class="btn btn-embossed btn-danger btn-rounded" ng-click="Reset()"><i class="fa fa-refresh"></i>&nbsp রিসেট</button>
+                            <button type="button" class="btn btn-embossed btn-success btn-rounded" ng-click="GetHeadMenuList()"><i class="fa fa-search"></i>&nbsp অনুসন্ধান</button>
                         </div>
                     </div>
                 </div>
@@ -37,14 +37,16 @@
                 <div class="form-group">
 
                     <div class="col-md-3">
-                        <label class="control-label input-sm">Menu Head Name</label>
+                        <label class="control-label input-sm">মেনু প্রধান নাম</label>
                     </div>
                     <div class="col-md-3" ng-class="{'has-error':frmMHConfig.Name.$error.maxlength}">
                         <input type="text" id="Name" placeholder="Name" ng-model="Name" name="Name" ng-maxlength="50" class="form-control form-white input-sm" required>
                         <input type="hidden" ng-model="uiID" />
                     </div>
                     <div class="col-md-3">
-                        <label class="control-label input-sm">Sequence</label>
+                        <label class="control-label input-sm">
+                            ক্রম
+                        </label>
                     </div>
                     <div class="col-md-3" ng-class="{'has-error':frmMHConfig.Sequence.$error.pattern}">
                         <input type="text" class="form-control form-white input-sm" id="Sequence" name="Sequence"  ng-pattern={{NumberPattern}} ng-model="Sequence" placeholder="Sequence" required>
@@ -53,7 +55,7 @@
 
                 <div class="form-group">
                     <div class="col-md-3">
-                        <label class="control-label input-sm">Icon Name</label>
+                        <label class="control-label input-sm">আইকনের নাম</label>
                     </div>
                     <div class="col-md-3">
                         <select class="form-control form-white input-sm" id="CssClass" ng-model="CssClass" required>

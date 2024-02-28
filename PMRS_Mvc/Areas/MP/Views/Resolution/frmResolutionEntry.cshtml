@@ -115,11 +115,12 @@
                     </div>
                     <div class="col-md-8">
                         <div class="text-right  m-t-10">
-                            <button class="btn btn-embossed btn-info btn-rounded" ng-click="DraftData()" ng-class="{'btn-transparent': frmResolutionInfo.$invalid }" ng-disabled="frmResolutionInfo.$invalid" ng-hide="ViewPerm == 'NO'"><i class="fa fa-save"></i>&nbsp{{btnDraftValue}}</button>
-                            <button class="btn btn-embossed btn-primary btn-rounded" ng-click="SaveData()" ng-class="{'btn-transparent': frmResolutionInfo.$invalid }" ng-disabled="frmResolutionInfo.$invalid" ng-hide="ViewPerm == 'NO'"><i class="fa fa-save"></i>&nbsp{{btnSaveValue}}</button>
-                            <button type="button" class="btn btn-embossed btn-danger btn-rounded" ng-click="Reset()"><i class="fa fa-refresh"></i>&nbsp Reset</button>
-                            <button type="button" class="btn btn-embossed btn-success btn-rounded" ng-hide="SearchPerm == 'NO'" ng-click="GetResolutionList()"><i class="fa fa-search"></i>&nbspSearch</button>
-                            <button type="button" class="btn btn-embossed btn-success btn-rounded" ng-hide="SearchPerm == 'NO'" ng-click="GetSentResolutionList()">History</button>
+                            <button class="btn btn-embossed btn-info btn-rounded" ng-click="DraftData()" ng-class="{'btn-transparent': frmResolutionInfo.$invalid }" ng-disabled="frmResolutionInfo.$invalid" ng-hide="ViewPerm == 'NO'"><i class="fa fa-save"></i>&nbsp খসড়া</button>
+                            <button class="btn btn-embossed btn-primary btn-rounded" ng-click="SaveData()" ng-class="{'btn-transparent': frmResolutionInfo.$invalid }" ng-disabled="frmResolutionInfo.$invalid" ng-hide="ViewPerm == 'NO'"><i class="fa fa-save"></i>&nbsp পাঠান</button>
+
+                            <button type="button" class="btn btn-embossed btn-success btn-rounded" ng-hide="SearchPerm == 'NO'" ng-click="GetResolutionList()"><i class="fa fa-search"></i>&nbsp অনুসন্ধান</button>
+                            <button type="button" class="btn btn-embossed btn-success btn-rounded" ng-hide="SearchPerm == 'NO'" ng-click="GetSentResolutionList()">রেকর্ড</button>
+                            <button type="button" class="btn btn-embossed btn-danger btn-rounded" ng-click="Reset()"><i class="fa fa-refresh"></i>&nbsp রিসেট</button>
                         </div>
                     </div>
                 </div>
