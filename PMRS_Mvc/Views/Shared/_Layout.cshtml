@@ -384,7 +384,7 @@
                                 <span class="col-sm-12"> <strong>Employee Name: </strong> @Session["empName"].ToString()</span>
                             </a>
                         </li>*@
-                        <li class="dropdown">
+                        @*<li class="dropdown">
                             <a style="color:white">
                                 <span class="col-sm-12"> <strong>Designation: </strong> @Session["Designation"].ToString()</span>
                             </a>
@@ -393,7 +393,7 @@
                             <a style="color:white">
                                 <span class="col-sm-12"> <strong>Department: </strong> @Session["Department"].ToString()</span>
                             </a>
-                        </li>
+                        </li>*@
                         <!-- BEGIN NOTIFICATION DROPDOWN -->
                         @*<li class="dropdown" id="notifications-header">
             <a href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
@@ -478,7 +478,7 @@
                             <a href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                 @if (Session != null && Session["Username"] != null)
                                 {
-                                    <span> <strong>Username: </strong> @Session["Username"].ToString()</span>
+                                    <span> @Session["Username"].ToString(),@Session["Designation"].ToString()</span>
                                  
                                 }
 

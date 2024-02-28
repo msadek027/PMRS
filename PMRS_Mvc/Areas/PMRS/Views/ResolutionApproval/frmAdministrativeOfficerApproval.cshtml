@@ -22,7 +22,7 @@
                     <div class="col-md-7">
                         <div class="text-right  m-t-10">
 
-                            <button type="button" class="btn btn-embossed btn-warning btn-sm" ng-click="GetWaitingListForAdministrative()"><i class="fa fa-refresh"></i>&nbsp বিচারাধীন</button>
+                            @*<button type="button" class="btn btn-embossed btn-warning btn-sm" ng-click="GetWaitingListForAdministrative()"><i class="fa fa-refresh"></i>&nbsp বিচারাধীন</button>*@
                             <button type="button" class="btn btn-embossed btn-info btn-sm" ng-click="GetDraft()"><i class="fa fa-mars-double"></i>&nbsp খসড়া</button>
                             <button type="button" class="btn btn-embossed btn-success btn-sm" ng-hide="SearchPerm == 'NO'" ng-click="GetSearchForEditAdministrativeOfficer()"><i class="fa fa-search"></i>&nbsp অনুসন্ধান</button>
                             <button type="button" class="btn btn-embossed btn-success btn-sm" ng-hide="SearchPerm == 'NO'" ng-click="GetPostedHistoryListByAdministrativeOfficer()"><i class="fa fa-database"></i>রেকর্ড</button>
@@ -74,7 +74,7 @@
                       
                     </div>
                     <div class="row">
-                        <div id="gridEmployeeInfo" ui-grid="gridResolutionOptions" class="grid" ui-grid-pagination style="padding-left: 1%; height: 700px; width: 98.6%;"  ui-grid-auto-resize ui-grid-resize-columns ></div>
+                        <div id="gridEmployeeInfo" ui-grid="gridResolutionOptions" class="grid" ui-grid-pagination style="padding-left: 1%; height: 450px; width: 98.6%;"  ui-grid-auto-resize ui-grid-resize-columns ></div>
                     </div>
                 </div>
 
