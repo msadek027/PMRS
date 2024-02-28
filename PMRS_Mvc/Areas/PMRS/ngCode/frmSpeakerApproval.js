@@ -419,7 +419,7 @@
                 $scope.SaveDb.SpeakerApproveDetail = (resolutionList[i].html == '' || resolutionList[i].html == null || resolutionList[i].html == "null") ? resolutionList[i].MemberResolutionDetail : resolutionList[i].html;
                 $scope.SaveDb.SpeakerApproveDate = (dt.getFullYear() + '-' + dt.getMonth() + '-' + dt.getDate());
                 $scope.SaveDb.SpeakerApproveStatus = "1";
-
+                $scope.SaveDb.SendTo = $scope.frmSpeakerApproval.SignTo;
                 if ($scope.uiID === '' || typeof $scope.uiID === 'undefined') {
                     $http({
                         method: "post",
@@ -461,7 +461,7 @@
         $scope.SaveDb.SpeakerApproveDetail = $scope.ApproveDetail;
         $scope.SaveDb.SpeakerApproveDate = $scope.ApproveDate;
         $scope.SaveDb.SpeakerApproveStatus = "1";// $scope.frmSpeakerApproval.AppStatus;
-
+        $scope.SaveDb.SendTo = $scope.frmSpeakerApproval.SignTo;
         $http({
             method: "post",
             url: MyApp.rootPath + "ResolutionApproval/UpdateSpeakerApproval",
@@ -500,7 +500,7 @@
         $scope.SaveDb.SpeakerApproveDetail = $scope.ApproveDetail;
         $scope.SaveDb.SpeakerApproveDate = $scope.ApproveDate;
         $scope.SaveDb.SpeakerApproveStatus = "2";// $scope.frmSpeakerApproval.AppStatus;
-
+        $scope.SaveDb.SendTo = $scope.frmSpeakerApproval.SignTo;
         $http({
             method: "post",
             url: MyApp.rootPath + "ResolutionApproval/UpdateSpeakerApproval",
@@ -532,7 +532,7 @@
         $scope.SaveDb.RDNo = $scope.RDNo;
 
         $scope.SaveDb.SpeakerApproveDetail = $scope.ApproveDetail;
-
+        $scope.SaveDb.SendTo = $scope.frmSpeakerApproval.SignTo;
         $http({
             method: "post",
             url: MyApp.rootPath + "ResolutionApproval/SaveSpeakerDraft",

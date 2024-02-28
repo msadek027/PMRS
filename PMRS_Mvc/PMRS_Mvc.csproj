@@ -2510,6 +2510,7 @@
     <Compile Include="Areas\MP\MPAreaRegistration.cs" />
     <Compile Include="Areas\PMRS\Controllers\BallotInfoController.cs" />
     <Compile Include="Areas\PMRS\Controllers\PrioritySetController.cs" />
+    <Compile Include="Areas\PMRS\Controllers\PRMSReportController.cs" />
     <Compile Include="Areas\PMRS\Controllers\ResolutionApprovalController.cs" />
     <Compile Include="Areas\PMRS\Controllers\ResolutionInfoController.cs" />
     <Compile Include="Areas\PMRS\Models\DAO\BallotInfoDAO.cs" />
@@ -2518,6 +2519,36 @@
     <Compile Include="Areas\PMRS\Models\DAO\ResolutionApprovalDAO.cs" />
     <Compile Include="Areas\PMRS\Models\DAO\ResolutionInfoDAO.cs" />
     <Compile Include="Areas\PMRS\PMRSAreaRegistration.cs" />
+    <Compile Include="Areas\PMRS\Reports\rptBallotInfo.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptBallotInfo.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Areas\PMRS\Reports\rptCircular.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptCircular.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Areas\PMRS\Reports\rptPrimarySummary.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptPrimarySummary.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Areas\PMRS\Reports\rptSpeakerAccepted.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptSpeakerAccepted.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Areas\PMRS\Reports\rptTabularSummary.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptTabularSummary.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Areas\Security\Controllers\AuditTrailController.cs" />
     <Compile Include="Areas\Security\Controllers\MHController.cs" />
     <Compile Include="Areas\Security\Controllers\MNConfController.cs" />
@@ -2870,6 +2901,28 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Areas\PMRS\Reports\rptBallotInfo.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptBallotInfo.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Areas\PMRS\Reports\rptCircular.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptCircular.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Areas\PMRS\Reports\rptPrimarySummary.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptPrimarySummary.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Areas\PMRS\Reports\rptSpeakerAccepted.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptSpeakerAccepted.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Areas\PMRS\Reports\rptTabularSummary.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptTabularSummary.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

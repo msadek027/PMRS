@@ -119,7 +119,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="text-right  m-t-10">
-                            <button class="btn btn-embossed btn-primary btn-rounded" ng-click="SaveData()" ng-class="{'btn-transparent': !ApproveDetail || !frmSpeakerApproval.AppStatus }" ng-disabled="!ApproveDetail || !frmSpeakerApproval.AppStatus" ng-hide="ViewPerm == 'NO'"><i class="fa fa-save"></i>গ্রহণ</button>
+                            <button class="btn btn-embossed btn-primary btn-rounded" ng-click="SaveData()" ng-class="{'btn-transparent': !ApproveDetail }" ng-disabled="!ApproveDetail" ng-hide="ViewPerm == 'NO'"><i class="fa fa-save"></i>গ্রহণ</button>
                             <button class="btn btn-embossed btn-info btn-rounded" ng-click="RejectData()"><i class="fa fa-save"></i>&nbsp প্রত্যাখ্যান </button>
                         </div>
                         <div class="row">
@@ -149,8 +149,9 @@
                                     <div class="col-md-3">
                                         <datepicker date-format="dd/MM/yyyy"
                                                     date-week-start-day="0"
-                                                    button-prev=' <i class="fa fa-arrow-circle-left"></i>'
-                                                    button-next='<i class="fa fa-arrow-circle-right"></i>'>
+                                                    button-prev='
+                                            <i class="fa fa-arrow-circle-left"></i>'
+                                            button-next='<i class="fa fa-arrow-circle-right"></i>'>
                                             <input id="MemberResolutionDate" ng-model="MemberResolutionDate" type="text" class="angular-datepicker-input input-sm form-control clickable" placeholder="সিদ্ধান্ত প্রস্তাবের তারিখ" readonly disabled />
                                         </datepicker>
                                     </div>
@@ -175,11 +176,11 @@
                             </fieldset>
 
                             @*<fieldset>
-                <legend class="collapsable clickable"><i class="fa fa-plus-square-o"></i>সিদ্ধান্ত প্রস্তাবের সম্পাদনা</legend>
-                <div class="row" style="margin-left: -2px;margin-right: -2px;">
-                    <div id="gridMemberResolutions" ui-grid="gridMemberResolutionsOptions" ui-grid-cell-selection ui-grid-cellNav ui-grid-row-edit ui-grid-edit class="grid" style=" height: 175px; width: 100%;" ui-grid-auto-resize ui-grid-resize-columns></div>
-                </div>
-            </fieldset>*@
+                                    <legend class="collapsable clickable"><i class="fa fa-plus-square-o"></i>সিদ্ধান্ত প্রস্তাবের সম্পাদনা</legend>
+                                    <div class="row" style="margin-left: -2px;margin-right: -2px;">
+                                        <div id="gridMemberResolutions" ui-grid="gridMemberResolutionsOptions" ui-grid-cell-selection ui-grid-cellNav ui-grid-row-edit ui-grid-edit class="grid" style=" height: 175px; width: 100%;" ui-grid-auto-resize ui-grid-resize-columns></div>
+                                    </div>
+                                </fieldset>*@
 
                             <fieldset>
                                 <legend>প্রস্তাব যাচাইকরন</legend>
@@ -200,42 +201,36 @@
                                 </div>
 
                                 @*<div class="row">
-                    <div class="col-md-3">
-                        <label class="control-label input-sm required">সিদ্ধান্ত প্রস্তাবের অনুমোদন</label>
-                    </div>
-                    <div class="col-md-9">
-                        <ui-select class="form-control form-white input-sm" ng-model="frmSpeakerApproval.AppStatus" theme="select2">
-                            <ui-select-match>{{$select.selected.Comments}}</ui-select-match>
-                            <ui-select-choices repeat="sts.ID as sts in AprSts | propsFilter: {Comments: $select.search}">
-                                <div ng-bind-html="sts.Comments | highlight: $select.search"></div>
-                            </ui-select-choices>
-                        </ui-select>
-                    </div>
-                </div>*@
+                                        <div class="col-md-3">
+                                            <label class="control-label input-sm required">সিদ্ধান্ত প্রস্তাবের অনুমোদন</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <ui-select class="form-control form-white input-sm" ng-model="frmSpeakerApproval.AppStatus" theme="select2">
+                                                <ui-select-match>{{$select.selected.Comments}}</ui-select-match>
+                                                <ui-select-choices repeat="sts.ID as sts in AprSts | propsFilter: {Comments: $select.search}">
+                                                    <div ng-bind-html="sts.Comments | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                        </div>
+                                    </div>*@
 
                                 <div class="row">
                                     <div class="col-md-3">
                                         <label class="control-label input-sm required">সিদ্ধান্ত প্রস্তাব সম্পাদনা</label>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-3"></div>
-                                        <div class="col-md-3">
-                                            <button class="btn btn-embossed btn-primary btn-rounded" ng-click="SaveData()" ng-class="{'btn-transparent': !ApproveDetail}" ng-disabled="!ApproveDetail" ng-hide="ViewPerm == 'NO'"><i class="fa fa-save"></i>Acept</button>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <button class="btn btn-embossed btn-info btn-rounded" ng-click="RejectData()"><i class="fa fa-save"></i>&nbsp Reject</button>
-                </div>
+                                    <div class="col-md-9">
+                                        <textarea ck-editor class="form-control form-white input-sm" name="ApproveDetail" placeholder="সিদ্ধান্তের পক্ষে মতামত" ng-maxlength="4000" id="ApproveDetail" ng-model="ApproveDetail" required>{{ApproveDetail}}</textarea>
                                     </div>
                                 </div>
                                 @*<div class="row">
-                                    <div class="col-md-3"></div>
-                                    <div class="col-md-3">
-                                        <button class="btn btn-embossed btn-primary btn-rounded" ng-click="SaveData()" ng-class="{'btn-transparent': !ApproveDetail || !frmSpeakerApproval.AppStatus }" ng-disabled="!ApproveDetail || !frmSpeakerApproval.AppStatus" ng-hide="ViewPerm == 'NO'"><i class="fa fa-save"></i>Acept</button>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <button class="btn btn-embossed btn-info btn-rounded" ng-click="RejectData()"><i class="fa fa-save"></i>&nbsp Reject</button>
-                                    </div>
-                                </div>*@
+                                        <div class="col-md-3"></div>
+                                        <div class="col-md-3">
+                                            <button class="btn btn-embossed btn-primary btn-rounded" ng-click="SaveData()" ng-class="{'btn-transparent': !ApproveDetail || !frmSpeakerApproval.AppStatus }" ng-disabled="!ApproveDetail || !frmSpeakerApproval.AppStatus" ng-hide="ViewPerm == 'NO'"><i class="fa fa-save"></i>Acept</button>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <button class="btn btn-embossed btn-info btn-rounded" ng-click="RejectData()"><i class="fa fa-save"></i>&nbsp Reject</button>
+                                        </div>
+                                    </div>*@
                             </fieldset>
                         </div>
                     </div>

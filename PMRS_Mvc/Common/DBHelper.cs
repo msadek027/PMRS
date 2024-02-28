@@ -15,7 +15,7 @@ namespace PMRS_Mvc.Common
                 SqlConnection conn = new SqlConnection(cnct);
                 SqlDataAdapter da = new SqlDataAdapter();
                 SqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "select * from [VW_Summary] Where 1=1 AND ParlSessID = 1005 AND MemberResolutionDate between '2024-01-01' AND '2024-02-29' Order by RDNo ";// qry;
+                cmd.CommandText = "select * from [VW_Summary] Where 1=1 AND ParlSessID = 1005 AND MemberResolutionDate between '2024-01-01' AND '2024-03-29' Order by RDNo ";// qry;
                 da.SelectCommand = cmd;
                 DataTable ds = new DataTable();
 

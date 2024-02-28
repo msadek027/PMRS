@@ -384,7 +384,7 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
                                   join map in db.ConstitutentUserMappingInfoes on em.UserID equals map.UserID
                                   join cnt in db.ConstitutentInfoes on map.ConstitutentID equals cnt.ConstitutentID
                                   // join apr in db.ApprovalStatus on r.SrAssitantSccApproveStatus equals apr.Status
-                                  where map.ParliamentNo == prl.ParliamentNo.ToString() && r.ParlSessID == sessionID
+                                  where map.ParliamentNo == prl.ParliamentNo.ToString() /*&& r.ParlSessID == sessionID */
                                  && t.AcceptStatus == "true"
                                    && new[] { "31" }.Contains(r.SrAssitantSccApproveStatus)
                                   select new
