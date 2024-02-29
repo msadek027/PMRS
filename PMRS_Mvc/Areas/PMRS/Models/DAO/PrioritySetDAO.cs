@@ -19,8 +19,8 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
                               join prl in db.ParliamentSessionInfoes on t.ParlSessID equals prl.ParliamentSessionID
                               join map in db.ConstitutentUserMappingInfoes on em.UserID equals map.UserID
                               join cnt in db.ConstitutentInfoes on map.ConstitutentID equals cnt.ConstitutentID
-                              where prl.ParliamentSessionID == sessionID && apr.AddSecApproveStatus == "1" && map.ParliamentNo == prl.ParliamentNo.ToString()
-                              &&  apr.SpeakerApproveStatus == "1" && apr.NoticeBackStatus == "1"
+                              where prl.ParliamentSessionID == sessionID  && map.ParliamentNo == prl.ParliamentNo.ToString()
+                              &&  apr.SpeakerApproveStatus == "1" && apr.NoticeBackStatus == "0"
                               && apr.MemberResPriority == null
                               select new
                               {
@@ -98,6 +98,7 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
                 {
                     var updt = db.ResolutionApprovals.Where(x => x.ResolutionApproveID == resID).FirstOrDefault();
                     updt.MemberResPriority = priority;
+                    updt.NoticeBackStatus = null;
                     db.SaveChanges();
 
                     isTrue = true;

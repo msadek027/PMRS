@@ -34,7 +34,7 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
                              {
                                  t.MemberResolutionID,
                                  r.ResolutionApproveID,
-                                 html = t.MemberResolutionDetail,
+                                 html = r.AdministrativeOfcDetail,
                                  t.MemberResolutionDetail,
                                  t.MemberResolutionDate,
                                  t.MemberResolutionFIleURL,
@@ -67,13 +67,13 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
                              join prl in db.ParliamentSessionInfoes on t.ParlSessID equals prl.ParliamentSessionID
                              join map in db.ConstitutentUserMappingInfoes on em.UserID equals map.UserID
                              join cnt in db.ConstitutentInfoes on map.ConstitutentID equals cnt.ConstitutentID
-                             where prl.ParliamentSessionID == sessionID && t.AcceptStatus == "true" && map.ParliamentNo == prl.ParliamentNo.ToString() && t.SendTo == "10"
+                             where prl.ParliamentSessionID == sessionID && t.AcceptStatus == "true" && map.ParliamentNo == prl.ParliamentNo.ToString() 
                                    && new[] { "0" }.Contains(r.AdministrativeOfcBackStatus)
                              select new
                              {
                                  t.MemberResolutionID,
                                  r.ResolutionApproveID,
-                                 html = t.MemberResolutionDetail,
+                                 html = r.AdministrativeOfcDetail,
                                  t.MemberResolutionDetail,
                                  t.MemberResolutionDate,
                                  t.MemberResolutionFIleURL,

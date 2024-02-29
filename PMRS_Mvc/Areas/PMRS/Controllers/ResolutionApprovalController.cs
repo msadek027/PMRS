@@ -306,7 +306,7 @@ namespace PMRS_Mvc.Areas.PMRS.Controllers
         {
             try
             {
-                string resolutionDetail = master.AdministrativeOfcApproveStatus;
+                string resolutionDetail = master.AdministrativeOfcDetail;
                 if (Session["Signature"] != null)
                 {
                     master.AdministrativeOfcSignature = Session["Signature"].ToString();
