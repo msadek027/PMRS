@@ -306,13 +306,14 @@ namespace PMRS_Mvc.Areas.PMRS.Controllers
         {
             try
             {
+                string resolutionDetail = master.AdministrativeOfcApproveStatus;
                 if (Session["Signature"] != null)
                 {
                     master.AdministrativeOfcSignature = Session["Signature"].ToString();
                 }
                 if (master.AdministrativeOfcApproveStatus == "1" || master.AdministrativeOfcApproveStatus == "7" || master.AdministrativeOfcApproveStatus == "8" || master.AdministrativeOfcApproveStatus == "10")
                 {
-                    UpdateResolutionStatus(master);
+                    UpdateResolutionStatus(resolutionDetail,master);
                 }
                 if (primaryDAO.UpdateAdministrativeApproval(master))
                 {
@@ -380,13 +381,14 @@ namespace PMRS_Mvc.Areas.PMRS.Controllers
         {
             try
             {
+                string resolutionDetail = master.AssitantSccDetail;
                 if (Session["Signature"] != null)
                 {
                     master.AssitantSccSignature = Session["Signature"].ToString();
                 }
                 if (master.AssitantSccApproveStatus == "1" || master.AssitantSccApproveStatus == "7" || master.AssitantSccApproveStatus == "8" || master.AssitantSccApproveStatus == "10")
                 {
-                    UpdateResolutionStatus(master);
+                    UpdateResolutionStatus(resolutionDetail,master);
                 }
                 if (primaryDAO.UpdateAssistantSecApproval(master))
                 {
@@ -440,13 +442,14 @@ namespace PMRS_Mvc.Areas.PMRS.Controllers
         {
             try
             {
+                string resolutionDetail = master.SrAssitantSccDetail;
                 if (Session["Signature"] != null)
                 {
                     master.SrAssitantSccSignature = Session["Signature"].ToString();
                 }
                 if (master.SrAssitantSccApproveStatus == "1" || master.SrAssitantSccApproveStatus == "7" || master.SrAssitantSccApproveStatus == "8" || master.SrAssitantSccApproveStatus == "10")
                 {
-                    UpdateResolutionStatus(master);
+                    UpdateResolutionStatus(resolutionDetail,master);
                 }
                 if (primaryDAO.UpdateSrAssistantSecApproval(master))
                 {
@@ -544,13 +547,14 @@ namespace PMRS_Mvc.Areas.PMRS.Controllers
         {
             try
             {
+                string resolutionDetail = master.DeputySecApproveDetail;
                 if (Session["Signature"] != null)
                 {
                     master.DeputySecSignature = Session["Signature"].ToString();
                 }
                 if (master.DeputySecApproveStatus == "1" || master.DeputySecApproveStatus == "7" || master.DeputySecApproveStatus == "8" || master.DeputySecApproveStatus == "10")
                 {
-                    UpdateResolutionStatus(master);
+                    UpdateResolutionStatus(resolutionDetail,master);
                 }
                 if (primaryDAO.UpdateDeputySecretaryApproval(master))
                 {
@@ -618,13 +622,14 @@ namespace PMRS_Mvc.Areas.PMRS.Controllers
         {
             try
             {
+                string resolutionDetail = master.AddSecApproveDetail;
                 if (Session["Signature"] != null)
                 {
                     master.AddSecSignature = Session["Signature"].ToString();
                 }
                 if (master.AddSecApproveStatus == "1" || master.AddSecApproveStatus == "7" || master.AddSecApproveStatus == "8" || master.AddSecApproveStatus == "10")
                 {
-                    UpdateResolutionStatus(master);
+                    UpdateResolutionStatus(resolutionDetail,master);
                 }
                
        
@@ -686,13 +691,14 @@ namespace PMRS_Mvc.Areas.PMRS.Controllers
         {
             try
             {
+                string resolutionDetail = master.SecApproveDetail;
                 if (Session["Signature"] != null)
                 {
                     master.SecSignature = Session["Signature"].ToString();
                 }
                 if ( master.SecApproveStatus == "1" || master.SecApproveStatus == "7" || master.SecApproveStatus == "8" || master.SecApproveStatus == "10")
                 {
-                    UpdateResolutionStatus(master);
+                    UpdateResolutionStatus(resolutionDetail,master);
                 }
                 if (primaryDAO.UpdateSecretaryApproval(master))
                 {
@@ -751,6 +757,7 @@ namespace PMRS_Mvc.Areas.PMRS.Controllers
         {
             try
             {
+                string resolutionDetail = master.SpeakerApproveDetail;
                 master.DataMode = "Backward";
                 if(Session["Signature"] != null)
                 {
@@ -758,7 +765,7 @@ namespace PMRS_Mvc.Areas.PMRS.Controllers
                 }
                 if (master.SpeakerApproveStatus == "1" || master.SpeakerApproveStatus == "7" || master.SpeakerApproveStatus == "8" || master.SpeakerApproveStatus == "10")
                 {
-                    UpdateResolutionStatus(master);
+                    UpdateResolutionStatus(resolutionDetail,master);
                 }
                 if (primaryDAO.UpdateSpeakerApproval(master))
                 {
@@ -792,7 +799,7 @@ namespace PMRS_Mvc.Areas.PMRS.Controllers
 
         #endregion
 
-        public void UpdateResolutionStatus(ResolutionApproval master)
+        public void UpdateResolutionStatus(string resolutionDetail,ResolutionApproval master)
         {
             ResolutionApproval approval = new ResolutionApproval();
             approval.ResolutionApproveID = master.ResolutionApproveID;
@@ -803,7 +810,7 @@ namespace PMRS_Mvc.Areas.PMRS.Controllers
                 if (master.SendTo == "10")
                 {
 
-                    approval.AdministrativeOfcDetail = master.AdministrativeOfcDetail;
+                    approval.AdministrativeOfcDetail = resolutionDetail;
                     approval.RDNo = master.RDNo;
                     approval.ParlSessID = master.ParlSessID;
                     approval.AdministrativeOfcApproveStatus = "0";
@@ -814,7 +821,7 @@ namespace PMRS_Mvc.Areas.PMRS.Controllers
                 if (master.SendTo == "9")
                 {
 
-                    approval.AssitantSccDetail = master.AssitantSccDetail;
+                    approval.AssitantSccDetail = resolutionDetail;
                     approval.RDNo = master.RDNo;
                     approval.ParlSessID = master.ParlSessID;
                     approval.AssitantSccApproveStatus = "0";
@@ -824,7 +831,7 @@ namespace PMRS_Mvc.Areas.PMRS.Controllers
                 if (master.SendTo == "6")
                 {
 
-                    approval.SrAssitantSccDetail = master.SrAssitantSccDetail;
+                    approval.SrAssitantSccDetail = resolutionDetail;
                     approval.RDNo = master.RDNo;
                     approval.ParlSessID = master.ParlSessID;
                     approval.SrAssitantSccApproveStatus = "0";
@@ -836,7 +843,7 @@ namespace PMRS_Mvc.Areas.PMRS.Controllers
                 if (master.SendTo == "3")
                 {
 
-                    approval.DeputySecApproveDetail = master.DeputySecApproveDetail;
+                    approval.DeputySecApproveDetail = resolutionDetail;
                     approval.RDNo = master.RDNo;
                     approval.ParlSessID = master.ParlSessID;
                     approval.DeputySecApproveStatus = "0";
@@ -847,7 +854,7 @@ namespace PMRS_Mvc.Areas.PMRS.Controllers
                 if (master.SendTo == "2")
                 {
 
-                    approval.AddSecApproveDetail = master.AddSecApproveDetail;
+                    approval.AddSecApproveDetail = resolutionDetail;
                     approval.RDNo = master.RDNo;
                     approval.ParlSessID = master.ParlSessID;
 
@@ -858,7 +865,7 @@ namespace PMRS_Mvc.Areas.PMRS.Controllers
                 if (master.SendTo == "1")
                 {
 
-                    approval.SecApproveDetail = master.SecApproveDetail;
+                    approval.SecApproveDetail = resolutionDetail;
                     approval.RDNo = master.RDNo;
                     approval.ParlSessID = master.ParlSessID;
                     approval.SecApproveDate = DateTime.Now;
@@ -870,7 +877,7 @@ namespace PMRS_Mvc.Areas.PMRS.Controllers
                 if (master.SendTo == "0")
                 {
 
-                    approval.SpeakerApproveDetail = master.SpeakerApproveDetail;
+                    approval.SpeakerApproveDetail = resolutionDetail;
                     approval.RDNo = master.RDNo;
                     approval.ParlSessID = master.ParlSessID;
                     approval.SpeakerApproveDate = DateTime.Now;
@@ -885,7 +892,7 @@ namespace PMRS_Mvc.Areas.PMRS.Controllers
                 if (master.SendTo == "10")
                 {
 
-                    approval.AdministrativeOfcDetail = master.AdministrativeOfcDetail;
+                    approval.AdministrativeOfcDetail = resolutionDetail;
                     approval.RDNo = master.RDNo;
                     approval.ParlSessID = master.ParlSessID;
                     approval.AdministrativeOfcApproveStatus = "1";
@@ -897,7 +904,7 @@ namespace PMRS_Mvc.Areas.PMRS.Controllers
                 if (master.SendTo == "9")
                 {
 
-                    approval.AssitantSccDetail = master.AssitantSccDetail;
+                    approval.AssitantSccDetail = resolutionDetail;
                     approval.RDNo = master.RDNo;
                     approval.ParlSessID = master.ParlSessID;
                     approval.AssitantSccApproveStatus = "1";
@@ -908,7 +915,7 @@ namespace PMRS_Mvc.Areas.PMRS.Controllers
                 if (master.SendTo == "6")
                 {
 
-                    approval.SrAssitantSccDetail = master.SrAssitantSccDetail;
+                    approval.SrAssitantSccDetail = resolutionDetail;
                     approval.RDNo = master.RDNo;
                     approval.ParlSessID = master.ParlSessID;
                     approval.SrAssitantSccApproveStatus = "1";
@@ -921,7 +928,7 @@ namespace PMRS_Mvc.Areas.PMRS.Controllers
                 if (master.SendTo == "3")
                 {
 
-                    approval.DeputySecApproveDetail = master.DeputySecApproveDetail;
+                    approval.DeputySecApproveDetail = resolutionDetail;
                     approval.RDNo = master.RDNo;
                     approval.ParlSessID = master.ParlSessID;
                     approval.DeputySecApproveStatus = "1";
@@ -933,7 +940,7 @@ namespace PMRS_Mvc.Areas.PMRS.Controllers
                 if (master.SendTo == "2")
                 {
 
-                    approval.AddSecApproveDetail = master.AddSecApproveDetail;
+                    approval.AddSecApproveDetail = resolutionDetail;
                     approval.RDNo = master.RDNo;
                     approval.ParlSessID = master.ParlSessID;
 
@@ -945,7 +952,7 @@ namespace PMRS_Mvc.Areas.PMRS.Controllers
                 if (master.SendTo == "1")
                 {
 
-                    approval.SecApproveDetail = master.SecApproveDetail;
+                    approval.SecApproveDetail = resolutionDetail;
                     approval.RDNo = master.RDNo;
                     approval.ParlSessID = master.ParlSessID;
                     approval.SecApproveDate = DateTime.Now;
@@ -958,7 +965,7 @@ namespace PMRS_Mvc.Areas.PMRS.Controllers
                 if (master.SendTo == "0")
                 {
 
-                    approval.SpeakerApproveDetail = master.SpeakerApproveDetail;
+                    approval.SpeakerApproveDetail = resolutionDetail;
                     approval.RDNo = master.RDNo;
                     approval.ParlSessID = master.ParlSessID;
                     approval.SpeakerApproveDate = DateTime.Now;

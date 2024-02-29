@@ -24,7 +24,7 @@ namespace PMRS_Mvc.Areas.MP.DAO
                               join cnt in db.ConstitutentInfoes on map.ConstitutentID equals cnt.ConstitutentID
                               where prl.ParliamentSessionID == sessionID && apr.AddSecApproveStatus == "1"
                               && apr.SpeakerApproveStatus == "1" && t.UserID == UserID && map.ParliamentNo == prl.ParliamentNo.ToString()
-                              && apr.MemberResPriority == null
+                              && apr.MemberResPriority == null && apr.NoticeBackStatus == "1"
                               select new
                               {
                                   apr.ResolutionApproveID,

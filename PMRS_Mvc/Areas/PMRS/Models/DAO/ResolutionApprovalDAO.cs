@@ -599,7 +599,7 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
                                       x.AddSecSignature,
                                       x.SpeakerSignature,
 
-                                      html = x.DeputySecApproveDetail,
+                                      html = x.AddSecApproveDetail,
                                       //  MemberResolutionDetail = x.DeputySecApproveDetail,
 
                                       t.MemberResolutionDetail,
@@ -647,7 +647,7 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
                                       x.AddSecSignature,
                                       x.SpeakerSignature,
 
-                                      html = x.DeputySecApproveDetail,
+                                      html = x.AddSecApproveDetail,
                                       //  MemberResolutionDetail = x.DeputySecApproveDetail,
 
                                       t.MemberResolutionDetail,
@@ -695,7 +695,7 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
                                       x.AddSecSignature,
                                       x.SpeakerSignature,
 
-                                      html = x.DeputySecApproveDetail,
+                                      html = x.AddSecApproveDetail,
                                       //  MemberResolutionDetail = x.DeputySecApproveDetail,
 
                                       t.MemberResolutionDetail,
@@ -752,7 +752,7 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
                                       x.SecSignature,
                                       x.AddSecSignature,
                                       x.SpeakerSignature,
-                                      html = x.AddSecApproveDetail,
+                                      html = x.SecApproveDetail,
                                       //MemberResolutionDetail = x.AddSecApproveDetail,                          
                                       t.MemberResolutionDetail,
                                       t.MemberResolutionDate,
@@ -796,7 +796,7 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
                                       x.SecSignature,
                                       x.AddSecSignature,
                                       x.SpeakerSignature,
-                                      html = x.AddSecApproveDetail,
+                                      html = x.SecApproveDetail,
                                       //MemberResolutionDetail = x.AddSecApproveDetail,                          
                                       t.MemberResolutionDetail,
                                       t.MemberResolutionDate,
@@ -840,7 +840,7 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
                                       x.SecSignature,
                                       x.AddSecSignature,
                                       x.SpeakerSignature,
-                                      html = x.AddSecApproveDetail,
+                                      html = x.SecApproveDetail,
                                       //MemberResolutionDetail = x.AddSecApproveDetail,                          
                                       t.MemberResolutionDetail,
                                       t.MemberResolutionDate,
@@ -895,7 +895,7 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
                                       x.AddSecSignature,
                                       x.SpeakerSignature,
 
-                                      html = x.SecApproveDetail,
+                                      html = x.SpeakerApproveDetail,
                                       //MemberResolutionDetail = x.SecApproveDetail,
 
 
