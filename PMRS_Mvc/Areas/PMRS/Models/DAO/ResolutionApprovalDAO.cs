@@ -112,7 +112,7 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
                              {
                                  t.MemberResolutionID,
                                  r.ResolutionApproveID,
-                                 html = t.MemberResolutionDetail,
+                                 html = r.AdministrativeOfcDetail,
                                  t.MemberResolutionDetail,
                                  t.MemberResolutionDate,
                                  t.MemberResolutionFIleURL,
@@ -169,7 +169,7 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
                                   {
                                       t.MemberResolutionID,
                                       r.ResolutionApproveID,
-                                      html = r.AdministrativeOfcDetail,
+                                      html = r.AssitantSccDetail,
                                       t.MemberResolutionDetail,
                                       t.MemberResolutionDate,
                                       t.MemberResolutionFIleURL,
@@ -211,7 +211,7 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
                                   {
                                       t.MemberResolutionID,
                                       r.ResolutionApproveID,
-                                      html = r.AdministrativeOfcDetail,
+                                      html = r.AssitantSccDetail,
                                       t.MemberResolutionDetail,
                                       t.MemberResolutionDate,
                                       t.MemberResolutionFIleURL,
@@ -253,7 +253,7 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
                                   {
                                       t.MemberResolutionID,
                                       r.ResolutionApproveID,
-                                      html = r.AdministrativeOfcDetail,
+                                      html = r.AssitantSccDetail,
                                       t.MemberResolutionDetail,
                                       t.MemberResolutionDate,
                                       t.MemberResolutionFIleURL,
@@ -307,7 +307,7 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
                                   {
                                       t.MemberResolutionID,
                                       r.ResolutionApproveID,
-                                      html = r.AssitantSccDetail,
+                                      html = r.SrAssitantSccDetail,
                                       t.MemberResolutionDetail,
                                       t.MemberResolutionDate,
                                       t.MemberResolutionFIleURL,
@@ -349,7 +349,7 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
                                   {
                                       t.MemberResolutionID,
                                       r.ResolutionApproveID,
-                                      html = r.AssitantSccDetail,
+                                      html = r.SrAssitantSccDetail,
                                       t.MemberResolutionDetail,
                                       t.MemberResolutionDate,
                                       t.MemberResolutionFIleURL,
@@ -391,7 +391,7 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
                                   {
                                       t.MemberResolutionID,
                                       r.ResolutionApproveID,
-                                      html = r.AssitantSccDetail,
+                                      html = r.SrAssitantSccDetail,
                                       t.MemberResolutionDetail,
                                       t.MemberResolutionDate,
                                       t.MemberResolutionFIleURL,
@@ -446,7 +446,7 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
                                   {
                                       t.MemberResolutionID,
                                       r.ResolutionApproveID,
-                                      html = r.SrAssitantSccDetail,
+                                      html = r.DeputySecApproveDetail,
                                       t.MemberResolutionDetail,
                                       t.MemberResolutionDate,
                                       t.MemberResolutionFIleURL,
@@ -489,7 +489,7 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
                                   {
                                       t.MemberResolutionID,
                                       r.ResolutionApproveID,
-                                      html = r.SrAssitantSccDetail,
+                                      html = r.DeputySecApproveDetail,
                                       t.MemberResolutionDetail,
                                       t.MemberResolutionDate,
                                       t.MemberResolutionFIleURL,
@@ -531,7 +531,7 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
                                   {
                                       t.MemberResolutionID,
                                       r.ResolutionApproveID,
-                                      html = r.SrAssitantSccDetail,
+                                      html = r.DeputySecApproveDetail,
                                       t.MemberResolutionDetail,
                                       t.MemberResolutionDate,
                                       t.MemberResolutionFIleURL,
