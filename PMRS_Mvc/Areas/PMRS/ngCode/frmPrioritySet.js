@@ -59,11 +59,12 @@
         { name: 'RDNo', displayName: "আর ডি নং", width: 120 },
         { name: 'Status', displayName: "Status", visible: false },
         { name: 'MemberResPriority', displayName: "প্রায়োরিটি", width: 150, visible: false },
-        { name: 'DeputySecSignature', displayName: "সহকারী সচিব", width: 120, cellTemplate: '<img src="{{row.entity.DeputySecSignature}}" alt="Not Signed" width="200">' },
-        { name: 'JointSecSignature', displayName: "যুগ্ম সচিব", width: 120, cellTemplate: '<img src="{{row.entity.JointSecSignature}}" alt="Not Signed" width="150">' },
-        { name: 'SecSignature', displayName: "অতিরিক্ত সচিব", width: 120, cellTemplate: '<img src="{{row.entity.SecSignature}}" alt="Not Signed" width="150">' },
-        { name: 'AddSecSignature', displayName: " সচিব", width: 120, cellTemplate: '<img src="{{row.entity.AddSecSignature}}" alt="Not Signed" width="150">' },
-        { name: 'SpeakerSignature', displayName: "স্পিকার", width: 120, cellTemplate: '<img src="{{row.entity.SpeakerSignature}}" alt="Not Signed" width="150">' },
+        { name: 'AdministrativeOfcSignature', displayName: "প্রশাসনিক কর্মকর্তা", width: 120, cellTemplate: '<img src="{{row.entity.AdministrativeOfcSignature}}" alt="Not Signed" width="200">' },
+        { name: 'AssitantSccSignature', displayName: "সহকারী সচিব", width: 120, cellTemplate: '<img src="{{row.entity.AssitantSccSignature}}" alt="Not Signed" width="200">' },
+        { name: 'SrAssitantSccSignature', displayName: "সিনিয়র সহকারী সচিব", width: 120, cellTemplate: '<img src="{{row.entity.SrAssitantSccSignature}}" alt="Not Signed" width="200">' },
+        { name: 'DeputySecSignature', displayName: "যুগ্ম সচিব", width: 120, cellTemplate: '<img src="{{row.entity.DeputySecSignature}}" alt="Not Signed" width="150">' },
+        { name: 'AddSecSignature', displayName: "অতিরিক্ত সচিব", width: 120, cellTemplate: '<img src="{{row.entity.AddSecSignature}}" alt="Not Signed" width="150">' },
+        { name: 'SecSignature', displayName: " সচিব", width: 120, cellTemplate: '<img src="{{row.entity.SecSignature}}" alt="Not Signed" width="150">' },
         {
             name: 'Action ', displayName: "প্রায়োরিটি", enableFiltering: false, enableSorting: false, width: "100",
             cellTemplate: '<div style="text-align:center;position: relative;width:100%;padding:2px 2px 2px 6px;"><button  class="btn btn-sm btn-success " ng-click="grid.appScope.editGridReferenceProductOptionsRow(row)"><i class="fa fa-edit"></i>&nbspEdit</button></div>'
