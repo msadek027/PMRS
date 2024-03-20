@@ -334,6 +334,7 @@
         else {
             toastr.warning("প্রাপোক নির্বাচন করুন");
         }
+        $scope.Reset();
     };
 
 
@@ -385,6 +386,7 @@
         }
         $scope.gridResolutionOptions.data = [];
         $scope.GetWaitingListForDeputySecretary();
+        $scope.Reset();
     };
 
     $scope.SaveData = function () {
@@ -457,6 +459,7 @@
                 }
             });
         }
+        $scope.Reset();
     };
 
     $scope.SaveDataDraft = function () {

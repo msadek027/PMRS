@@ -363,6 +363,7 @@
                 }
             });
         }
+        $scope.Reset();
     };
     $scope.DirectRejectSave = function (row) {
      
@@ -398,6 +399,7 @@
                 }
             });
         }
+        $scope.Reset();
     };
     $scope.MultipleSaveData = function () {
 
@@ -441,6 +443,7 @@
         }
         $scope.gridResolutionOptions.data = [];
         $scope.GetWaitingListForSpeaker();
+        $scope.Reset();
     };
 
 
@@ -482,6 +485,7 @@
                 toastr.error("Failed!");
             }
         });
+        $scope.Reset();
     };
     $scope.RejectData = function () {
 
@@ -521,6 +525,7 @@
                 toastr.error("Failed!");
             }
         });
+        $scope.Reset();
     };
 
     $scope.SaveDataDraft = function () {

@@ -360,6 +360,7 @@
         else {
             toastr.warning("প্রাপোক নির্বাচন করুন");
         }
+        $scope.Reset();
     };
 
 
@@ -410,6 +411,7 @@
         }
         $scope.gridResolutionOptions.data = [];
         $scope.GetWaitingListForAssistantSecretary();
+        $scope.Reset();
     }
 
     $scope.SaveData = function () {
@@ -455,6 +457,7 @@
                 toastr.error("Failed!");
             }
         });
+        $scope.Reset();
     };
 
 

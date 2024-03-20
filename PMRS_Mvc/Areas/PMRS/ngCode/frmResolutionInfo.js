@@ -401,7 +401,7 @@
                 });
             }
         }
-
+        $scope.Reset();
     };
 
     $scope.SaveDraft = function () {
@@ -469,7 +469,7 @@
                 }
             });
         }
-      
+        $scope.Reset();
 
     };
     $scope.Reset = function () {

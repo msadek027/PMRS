@@ -160,6 +160,13 @@
     <Content Include="Areas\PMRS\ngCode\frmAdministrativeOfficerApproval.js" />
     <Content Include="Areas\PMRS\ngCode\frmSecretaryApproval.js" />
     <Content Include="Areas\PMRS\ngCode\frmSpeakerApproval.js" />
+    <Content Include="Areas\PMRS\Reports\DefaultImg\AddSign.jpg" />
+    <Content Include="Areas\PMRS\Reports\DefaultImg\AdministrativeOfc.jpg" />
+    <Content Include="Areas\PMRS\Reports\DefaultImg\AssistantSign.jpg" />
+    <Content Include="Areas\PMRS\Reports\DefaultImg\DeputySign.jpg" />
+    <Content Include="Areas\PMRS\Reports\DefaultImg\Secertery.jpg" />
+    <Content Include="Areas\PMRS\Reports\DefaultImg\SpeakerSign.jpg" />
+    <Content Include="Areas\PMRS\Reports\DefaultImg\SrAssistantSign.jpg" />
     <Content Include="Areas\Security\ngCode\frmChangePass.js" />
     <Content Include="Areas\Security\ngCode\frmLoginCreate.js" />
     <Content Include="Areas\Security\ngCode\frmMHConfig.js" />
@@ -2490,6 +2497,7 @@
     <Content Include="Models\PMRS.edmx.diagram">
       <DependentUpon>PMRS.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\PMRS.pubxml" />
     <None Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -2524,30 +2532,35 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>rptBallotInfo.rpt</DependentUpon>
       <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Areas\PMRS\Reports\rptCircular.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>rptCircular.rpt</DependentUpon>
       <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Areas\PMRS\Reports\rptPrimarySummary.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>rptPrimarySummary.rpt</DependentUpon>
       <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Areas\PMRS\Reports\rptSpeakerAccepted.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>rptSpeakerAccepted.rpt</DependentUpon>
       <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Areas\PMRS\Reports\rptTabularSummary.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>rptTabularSummary.rpt</DependentUpon>
       <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Areas\Security\Controllers\AuditTrailController.cs" />
     <Compile Include="Areas\Security\Controllers\MHController.cs" />
@@ -2895,7 +2908,6 @@
     <Folder Include="assets\plugins\timepicker\src\docs\" />
     <Folder Include="Images\Emp\" />
     <Folder Include="Images\Mp\" />
-    <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="UploadDocs\ResolutionInfo\" />
   </ItemGroup>
   <ItemGroup>
@@ -2906,22 +2918,27 @@
     <EmbeddedResource Include="Areas\PMRS\Reports\rptBallotInfo.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>rptBallotInfo.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Areas\PMRS\Reports\rptCircular.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>rptCircular.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Areas\PMRS\Reports\rptPrimarySummary.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>rptPrimarySummary.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Areas\PMRS\Reports\rptSpeakerAccepted.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>rptSpeakerAccepted.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Areas\PMRS\Reports\rptTabularSummary.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>rptTabularSummary.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -344,9 +344,9 @@
     $scope.Reset = function () {
         $scope.uiID = "";
         $scope.uiCode = "";
-        $scope.MemberResolutionDetail = "";
+      
         $scope.MemberResolutionFIleURL = "";
-
+        $scope.MemberResolutionDetail = "সংসদের অভিমত এই যে, ";
         $scope.frmResolutionInfo.ParliamentSession = undefined;
 
         $scope.Status = $scope.ActiveSts;
