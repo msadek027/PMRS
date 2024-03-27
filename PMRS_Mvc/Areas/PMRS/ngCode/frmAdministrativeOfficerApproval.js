@@ -60,7 +60,7 @@
         { name: 'ResolutionApproveID', displayName: "ID", visible: false },
         { name: 'MemberResolutionID', displayName: "ID", visible: false },
         { name: 'MemberResolutionDate', displayName: "প্রস্তাবের তারিখ", cellFilter: "FullDateWithTime", width: 150 },
-        { name: 'html', displayName: "সিদ্ধান্ত প্রস্তাব", width: 650, cellTemplate: '<div ng-bind-html="COL_FIELD"></div>' },
+        { name: 'html', displayName: "সিদ্ধান্ত প্রস্তাব", width: 650, cellTemplate: '<div ng-bind-html="COL_FIELD"></div>',  editable: true,  editableCellTemplate: '<div><input type="text" ng-model="MODEL_COL_FIELD"></div>' },
         { name: 'MemberResolutionDetail', displayName: "মূল প্রস্তাব", visible: true, width: 150, cellTemplate: '<div ng-bind-html="COL_FIELD"></div>' },
         { name: 'MemberResolutionFIleURL', displayName: "URL", visible: false },
         { name: 'ConstitutentBangla', displayName: "নির্বাচনী এলাকা", width: 150 },

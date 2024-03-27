@@ -1,0 +1,76 @@
+
+CREATE TABLE ResolutionApprovalMST(   
+	ResolutionApproveID int IDENTITY(1,1) CONSTRAINT PK_ResolutionApprovalMST_ResolutionApproveID Primary Key,
+
+	AdministrativeOfcApproveDate datetime NULL,	
+	AdministrativeOfcEmpID int NULL,
+	AdministrativeOfcSignature varchar(max) NULL,
+
+	AssitantSccApproveDate datetime NULL,	
+	AssitantSccEmpID int NULL,
+	AssitantSccSignature varchar(max) NULL,
+
+	SrAssitantSccApproveDate datetime NULL,
+	SrAssitantSccEmpID int NULL,
+	SrAssitantSccSignature varchar(max) NULL,
+
+	DeputySecApproveDate datetime NULL,
+	DeputySecEmpID int NULL,
+	DeputySecSignature varchar(max) NULL,
+
+	AddSecApproveDate datetime NULL,
+	AddSecEmpID int NULL,
+	AddSecSignature varchar(max) NULL,
+
+	SecApproveDate datetime NULL,
+	SecEmpID int NULL,
+	SecSignature varchar(max) NULL,
+
+	SpeakerApproveDate datetime NULL,
+	SpeakerEmpID int NULL,
+	SpeakerSignature varchar(max) NULL,
+
+)
+CREATE TABLE ResolutionApprovalDTL(
+	ResolutionApproveID int ,
+
+	MemberResolutionID int,
+	RDNo nvarchar(50) NULL,
+	ParlSessID int NULL,
+	CompleteBackStatus nvarchar(300) NULL,
+
+	AdministrativeOfcDetail nvarchar(4000) NULL,
+	AdministrativeOfcApproveStatus nvarchar(300) NULL,
+	AdministrativeOfcBackStatus nvarchar(300) NULL,
+
+	AssitantSccDetail nvarchar(4000) NULL,
+	AssitantSccApproveStatus nvarchar(300) NULL,
+	AssitantSccBackStatus nvarchar(300) NULL,
+
+
+	SrAssitantSccDetail nvarchar(4000) NULL,
+	SrAssitantSccApproveStatus nvarchar(300) NULL,
+	SrAssitantSccBackStatus nvarchar(300) NULL,
+
+
+	DeputySecApproveDetail nvarchar(4000) NULL,
+	DeputySecApproveStatus nvarchar(300) NULL,
+	DeputySecBackStatus nvarchar(300) NULL,
+
+	AddSecApproveDetail nvarchar(4000) NULL,	
+	AddSecApproveStatus nvarchar(300) NULL,
+	AddSecBackStatus nvarchar(300) NULL,
+
+
+	SecApproveDetail nvarchar(4000) NULL,
+	SecApproveStatus nvarchar(300) NULL,
+	SecBackStatus nvarchar(300) NULL,
+
+
+	SpeakerApproveDetail nvarchar(4000) NULL,
+	SpeakerApproveStatus nvarchar(300) NULL,
+	SpeakerBackStatus nvarchar(300) NULL,
+
+
+	MemberResPriority int NULL,
+)
