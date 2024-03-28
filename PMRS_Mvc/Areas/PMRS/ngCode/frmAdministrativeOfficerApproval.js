@@ -79,6 +79,7 @@
                                     <div ng-bind-html="sts.Comments | highlight: $select.search">{{ sts.Comments }}</div>
                                 </option>
                             </select>` },
+
         {
             name: 'Action ', displayName: "অনুমোদন", enableFiltering: false, enableSorting: false, width: "100",
             cellTemplate: '<div style="padding:2px 2px 2px 2px;"><button  class="btn-success" ng-click="grid.appScope.DirectSave(row)"><i class="fa fa-forward"></i></button> <button  class="btn-danger " ng-click="grid.appScope.rowDblClickCompCons(row)"><i class="fa fa-edit"></i></button></div>'
