@@ -60,8 +60,8 @@
         { name: 'ResolutionApproveID', displayName: "ID", visible: false },
         { name: 'MemberResolutionID', displayName: "ID", visible: false },
         { name: 'MemberResolutionDate', displayName: "প্রস্তাবের তারিখ", cellFilter: "FullDateWithTime", width: 150 },
-        { name: 'html', displayName: "সিদ্ধান্ত প্রস্তাব", width: 650, cellTemplate: '<div ng-bind-html="COL_FIELD"></div>' },
-        { name: 'MemberResolutionDetail', displayName: "মূল প্রস্তাব", visible: true, width: 150, cellTemplate: '<div ng-bind-html="COL_FIELD"></div>' },
+        { name: 'html', displayName: "সিদ্ধান্ত প্রস্তাব", width: 550, cellTemplate: `<textarea id="w3review" name="html" rows="4" cols="70"  ng-model="row.entity.html" >  </textarea>` },
+        { name: 'MemberResolutionDetail', displayName: "মূল প্রস্তাব", visible: true, width: 200, cellTemplate: '<div ng-bind-html="COL_FIELD"></div>' },
         { name: 'MemberResolutionFIleURL', displayName: "URL", visible: false },
         { name: 'ConstitutentBangla', displayName: "নির্বাচনী এলাকা", width: 150 },
         { name: 'ParlSessID', displayName: "Session ID", visible: false },
@@ -70,7 +70,13 @@
         { name: 'BanglaName', displayName: "সদস্যের নাম", width: 240 },
         { name: 'RDNo', displayName: "আর ডি নং", width: 100 },
 
-        { name: 'Status', displayName: "Status", visible: false },
+        {
+            name: 'Status', displayName: "Status", visible: true, width: 300, cellTemplate: `<select style="width:300px" ng-model="row.entity.frmAdministrativeOfficerApproval.AppStatus">
+                               
+                                <option ng-repeat="sts in grid.appScope.AprSts" value="{{ sts.ID }}">
+                                    <div ng-bind-html="sts.Comments | highlight: $select.search">{{ sts.Comments }}</div>
+                                </option>
+                            </select>` },
         {
             name: 'Action ', displayName: "অনুমোদন", enableFiltering: false, enableSorting: false, width: "100",
             cellTemplate: '<div style="padding:2px 2px 2px 2px;"><button  class="btn-success" ng-click="grid.appScope.DirectSave(row)"><i class="fa fa-forward"></i></button> <button  class="btn-danger " ng-click="grid.appScope.rowDblClickCompCons(row)"><i class="fa fa-edit"></i></button></div>'
