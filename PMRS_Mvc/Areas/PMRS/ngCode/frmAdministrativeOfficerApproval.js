@@ -69,7 +69,6 @@
         { name: 'UserID', displayName: "EMP ID", visible: false },
         { name: 'BanglaName', displayName: "সদস্যের নাম", width: 240 },
         { name: 'RDNo', displayName: "আর ডি নং", width: 100 },
-
         { name: 'Status', displayName: "Status", visible: false },
         {
             name: 'Action ', displayName: "অনুমোদন", enableFiltering: false, enableSorting: false, width: "100",

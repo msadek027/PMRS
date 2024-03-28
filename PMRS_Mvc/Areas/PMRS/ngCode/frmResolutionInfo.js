@@ -15,7 +15,9 @@
     }, function (response) {
         toastr.warning("Error Occurred!");
     });
-
+    $scope.frmResolutionInfo = {
+        SignTo: 1 // Set your default value here
+    };
 
     $http({
         method: "GET",
