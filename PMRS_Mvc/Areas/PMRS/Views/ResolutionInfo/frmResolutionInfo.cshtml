@@ -189,195 +189,111 @@
 
 
 
-                <div class="form-group ">
-                    <div class="col-md-3">
-                        <label class="control-label input-sm required">প্রাপ্তির তারিখ</label>
-                    </div>
-                    <div class="col-md-2">
-                        <datepicker date-format="dd/MM/yyyy"
-                                    date-week-start-day="0"
-                                    button-prev=' <i class="fa fa-arrow-circle-left"></i>'
-                                    button-next='<i class="fa fa-arrow-circle-right"></i>'>
-                            <input id="MemberResolutionDate" ng-model="MemberResolutionDate" type="text" class="angular-datepicker-input form-white input-sm form-control clickable" readonly placeholder="সিদ্ধান্ত প্রস্তাবের তারিখ" required />
-                        </datepicker>
+                <div hidden>
+
+                    <div class="form-group ">
+                        <div class="col-md-3">
+                            <label class="control-label input-sm required">প্রাপ্তির তারিখ</label>
+                        </div>
+                        <div class="col-md-2">
+                            <datepicker date-format="dd/MM/yyyy"
+                                        date-week-start-day="0"
+                                        button-prev='
+                                <i class="fa fa-arrow-circle-left"></i>'
+                                button-next='<i class="fa fa-arrow-circle-right"></i>'>
+                                <input id="MemberResolutionDate" ng-model="MemberResolutionDate" type="text" class="angular-datepicker-input form-white input-sm form-control clickable" readonly placeholder="সিদ্ধান্ত প্রস্তাবের তারিখ" required />
+                            </datepicker>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label class="control-label input-sm required">ঘন্টা</label>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" id="Hour" ng-model="Hour">
+
+                        </div>
+
+                        <div class="col-md-1">
+                            <label class="control-label input-sm required">মিনিট</label>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" id="Minute" ng-model="Minute">
+
+                        </div>
                     </div>
 
-                    <div class="col-md-2">
-                        <label class="control-label input-sm required">ঘন্টা</label>
-                    </div>
-                    <div class="col-md-2">
-                        <select class="form-control form-white input-sm" id="Hour" ng-model="Hour" required>
-                            <option value="01">১ AM</option>
-                            <option value="02">২ AM</option>
-                            <option value="03">৩ AM</option>
-                            <option value="04">৪ AM</option>
-                            <option value="05">৫ AM</option>
-                            <option value="06">৬ AM</option>
-                            <option value="07">৭ AM</option>
-                            <option value="08">৮ AM</option>
-                            <option value="09">৯ AM</option>
-                            <option value="10">১০ AM</option>
-                            <option value="11">১১ AM</option>
-                            <option value="12">১২ PM</option>
-                            <option value="13">১ PM</option>
-                            <option value="14">২ PM</option>
-                            <option value="15">৩ PM</option>
-                            <option value="16">৪ PM</option>
-                            <option value="17">৫ PM</option>
-                            <option value="18">৬ PM</option>
-                            <option value="19">৭ PM</option>
-                            <option value="20">৮ PM</option>
-                            <option value="21">৯ PM</option>
-                            <option value="22">১০ PM</option>
-                            <option value="23">১১ PM</option>
-                            <option value="00">১২ AM</option>
-                        </select>
-                    </div>
-
-                    <div class="col-md-1">
-                        <label class="control-label input-sm required">মিনিট</label>
-                    </div>
-                    <div class="col-md-2">
-                        <select class="form-control form-white input-sm" id="Minute" ng-model="Minute" required>
-                            <option value="01">১</option>
-                            <option value="02">২</option>
-                            <option value="03">৩</option>
-                            <option value="04">৪</option>
-                            <option value="05">৫</option>
-                            <option value="06">৬</option>
-                            <option value="07">৭</option>
-                            <option value="08">৮</option>
-                            <option value="09">৯</option>
-                            <option value="10">১০</option>
-                            <option value="11">১১</option>
-                            <option value="12">১২</option>
-                            <option value="13">১৩</option>
-                            <option value="14">১৪</option>
-                            <option value="15">১৫</option>
-                            <option value="16">১৬</option>
-                            <option value="17">১৭</option>
-                            <option value="18">১৮</option>
-                            <option value="19">১৯</option>
-                            <option value="20">২০</option>
-                            <option value="21">২১</option>
-                            <option value="22">২২</option>
-                            <option value="23">২৩</option>
-                            <option value="24">২৪</option>
-                            <option value="25">২৫</option>
-                            <option value="26">২৬</option>
-                            <option value="27">২৭</option>
-                            <option value="28">২৮</option>
-                            <option value="29">২৯</option>
-                            <option value="30">৩০</option>
-                            <option value="31">৩১</option>
-                            <option value="32">৩২</option>
-                            <option value="33">৩৩</option>
-                            <option value="34">৩৪</option>
-                            <option value="35">৩৫</option>
-                            <option value="36">৩৬</option>
-                            <option value="37">৩৭</option>
-                            <option value="38">৩৮</option>
-                            <option value="39">৩৯</option>
-                            <option value="40">৪০</option>
-                            <option value="41">৪১</option>
-                            <option value="42">৪২</option>
-                            <option value="43">৪৩</option>
-                            <option value="44">৪৪</option>
-                            <option value="45">৪৫</option>
-                            <option value="46">৪৬</option>
-                            <option value="47">৪৭</option>
-                            <option value="48">৪৮</option>
-                            <option value="49">৪৯</option>
-                            <option value="50">৫০</option>
-                            <option value="51">৫১</option>
-                            <option value="52">৫২</option>
-                            <option value="53">৫৩</option>
-                            <option value="54">৫৪</option>
-                            <option value="55">৫৫</option>
-                            <option value="56">৫৬</option>
-                            <option value="57">৫৭</option>
-                            <option value="58">৫৮</option>
-                            <option value="59">৫৯</option>
-                            <option value="00">০০</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group ">
-                    <div class="col-md-3">
-                        <label class="control-label input-sm">সিদ্ধান্ত প্রস্তাবের গ্রহনযোগ্যতা</label>
-                    </div>
-                    <div class="col-md-4">
-                        <select class="form-control form-white input-sm" id="AcceptanceComment" name="AcceptanceComment" ng-model="AcceptanceComment" required>
-                            <option value="গ্রহনযোগ্য">গ্রহনযোগ্য</option>
-                            <option value="বন্ধনীযুক্ত অংশবাদে গ্রহনযোগ্য">বন্ধনীযুক্ত অংশবাদে গ্রহনযোগ্য</option>দ
-                            <option value="সংশোধিত আকারে এবং বন্ধনীযুক্ত অংশবাদে গ্রহনযোগ্য">সংশোধিত আকারে এবং বন্ধনীযুক্ত অংশবাদে গ্রহনযোগ্য</option>
-                            <option value="সুস্পষ্ট প্রস্তাব নয় বিধায় বাতিলযোগ্য ১৩৩(১) বিধি">সুস্পষ্ট প্রস্তাব নয় বিধায় বাতিলযোগ্য ১৩৩(১) বিধি</option>
-                        </select>
-                    </div>
-                    <div class="col-md-1">
-                        <label class="control-label input-sm required">আর ডি নং</label>
-                    </div>
-                    <div class="col-md-2">
-                        <input type="text" class="form-control form-white input-sm" id="RDNo" name="RDNo" minlength="4" maxlength="4" placeholder="আর ডি নং" ng-model="RDNo">
-                    </div>
+                    <div class="form-group ">
+                        <div class="col-md-3">
+                            <label class="control-label input-sm">সিদ্ধান্ত প্রস্তাবের গ্রহনযোগ্যতা</label>
+                        </div>
+                        <div class="col-md-4">
+                            <select class="form-control form-white input-sm" id="AcceptanceComment" name="AcceptanceComment" ng-model="AcceptanceComment" required>
+                                <option value="গ্রহনযোগ্য">গ্রহনযোগ্য</option>
+                            </select>
+                        </div>
+                        <div class="col-md-1">
+                            <label class="control-label input-sm">আর ডি নং</label>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control form-white input-sm" id="RDNo" name="RDNo" minlength="4" maxlength="4" placeholder="আর ডি নং" ng-model="RDNo">
+                        </div>
 
 
-                    <div class="col-md-2">
-                        <button type="button" class="btn btn-embossed btn-success btn-rounded" ng-click="GetVoice()"><i class="fa fa-volume-up"></i>&nbspVoice Input</button>
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-embossed btn-success btn-rounded" ng-click="GetVoice()"><i class="fa fa-volume-up"></i>&nbspVoice Input</button>
+                        </div>
                     </div>
-                </div>
-                <br />
-                <div class="form-group" ng-hide="isVisible">
-                    <div class="col-md-4">
+                    <br />
+                    <div class="form-group" ng-hide="isVisible">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-embossed btn-primary btn-rounded" ng-click="addgridMemberResolutionsData()"><i class="fa fa-plus"></i>প্রস্তাব যোগ করুন</button>
+                        </div>
+                        <div class="col-md-4">
+                        </div>
                     </div>
-                    <div class="col-md-4">
-                        <button class="btn btn-embossed btn-primary btn-rounded" ng-click="addgridMemberResolutionsData()"><i class="fa fa-plus"></i>প্রস্তাব যোগ করুন</button>
-                    </div>
-                    <div class="col-md-4">
-                    </div>
-                </div>
 
-                <fieldset ng-hide="isVisible">
-                    <legend class="collapsable clickable"><i class="fa fa-plus-square-o"></i> সিদ্ধান্ত প্রস্তাব সমুহ </legend>
-                    <div class="row" style="margin-left: -2px;margin-right: -2px;">
-                        <div id="gridMemberResolutions" ui-grid="gridMemberResolutionsOptions" ui-grid-cell-selection ui-grid-cellNav ui-grid-row-edit ui-grid-edit class="grid" style=" height: 175px; width: 100%;" ui-grid-auto-resize ui-grid-resize-columns></div>
+                    <fieldset ng-hide="isVisible">
+                        <legend class="collapsable clickable"><i class="fa fa-plus-square-o"></i> সিদ্ধান্ত প্রস্তাব সমুহ </legend>
+                        <div class="row" style="margin-left: -2px;margin-right: -2px;">
+                            <div id="gridMemberResolutions" ui-grid="gridMemberResolutionsOptions" ui-grid-cell-selection ui-grid-cellnav ui-grid-row-edit ui-grid-edit class="grid" style=" height: 175px; width: 100%;" ui-grid-auto-resize ui-grid-resize-columns></div>
+                        </div>
+                    </fieldset>
+                    <br />
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label class="control-label input-sm required">স্ট্যাটাস</label>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-control form-white input-sm" id="Status" ng-model="Status" required>
+                                <option value=1>সচল</option>
+                                <option value=0>বাতিল</option>
+                            </select>
+                        </div>
                     </div>
-                </fieldset>
-                <br />
-                <div class="form-group">
-                    <div class="col-md-3">
-                        <label class="control-label input-sm required">স্ট্যাটাস</label>
-                    </div>
-                    <div class="col-md-3">
-                        <select class="form-control form-white input-sm" id="Status" ng-model="Status" required>
-                            <option value=1>সচল</option>
-                            <option value=0>বাতিল</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-3">
-                        <label class="control-label input-sm required">প্রাপোক</label>
-                    </div>
-                    <div class="col-md-3">        
-                        <ui-select class="form-control form-white input-sm" ng-model="frmResolutionInfo.SignTo" ng-init="frmResolutionInfo.SignTo = 10" theme="select2" required>
-                            <ui-select-match placeholder="নির্বাচন করুন">{{$select.selected.UserName}}</ui-select-match>
-                            <ui-select-choices repeat="session.Grade as session in WorkflowList | propsFilter: {Grade: $select.search, SessionNo: $select.search}">
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label class="control-label input-sm required">প্রাপোক</label>
+                        </div>
+                        <div class="col-md-3">
+                            <ui-select class="form-control form-white input-sm" ng-model="frmResolutionInfo.SignTo" ng-init="frmResolutionInfo.SignTo = 10" theme="select2" required>
+                                <ui-select-match placeholder="নির্বাচন করুন">{{$select.selected.UserName}}</ui-select-match>
+                                <ui-select-choices repeat="session.Grade as session in WorkflowList | propsFilter: {Grade: $select.search, SessionNo: $select.search}">
 
-                                <small>
-                                    {{session.UserName}} (<span ng-bind-html="''+session.DesignationNameBN | highlight: $select.search"></span>)  &nbsp;&nbsp;&nbsp;
-                                </small>
-                            </ui-select-choices>
-                        </ui-select>
+                                    <small>
+                                        {{session.UserName}} (<span ng-bind-html="''+session.DesignationNameBN | highlight: $select.search"></span>)  &nbsp;&nbsp;&nbsp;
+                                    </small>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
                     </div>
+
                 </div>
 
 
 
-
-
-            </div>
+                </div>
         </div>
     </div>
 

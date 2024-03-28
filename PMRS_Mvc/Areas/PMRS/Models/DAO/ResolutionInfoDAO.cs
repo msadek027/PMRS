@@ -38,7 +38,7 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
                                   t.RDNo,
                                   t.AcceptStatus,
                                   t.EntryType,
-                                  t.AcceptanceComment,
+                                  AcceptanceComment = t.AcceptanceComment ?? "গ্রহনযোগ্য", 
                                   em.UserName,
                                   em.BanglaName,
                                   t.Status,
@@ -337,6 +337,13 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
 
                     using (PMRS_BcEntities db = new PMRS_BcEntities())
                     {
+
+                        var QryGenRdNo = "SELECT RIGHT('0000' + CAST(ISNULL(MAX(RDNo), 0) + 1 AS VARCHAR), 4) AS NewID FROM MemberResolutionInfo ";
+                        var rdGenRdNo = db.Database.SqlQuery<string>(QryGenRdNo).First();
+
+                        master.RDNo = rdGenRdNo.ToString();
+                 
+                        
                         var chkQry = "Select count(*) SLNO from MemberResolutionInfo where ParlSessID = " + master.ParlSessID + " AND RDNo=N'" + master.RDNo + "' AND MemberResolutionID != "+ master.MemberResolutionID +" ";
                         var rdChk = db.Database.SqlQuery<int>(chkQry).First();
 

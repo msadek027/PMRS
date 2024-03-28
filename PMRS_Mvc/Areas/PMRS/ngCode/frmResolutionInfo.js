@@ -2,11 +2,47 @@
     $scope.EventPerm(11);
     $scope.btnSaveValue = "Posting";
     $scope.Status = $scope.ActiveSts;
+    $scope.AcceptanceComment = "গ্রহনযোগ্য";
     $scope.SignTo = "";
     $scope.MemberResolutionDetail = "সংসদের অভিমত এই যে, ";
     $scope.isVisible = "false";
+ 
+
+    const date = new Date();
+
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+    if (day < 10) {
+        day = '0' + day;
+    }
+    if (month < 10) {
+        month = '0' + month;
+    }
 
 
+    // This arrangement can be altered based on how we want the date's format to appear.
+    let currentDate = day + "/" + month + "/" + year;
+    $scope.MemberResolutionDate = currentDate;
+
+    debugger;
+
+    $scope.Hour = '';
+    $scope.Minute = '';
+    $scope.AMPM = '';
+
+ 
+    let hours = date.getHours();
+    const minutes = date.getMinutes();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+
+    hours = hours % 12;
+    hours = hours ? hours : 12; // Handle midnight (0 hours)
+
+   
+    $scope.Minute = (minutes < 10 ? '0' : '') + minutes;
+    $scope.AMPM = ampm;
+    $scope.Hour = hours +" "+ $scope.AMPM;
     $http({
         method: "GET",
         url: MyApp.rootPath + "ResolutionInfo/GetWorkflow"
@@ -15,9 +51,9 @@
     }, function (response) {
         toastr.warning("Error Occurred!");
     });
-    $scope.frmResolutionInfo = {
-        SignTo: 1 // Set your default value here
-    };
+    //$scope.frmResolutionInfo = {
+    //    SignTo: 10 // Set your default value here
+    //};
 
     $http({
         method: "GET",
@@ -289,12 +325,12 @@
             return false;
         }
 
-
+      
         $scope.gridMemberResolutionsOptions.data.push({
             RDNo: $scope.RDNo,
             MemberResolutionDetail: $scope.MemberResolutionDetail,
             Html: $scope.MemberResolutionDetail,
-            AcceptanceComment: $scope.AcceptanceComment,
+            AcceptanceComment:$scope.AcceptanceComment,
             AcceptStatus: $scope.AcceptStatus
         });
 
@@ -342,7 +378,7 @@
             $scope.SaveDb.MemberResolutionDate = $scope.MemberResolutionDate + " " + $scope.Hour + ":" + $scope.Minute;
             $scope.SaveDb.MemberResolutionFIleURL = $scope.MemberResolutionFIleURL;
             $scope.SaveDb.RDNo = $scope.RDNo;
-            $scope.SaveDb.AcceptanceComment = $scope.AcceptanceComment;
+            $scope.SaveDb.AcceptanceComment = "গ্রহনযোগ্য";
             $scope.SaveDb.ParlSessID = $scope.frmResolutionInfo.ParliamentSession;
             $scope.SaveDb.UserID = $scope.frmResolutionInfo.Employee;
             $scope.SaveDb.Status = $scope.Status;

@@ -12,56 +12,40 @@ namespace PMRS_Mvc.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ResolutionApproval
+    public partial class ResolutionApprovalMST
     {
+        public ResolutionApprovalMST()
+        {
+            this.ResolutionApprovalDTLs = new HashSet<ResolutionApprovalDTL>();
+        }
+    
         public int ResolutionApproveID { get; set; }
-        public string ResolutionApproveSlNo { get; set; }
-        public Nullable<int> MemberResolutionID { get; set; }
-        public string RDNo { get; set; }
-        public Nullable<int> ParlSessID { get; set; }
-        public string NoticeBackStatus { get; set; }
-        public string AdministrativeOfcDetail { get; set; }
         public Nullable<System.DateTime> AdministrativeOfcApproveDate { get; set; }
-        public string AdministrativeOfcApproveStatus { get; set; }
-        public string AdministrativeOfcBackStatus { get; set; }
         public Nullable<int> AdministrativeOfcEmpID { get; set; }
         public string AdministrativeOfcSignature { get; set; }
-        public string AssitantSccDetail { get; set; }
         public Nullable<System.DateTime> AssitantSccApproveDate { get; set; }
-        public string AssitantSccApproveStatus { get; set; }
-        public string AssitantSccBackStatus { get; set; }
         public Nullable<int> AssitantSccEmpID { get; set; }
         public string AssitantSccSignature { get; set; }
-        public string SrAssitantSccDetail { get; set; }
         public Nullable<System.DateTime> SrAssitantSccApproveDate { get; set; }
-        public string SrAssitantSccApproveStatus { get; set; }
-        public string SrAssitantSccBackStatus { get; set; }
         public Nullable<int> SrAssitantSccEmpID { get; set; }
         public string SrAssitantSccSignature { get; set; }
-        public string DeputySecApproveDetail { get; set; }
         public Nullable<System.DateTime> DeputySecApproveDate { get; set; }
-        public string DeputySecApproveStatus { get; set; }
-        public string DeputySecBackStatus { get; set; }
         public Nullable<int> DeputySecEmpID { get; set; }
         public string DeputySecSignature { get; set; }
-        public string AddSecApproveDetail { get; set; }
         public Nullable<System.DateTime> AddSecApproveDate { get; set; }
-        public string AddSecApproveStatus { get; set; }
-        public string AddSecBackStatus { get; set; }
         public Nullable<int> AddSecEmpID { get; set; }
         public string AddSecSignature { get; set; }
-        public string SecApproveDetail { get; set; }
         public Nullable<System.DateTime> SecApproveDate { get; set; }
-        public string SecApproveStatus { get; set; }
-        public string SecBackStatus { get; set; }
         public Nullable<int> SecEmpID { get; set; }
         public string SecSignature { get; set; }
-        public string SpeakerApproveDetail { get; set; }
         public Nullable<System.DateTime> SpeakerApproveDate { get; set; }
-        public string SpeakerApproveStatus { get; set; }
-        public string SpeakerBackStatus { get; set; }
         public Nullable<int> SpeakerEmpID { get; set; }
         public string SpeakerSignature { get; set; }
-        public Nullable<int> MemberResPriority { get; set; }
+    
+        public virtual ICollection<ResolutionApprovalDTL> ResolutionApprovalDTLs { get; set; }
+
+        public string DataMode { get; set; }
+
+        public string SendTo { get; set; }
     }
 }

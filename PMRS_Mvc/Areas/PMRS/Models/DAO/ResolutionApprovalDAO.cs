@@ -1636,11 +1636,11 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
             }
         }
 
-       
 
-       
 
-        public bool SaveAdministrativeApproval(ResolutionApproval master)
+
+
+        public bool SaveAdministrativeApproval(ResolutionApprovalMST master)
         {
             bool isTrue = false;
             IUMode = "I";
@@ -1653,7 +1653,8 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
                     {
                         master.AdministrativeOfcEmpID = Convert.ToInt32(userID);
                         master.AdministrativeOfcApproveDate = DateTime.Now;
-                        obj.ResolutionApprovals.Add(master);
+                        master.AdministrativeOfcSignature = master.AdministrativeOfcSignature;
+                        obj.ResolutionApprovalMSTs.Add(master);
                         obj.SaveChanges();
 
                         isTrue = true;
@@ -1908,7 +1909,7 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
 
 
 
-        public bool UpdateAdministrativeApproval(ResolutionApproval master)
+        public bool UpdateAdministrativeApproval(ResolutionApprovalDTL master)
         {
             bool isTrue = false;
             IUMode = "U";
@@ -1919,23 +1920,52 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
                 {
                     using (PMRS_BcEntities db = new PMRS_BcEntities())
                     {
-                        var updt = db.ResolutionApprovals.Where(x => x.ResolutionApproveID == master.ResolutionApproveID).FirstOrDefault();
+                            db.ResolutionApprovalDTLs.Add(master);
+                            db.SaveChanges();
+                            isTrue = true;                     
+                           // _adt.InsertAudit("frmAdministrativeApproval", "AdministrativeApproval", IUMode, "", master.ResolutionApproveID);
+                            return isTrue;
+                        
+                    }
+                }
+                catch (Exception ex)
+                {
+                    if (ex.InnerException.InnerException.Message.Contains("UNIQUE"))
+                    {
+                        IUMode = "Unique";
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+
+        public bool UpdateMasterAssistantSecApproval(ResolutionApprovalMST master)
+        {
+            bool isTrue = false;
+            IUMode = "U";
+
+            if (master != null)
+            {
+                try
+                {
+                    using (PMRS_BcEntities db = new PMRS_BcEntities())
+                    {
+                        var updt = db.ResolutionApprovalMSTs.Where(x => x.ResolutionApproveID == master.ResolutionApproveID).FirstOrDefault();
 
                         if (updt != null)
                         {
-                            updt.AdministrativeOfcSignature = master.AdministrativeOfcSignature;
-                            updt.AdministrativeOfcApproveStatus = master.AdministrativeOfcApproveStatus;
-                            updt.AdministrativeOfcBackStatus = master.AdministrativeOfcBackStatus;
-                            updt.AdministrativeOfcDetail = master.AdministrativeOfcDetail;
-                            updt.AdministrativeOfcApproveDate = DateTime.Now;
-                            updt.AdministrativeOfcEmpID = userID;
+                            //updt.AssitantSccApproveStatus = master.AssitantSccDetail;
+                            //updt.AssitantSccApproveStatus = master.AssitantSccApproveStatus;
+                            //updt.AssitantSccBackStatus = master.AssitantSccBackStatus;
                             db.SaveChanges();
 
                             isTrue = true;
                             MaxCode = updt.ResolutionApproveID.ToString();
                             MaxID = updt.ResolutionApproveID.ToString();
 
-                            _adt.InsertAudit("frmAdministrativeApproval", "AdministrativeApproval", IUMode, "", master.ResolutionApproveID);
+                            // _adt.InsertAudit("frmAssistantSecApproval", "AssistantSecApproval", IUMode, "", master.ResolutionApproveID);
                             return isTrue;
                         }
                     }
@@ -1951,52 +1981,7 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
             }
             return false;
         }
-
-        //public bool UpdateAssitantSecApproval(ResolutionApproval master)
-        //{
-        //    bool isTrue = false;
-        //    IUMode = "U";
-
-        //    if (master != null)
-        //    {
-        //        try
-        //        {
-        //            using (PMRS_BcEntities db = new PMRS_BcEntities())
-        //            {
-        //                var updt = db.ResolutionApprovals.Where(x => x.ResolutionApproveID == master.ResolutionApproveID).FirstOrDefault();
-
-        //                if (updt != null)
-        //                {
-        //                    updt.AssitantSccSignature = master.AssitantSccSignature;
-        //                    updt.AssitantSccApproveStatus = master.AssitantSccApproveStatus;
-        //                    updt.AssitantSccDetail = master.AssitantSccDetail;
-        //                    updt.AssitantSccApproveDate = DateTime.Now;
-        //                    updt.AssitantSccEmpID = userID;
-        //                    db.SaveChanges();
-
-        //                    isTrue = true;
-        //                    MaxCode = updt.ResolutionApproveID.ToString();
-        //                    MaxID = updt.ResolutionApproveID.ToString();
-
-        //                    _adt.InsertAudit("frmAdministrativeApproval", "AdministrativeApproval", IUMode, "", master.ResolutionApproveID);
-        //                    return isTrue;
-        //                }
-        //            }
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            if (ex.InnerException.InnerException.Message.Contains("UNIQUE"))
-        //            {
-        //                IUMode = "Unique";
-        //                return true;
-        //            }
-        //        }
-        //    }
-        //    return false;
-        //}
-
-
-        public bool UpdateAssistantSecApproval(ResolutionApproval master)
+        public bool UpdateAssistantSecApproval(ResolutionApprovalDTL master)
         {
             bool isTrue = false;
             IUMode = "U";
@@ -2007,22 +1992,62 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
                 {
                     using (PMRS_BcEntities db = new PMRS_BcEntities())
                     {
-                        var updt = db.ResolutionApprovals.Where(x => x.ResolutionApproveID == master.ResolutionApproveID).FirstOrDefault();
+                        var updt = db.ResolutionApprovalDTLs.Where(x => x.ResolutionApproveID == master.ResolutionApproveID).FirstOrDefault();
 
                         if (updt != null)
                         {
+                            updt.AssitantSccApproveStatus = master.AssitantSccDetail;
                             updt.AssitantSccApproveStatus = master.AssitantSccApproveStatus;
                             updt.AssitantSccBackStatus = master.AssitantSccBackStatus;
-                            updt.AssitantSccDetail = master.AssitantSccDetail;
-                            updt.AssitantSccApproveDate = DateTime.Now;
-                            updt.AssitantSccEmpID = userID;
                             db.SaveChanges();
 
                             isTrue = true;
                             MaxCode = updt.ResolutionApproveID.ToString();
                             MaxID = updt.ResolutionApproveID.ToString();
 
-                            _adt.InsertAudit("frmAssistantSecApproval", "AssistantSecApproval", IUMode, "", master.ResolutionApproveID);
+                           // _adt.InsertAudit("frmAssistantSecApproval", "AssistantSecApproval", IUMode, "", master.ResolutionApproveID);
+                            return isTrue;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    if (ex.InnerException.InnerException.Message.Contains("UNIQUE"))
+                    {
+                        IUMode = "Unique";
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        public bool UpdateMasterSrAssistantSecApproval(ResolutionApprovalMST master)
+        {
+            bool isTrue = false;
+            IUMode = "U";
+
+            if (master != null)
+            {
+                try
+                {
+                    using (PMRS_BcEntities db = new PMRS_BcEntities())
+                    {
+                        var updt = db.ResolutionApprovalMSTs.Where(x => x.ResolutionApproveID == master.ResolutionApproveID).FirstOrDefault();
+
+                        if (updt != null)
+                        {
+
+
+                            //updt.SrAssitantSccDetail = master.SrAssitantSccDetail;
+                            //updt.SrAssitantSccApproveStatus = master.SrAssitantSccApproveStatus;
+                            //updt.SrAssitantSccBackStatus = master.SrAssitantSccBackStatus;
+                            db.SaveChanges();
+
+                            isTrue = true;
+                            MaxCode = updt.ResolutionApproveID.ToString();
+                            MaxID = updt.ResolutionApproveID.ToString();
+
+                            //  _adt.InsertAudit("frmAdministrativeApproval", "AdministrativeApproval", IUMode, "", master.ResolutionApproveID);
                             return isTrue;
                         }
                     }
@@ -2039,7 +2064,7 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
             return false;
         }
 
-        public bool UpdateSrAssistantSecApproval(ResolutionApproval master)
+        public bool UpdateSrAssistantSecApproval(ResolutionApprovalDTL master)
         {
             bool isTrue = false;
             IUMode = "U";
@@ -2050,23 +2075,22 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
                 {
                     using (PMRS_BcEntities db = new PMRS_BcEntities())
                     {
-                        var updt = db.ResolutionApprovals.Where(x => x.ResolutionApproveID == master.ResolutionApproveID).FirstOrDefault();
+                        var updt = db.ResolutionApprovalDTLs.Where(x => x.ResolutionApproveID == master.ResolutionApproveID).FirstOrDefault();
 
                         if (updt != null)
                         {
-                            updt.SrAssitantSccSignature = master.SrAssitantSccSignature;
+
+
+                            updt.SrAssitantSccDetail = master.SrAssitantSccDetail;
                             updt.SrAssitantSccApproveStatus = master.SrAssitantSccApproveStatus;
                             updt.SrAssitantSccBackStatus = master.SrAssitantSccBackStatus;
-                            updt.SrAssitantSccDetail = master.SrAssitantSccDetail;
-                            updt.SrAssitantSccApproveDate = DateTime.Now;
-                            updt.SrAssitantSccEmpID = userID;
                             db.SaveChanges();
 
                             isTrue = true;
                             MaxCode = updt.ResolutionApproveID.ToString();
                             MaxID = updt.ResolutionApproveID.ToString();
 
-                            _adt.InsertAudit("frmAdministrativeApproval", "AdministrativeApproval", IUMode, "", master.ResolutionApproveID);
+                          //  _adt.InsertAudit("frmAdministrativeApproval", "AdministrativeApproval", IUMode, "", master.ResolutionApproveID);
                             return isTrue;
                         }
                     }
@@ -2082,8 +2106,7 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
             }
             return false;
         }
-
-        public bool UpdateDeputySecretaryApproval(ResolutionApproval master)
+        public bool UpdateMasterDeputySecretaryApproval(ResolutionApprovalMST master)
         {
             bool isTrue = false;
             IUMode = "U";
@@ -2094,16 +2117,16 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
                 {
                     using (PMRS_BcEntities db = new PMRS_BcEntities())
                     {
-                        var updt = db.ResolutionApprovals.Where(x => x.ResolutionApproveID == master.ResolutionApproveID).FirstOrDefault();
+                        var updt = db.ResolutionApprovalDTLs.Where(x => x.ResolutionApproveID == master.ResolutionApproveID).FirstOrDefault();
 
                         if (updt != null)
                         {
-                            updt.DeputySecSignature = master.DeputySecSignature;
-                            updt.DeputySecApproveStatus = master.DeputySecApproveStatus;
-                            updt.DeputySecBackStatus = master.DeputySecBackStatus;
-                            updt.DeputySecApproveDetail = master.DeputySecApproveDetail;
-                            updt.DeputySecApproveDate = DateTime.Now;
-                            updt.DeputySecEmpID = userID;
+                            //updt.DeputySecSignature = master.DeputySecSignature;
+                            //updt.DeputySecApproveStatus = master.DeputySecApproveStatus;
+                            //updt.DeputySecBackStatus = master.DeputySecBackStatus;
+                            //updt.DeputySecApproveDetail = master.DeputySecApproveDetail;
+                            //updt.DeputySecApproveDate = DateTime.Now;
+                            //updt.DeputySecEmpID = userID;
                             db.SaveChanges();
 
                             isTrue = true;
@@ -2126,7 +2149,50 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
             }
             return false;
         }
-        public bool UpdateAdditionalSecretaryApproval(ResolutionApproval model)
+        public bool UpdateDeputySecretaryApproval(ResolutionApprovalDTL master)
+        {
+            bool isTrue = false;
+            IUMode = "U";
+
+            if (master != null)
+            {
+                try
+                {
+                    using (PMRS_BcEntities db = new PMRS_BcEntities())
+                    {
+                        var updt = db.ResolutionApprovalDTLs.Where(x => x.ResolutionApproveID == master.ResolutionApproveID).FirstOrDefault();
+
+                        if (updt != null)
+                        {
+                            //updt.DeputySecSignature = master.DeputySecSignature;
+                            //updt.DeputySecApproveStatus = master.DeputySecApproveStatus;
+                            //updt.DeputySecBackStatus = master.DeputySecBackStatus;
+                            //updt.DeputySecApproveDetail = master.DeputySecApproveDetail;
+                            //updt.DeputySecApproveDate = DateTime.Now;
+                            //updt.DeputySecEmpID = userID;
+                            db.SaveChanges();
+
+                            isTrue = true;
+                            MaxCode = updt.ResolutionApproveID.ToString();
+                            MaxID = updt.ResolutionApproveID.ToString();
+
+                            //_adt.InsertAudit("frmResolutionApproval", "ResolutionApproval", IUMode, "", master.ResolutionApproveID);
+                            return isTrue;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    if (ex.InnerException.InnerException.Message.Contains("UNIQUE"))
+                    {
+                        IUMode = "Unique";
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        public bool UpdateMasterAdditionalSecretaryApproval(ResolutionApprovalMST model)
         {
             bool isTrue = false;
             IUMode = "U";
@@ -2134,23 +2200,50 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
             {
                 using (PMRS_BcEntities db = new PMRS_BcEntities())
                 {
-                    var updt = db.ResolutionApprovals.Where(x => x.ResolutionApproveID == model.ResolutionApproveID).FirstOrDefault();
+                    var updt = db.ResolutionApprovalDTLs.Where(x => x.ResolutionApproveID == model.ResolutionApproveID).FirstOrDefault();
 
-                    updt.AddSecApproveStatus = model.AddSecApproveStatus;
-                    updt.AddSecBackStatus = model.AddSecBackStatus;
-                    updt.AddSecApproveDetail = model.AddSecApproveDetail;
-                    updt.AddSecApproveDate = DateTime.Now;
-                    updt.AddSecEmpID = userID;
-                    updt.AddSecSignature = model.AddSecSignature;
-
-
+                    //updt.DeputySecSignature = model.DeputySecSignature;
+                    //updt.AddSecApproveDate = DateTime.Now;
+                    //updt.AddSecEmpID = userID;
                     db.SaveChanges();
-
                     isTrue = true;
                     MaxCode = updt.ResolutionApproveID.ToString();
                     MaxID = updt.ResolutionApproveID.ToString();
 
-                    _adt.InsertAudit("frmResolutionASApproval", "ResolutionApproval", IUMode, "", updt.ResolutionApproveID);
+                   // _adt.InsertAudit("frmResolutionASApproval", "ResolutionApproval", IUMode, "", updt.ResolutionApproveID);
+                    return isTrue;
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException.InnerException.Message.Contains("UNIQUE"))
+                {
+                    IUMode = "Unique";
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        public bool UpdateAdditionalSecretaryApproval(ResolutionApprovalDTL model)
+        {
+            bool isTrue = false;
+            IUMode = "U";
+            try
+            {
+                using (PMRS_BcEntities db = new PMRS_BcEntities())
+                {
+                    var updt = db.ResolutionApprovalDTLs.Where(x => x.ResolutionApproveID == model.ResolutionApproveID).FirstOrDefault();
+
+                    //updt.DeputySecSignature = model.DeputySecSignature;
+                    //updt.AddSecApproveDate = DateTime.Now;
+                    //updt.AddSecEmpID = userID;            
+                    db.SaveChanges();
+                    isTrue = true;
+                    MaxCode = updt.ResolutionApproveID.ToString();
+                    MaxID = updt.ResolutionApproveID.ToString();
+
+                 //   _adt.InsertAudit("frmResolutionASApproval", "ResolutionApproval", IUMode, "", updt.ResolutionApproveID);
                     return isTrue;
                 }
             }
@@ -2166,14 +2259,14 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
             return false;
         }
 
-     
-     
-
-       
 
 
 
-        public bool UpdateSecretaryApproval(ResolutionApproval model)
+
+
+
+
+        public bool UpdateMasterSecretaryApproval(ResolutionApprovalMST model)
         {
             bool isTrue = false;
             IUMode = "U";
@@ -2183,13 +2276,12 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
                 {
                     var updt = db.ResolutionApprovals.Where(x => x.ResolutionApproveID == model.ResolutionApproveID).FirstOrDefault();
 
+                 
+                    
                     updt.SecSignature = model.SecSignature;
-                    updt.SecApproveStatus = model.SecApproveStatus;
-                    updt.SecBackStatus = model.SecBackStatus;
-                    updt.SecApproveDetail = model.SecApproveDetail;
                     updt.SecApproveDate = DateTime.Now;
                     updt.SecEmpID = userID;
-                    updt.SecSignature = model.SecSignature;
+            
                     db.SaveChanges();
 
                     isTrue = true;
@@ -2211,8 +2303,7 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
 
             return false;
         }
-
-        public bool UpdateSpeakerApproval(ResolutionApproval model)
+        public bool UpdateSecretaryApproval(ResolutionApprovalDTL model)
         {
             bool isTrue = false;
             IUMode = "U";
@@ -2221,12 +2312,45 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
                 using (PMRS_BcEntities db = new PMRS_BcEntities())
                 {
                     var updt = db.ResolutionApprovals.Where(x => x.ResolutionApproveID == model.ResolutionApproveID).FirstOrDefault();
-                    updt.SpeakerApproveStatus = model.SpeakerApproveStatus;
-                    updt.SpeakerBackStatus = model.SpeakerBackStatus;
-                    updt.SpeakerApproveDetail = model.SpeakerApproveDetail;
+                   // updt.SecSignature = model.SecSignature;
+                    updt.SecApproveDate = DateTime.Now;
+                    updt.SecEmpID = userID;
+
+                    db.SaveChanges();
+
+                    isTrue = true;
+                    MaxCode = updt.ResolutionApproveID.ToString();
+                    MaxID = updt.ResolutionApproveID.ToString();
+
+                    _adt.InsertAudit("frmResolutionSecApproval", "ResolutionApproval", IUMode, "", updt.ResolutionApproveID);
+                    return isTrue;
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException.InnerException.Message.Contains("UNIQUE"))
+                {
+                    IUMode = "Unique";
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        public bool UpdateMasterSpeakerApproval(ResolutionApprovalMST model)
+        {
+            bool isTrue = false;
+            IUMode = "U";
+            try
+            {
+                using (PMRS_BcEntities db = new PMRS_BcEntities())
+                {
+                    var updt = db.ResolutionApprovals.Where(x => x.ResolutionApproveID == model.ResolutionApproveID).FirstOrDefault();
+
+                    updt.SpeakerApproveDetail = model.SpeakerSignature;
                     updt.SpeakerApproveDate = DateTime.Now;
                     updt.SpeakerEmpID = userID;
-                    updt.SpeakerSignature = model.SpeakerSignature;
+
                     db.SaveChanges();
 
                     isTrue = true;
@@ -2249,7 +2373,7 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
             return false;
         }
 
-        public bool UpdateNofificationStatus(ResolutionApproval model)
+        public bool UpdateSpeakerApproval(ResolutionApprovalDTL model)
         {
             bool isTrue = false;
             IUMode = "U";
@@ -2258,7 +2382,43 @@ namespace PMRS_Mvc.Areas.PMRS.DAO
                 using (PMRS_BcEntities db = new PMRS_BcEntities())
                 {
                     var updt = db.ResolutionApprovals.Where(x => x.ResolutionApproveID == model.ResolutionApproveID).FirstOrDefault();
-                    updt.NoticeBackStatus = model.NoticeBackStatus;               
+                
+                    //updt.SpeakerApproveDetail = model.SpeakerSignature;
+                    updt.SpeakerApproveDate = DateTime.Now;
+                    updt.SpeakerEmpID = userID;
+           
+                    db.SaveChanges();
+
+                    isTrue = true;
+                    MaxCode = updt.ResolutionApproveID.ToString();
+                    MaxID = updt.ResolutionApproveID.ToString();
+
+                    _adt.InsertAudit("frmResolutionSpeakerApproval", "ResolutionApproval", IUMode, "", updt.ResolutionApproveID);
+                    return isTrue;
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException.InnerException.Message.Contains("UNIQUE"))
+                {
+                    IUMode = "Unique";
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool UpdateNofificationStatus(ResolutionApprovalDTL model)
+        {
+            bool isTrue = false;
+            IUMode = "U";
+            try
+            {
+                using (PMRS_BcEntities db = new PMRS_BcEntities())
+                {
+                    var updt = db.ResolutionApprovals.Where(x => x.ResolutionApproveID == model.ResolutionApproveID).FirstOrDefault();
+                    updt.NoticeBackStatus = model.CompleteBackStatus;               
                     db.SaveChanges();
 
                     isTrue = true;

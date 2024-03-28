@@ -27,15 +27,30 @@ namespace PMRS_Mvc.Models
         public string ConstitutentBangla { get; set; }
         public string ConstiBangla { get; set; }
         public string AcceptanceComment { get; set; }
+        public Nullable<System.DateTime> AdministrativeOfcApproveDate { get; set; }
+        public Nullable<int> AdministrativeOfcEmpID { get; set; }
+        public string AdministrativeOfcEmpName { get; set; }
+        public Nullable<System.DateTime> AssitantSccApproveDate { get; set; }
+        public Nullable<int> AssitantSccEmpID { get; set; }
+        public string AssitantSccEmpName { get; set; }
+        public Nullable<System.DateTime> SrAssitantSccApproveDate { get; set; }
+        public Nullable<int> SrAssitantSccEmpID { get; set; }
+        public string SrAssitantSccEmpName { get; set; }
         public Nullable<System.DateTime> DeputySecApproveDate { get; set; }
-        public string DeputySecApproveStatus { get; set; }
-        public Nullable<System.DateTime> JointSecApproveDate { get; set; }
-        public string JointSecApproveStatus { get; set; }
-        public Nullable<System.DateTime> SecApproveDate { get; set; }
-        public string SecApproveStatus { get; set; }
+        public Nullable<int> DeputySecEmpID { get; set; }
+        public string DeputySecEmpName { get; set; }
         public Nullable<System.DateTime> AddSecApproveDate { get; set; }
-        public string AddSecApproveStatus { get; set; }
+        public Nullable<int> AddSecEmpID { get; set; }
+        public string AddSecEmpName { get; set; }
+        public Nullable<System.DateTime> SecApproveDate { get; set; }
+        public Nullable<int> SecEmpID { get; set; }
+        public string SecEmpName { get; set; }
         public Nullable<System.DateTime> SpeakerApproveDate { get; set; }
+        public Nullable<int> SpeakerEmpID { get; set; }
+        public string SpeakerEmpName { get; set; }
+        public string DeputySecApproveStatus { get; set; }
+        public string SecApproveStatus { get; set; }
+        public string AddSecApproveStatus { get; set; }
         public string SpeakerApproveStatus { get; set; }
         public Nullable<int> MemberResPriority { get; set; }
         public Nullable<System.DateTime> BallotEnglish { get; set; }
@@ -46,7 +61,13 @@ namespace PMRS_Mvc.Models
         public string AddSecApproveDetail { get; set; }
         public string SpeakerApproveDetail { get; set; }
         public string SecApproveDetail { get; set; }
-        public string JointSecApproveDetail { get; set; }
         public string DeputySecApproveDetail { get; set; }
+        public string AdministrativeOfcSignature { get; set; }
+        public string AssitantSccSignature { get; set; }
+        public string SrAssitantSccSignature { get; set; }
+        public string DeputySecSignature { get; set; }
+        public string AddSecSignature { get; set; }
+        public string SecSignature { get; set; }
+        public string SpeakerSignature { get; set; }
     }
 }

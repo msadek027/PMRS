@@ -185,6 +185,66 @@
           <Property Name="SpeakerSignature" Type="varchar(max)" />
           <Property Name="MemberResPriority" Type="int" />
         </EntityType>
+        <EntityType Name="ResolutionApprovalDTL">
+          <Key>
+            <PropertyRef Name="AID" />
+          </Key>
+          <Property Name="AID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ResolutionApproveID" Type="int" />
+          <Property Name="MemberResolutionID" Type="int" />
+          <Property Name="RDNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="ParlSessID" Type="int" />
+          <Property Name="CompleteBackStatus" Type="nvarchar" MaxLength="300" />
+          <Property Name="AdministrativeOfcDetail" Type="nvarchar" MaxLength="4000" />
+          <Property Name="AdministrativeOfcApproveStatus" Type="nvarchar" MaxLength="300" />
+          <Property Name="AdministrativeOfcBackStatus" Type="nvarchar" MaxLength="300" />
+          <Property Name="AssitantSccDetail" Type="nvarchar" MaxLength="4000" />
+          <Property Name="AssitantSccApproveStatus" Type="nvarchar" MaxLength="300" />
+          <Property Name="AssitantSccBackStatus" Type="nvarchar" MaxLength="300" />
+          <Property Name="SrAssitantSccDetail" Type="nvarchar" MaxLength="4000" />
+          <Property Name="SrAssitantSccApproveStatus" Type="nvarchar" MaxLength="300" />
+          <Property Name="SrAssitantSccBackStatus" Type="nvarchar" MaxLength="300" />
+          <Property Name="DeputySecApproveDetail" Type="nvarchar" MaxLength="4000" />
+          <Property Name="DeputySecApproveStatus" Type="nvarchar" MaxLength="300" />
+          <Property Name="DeputySecBackStatus" Type="nvarchar" MaxLength="300" />
+          <Property Name="AddSecApproveDetail" Type="nvarchar" MaxLength="4000" />
+          <Property Name="AddSecApproveStatus" Type="nvarchar" MaxLength="300" />
+          <Property Name="AddSecBackStatus" Type="nvarchar" MaxLength="300" />
+          <Property Name="SecApproveDetail" Type="nvarchar" MaxLength="4000" />
+          <Property Name="SecApproveStatus" Type="nvarchar" MaxLength="300" />
+          <Property Name="SecBackStatus" Type="nvarchar" MaxLength="300" />
+          <Property Name="SpeakerApproveDetail" Type="nvarchar" MaxLength="4000" />
+          <Property Name="SpeakerApproveStatus" Type="nvarchar" MaxLength="300" />
+          <Property Name="SpeakerBackStatus" Type="nvarchar" MaxLength="300" />
+          <Property Name="MemberResPriority" Type="int" />
+        </EntityType>
+        <EntityType Name="ResolutionApprovalMST">
+          <Key>
+            <PropertyRef Name="ResolutionApproveID" />
+          </Key>
+          <Property Name="ResolutionApproveID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AdministrativeOfcApproveDate" Type="datetime" />
+          <Property Name="AdministrativeOfcEmpID" Type="int" />
+          <Property Name="AdministrativeOfcSignature" Type="varchar(max)" />
+          <Property Name="AssitantSccApproveDate" Type="datetime" />
+          <Property Name="AssitantSccEmpID" Type="int" />
+          <Property Name="AssitantSccSignature" Type="varchar(max)" />
+          <Property Name="SrAssitantSccApproveDate" Type="datetime" />
+          <Property Name="SrAssitantSccEmpID" Type="int" />
+          <Property Name="SrAssitantSccSignature" Type="varchar(max)" />
+          <Property Name="DeputySecApproveDate" Type="datetime" />
+          <Property Name="DeputySecEmpID" Type="int" />
+          <Property Name="DeputySecSignature" Type="varchar(max)" />
+          <Property Name="AddSecApproveDate" Type="datetime" />
+          <Property Name="AddSecEmpID" Type="int" />
+          <Property Name="AddSecSignature" Type="varchar(max)" />
+          <Property Name="SecApproveDate" Type="datetime" />
+          <Property Name="SecEmpID" Type="int" />
+          <Property Name="SecSignature" Type="varchar(max)" />
+          <Property Name="SpeakerApproveDate" Type="datetime" />
+          <Property Name="SpeakerEmpID" Type="int" />
+          <Property Name="SpeakerSignature" Type="varchar(max)" />
+        </EntityType>
         <EntityType Name="Audit_Trail">
           <Key>
             <PropertyRef Name="ID" />
@@ -289,7 +349,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Seq" Type="int" Nullable="false" />
-          <Property Name="Nm" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nm" Type="nvarchar" MaxLength="500" />
           <Property Name="CssClass" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="SecSM">
@@ -298,7 +358,7 @@
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="Seq" Type="int" Nullable="false" />
-          <Property Name="Nm" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Nm" Type="nvarchar" MaxLength="500" />
           <Property Name="Url" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="MH_ID" Type="int" Nullable="false" />
           <Property Name="CssClass" Type="varchar" MaxLength="50" />
@@ -365,15 +425,30 @@ warning 6002: The table/view 'PMRS_Bc.dbo.VW_Summary' does not have a primary ke
           <Property Name="ConstitutentBangla" Type="nvarchar" MaxLength="100" />
           <Property Name="ConstiBangla" Type="nvarchar" MaxLength="50" />
           <Property Name="AcceptanceComment" Type="nvarchar" MaxLength="500" />
+          <Property Name="AdministrativeOfcApproveDate" Type="datetime" />
+          <Property Name="AdministrativeOfcEmpID" Type="int" />
+          <Property Name="AdministrativeOfcEmpName" Type="nvarchar" MaxLength="200" />
+          <Property Name="AssitantSccApproveDate" Type="datetime" />
+          <Property Name="AssitantSccEmpID" Type="int" />
+          <Property Name="AssitantSccEmpName" Type="nvarchar" MaxLength="200" />
+          <Property Name="SrAssitantSccApproveDate" Type="datetime" />
+          <Property Name="SrAssitantSccEmpID" Type="int" />
+          <Property Name="SrAssitantSccEmpName" Type="nvarchar" MaxLength="200" />
           <Property Name="DeputySecApproveDate" Type="datetime" />
-          <Property Name="DeputySecApproveStatus" Type="nvarchar" MaxLength="1000" />
-          <Property Name="JointSecApproveDate" Type="datetime" />
-          <Property Name="JointSecApproveStatus" Type="nvarchar" MaxLength="1000" />
-          <Property Name="SecApproveDate" Type="datetime" />
-          <Property Name="SecApproveStatus" Type="nvarchar" MaxLength="1000" />
+          <Property Name="DeputySecEmpID" Type="int" />
+          <Property Name="DeputySecEmpName" Type="nvarchar" MaxLength="200" />
           <Property Name="AddSecApproveDate" Type="datetime" />
-          <Property Name="AddSecApproveStatus" Type="nvarchar" MaxLength="1000" />
+          <Property Name="AddSecEmpID" Type="int" />
+          <Property Name="AddSecEmpName" Type="nvarchar" MaxLength="200" />
+          <Property Name="SecApproveDate" Type="datetime" />
+          <Property Name="SecEmpID" Type="int" />
+          <Property Name="SecEmpName" Type="nvarchar" MaxLength="200" />
           <Property Name="SpeakerApproveDate" Type="datetime" />
+          <Property Name="SpeakerEmpID" Type="int" />
+          <Property Name="SpeakerEmpName" Type="nvarchar" MaxLength="200" />
+          <Property Name="DeputySecApproveStatus" Type="nvarchar" MaxLength="1000" />
+          <Property Name="SecApproveStatus" Type="nvarchar" MaxLength="1000" />
+          <Property Name="AddSecApproveStatus" Type="nvarchar" MaxLength="1000" />
           <Property Name="SpeakerApproveStatus" Type="nvarchar" MaxLength="1000" />
           <Property Name="MemberResPriority" Type="int" />
           <Property Name="BallotEnglish" Type="datetime" />
@@ -384,8 +459,14 @@ warning 6002: The table/view 'PMRS_Bc.dbo.VW_Summary' does not have a primary ke
           <Property Name="AddSecApproveDetail" Type="nvarchar" MaxLength="4000" />
           <Property Name="SpeakerApproveDetail" Type="nvarchar" MaxLength="4000" />
           <Property Name="SecApproveDetail" Type="nvarchar" MaxLength="4000" />
-          <Property Name="JointSecApproveDetail" Type="nvarchar" MaxLength="4000" />
           <Property Name="DeputySecApproveDetail" Type="nvarchar" MaxLength="4000" />
+          <Property Name="AdministrativeOfcSignature" Type="varchar(max)" />
+          <Property Name="AssitantSccSignature" Type="varchar(max)" />
+          <Property Name="SrAssitantSccSignature" Type="varchar(max)" />
+          <Property Name="DeputySecSignature" Type="varchar(max)" />
+          <Property Name="AddSecSignature" Type="varchar(max)" />
+          <Property Name="SecSignature" Type="varchar(max)" />
+          <Property Name="SpeakerSignature" Type="varchar(max)" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'PMRS_Bc.dbo.VW_Tabular' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -423,6 +504,18 @@ warning 6002: The table/view 'PMRS_Bc.SC.VW_Login' does not have a primary key d
           <Property Name="DepartmentName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="DesignationName" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <Association Name="fk_ResolutionApprovalDTL_ResolutionApproveID">
+          <End Role="ResolutionApprovalMST" Type="Self.ResolutionApprovalMST" Multiplicity="0..1" />
+          <End Role="ResolutionApprovalDTL" Type="Self.ResolutionApprovalDTL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ResolutionApprovalMST">
+              <PropertyRef Name="ResolutionApproveID" />
+            </Principal>
+            <Dependent Role="ResolutionApprovalDTL">
+              <PropertyRef Name="ResolutionApproveID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="fnGetBanglaAmount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="nvarchar">
           <Parameter Name="TransactionAmount" Type="nvarchar" Mode="In" />
         </Function>
@@ -431,6 +524,9 @@ warning 6002: The table/view 'PMRS_Bc.SC.VW_Login' does not have a primary key d
         </Function>
         <Function Name="GetBanglaApprovalComment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="nvarchar">
           <Parameter Name="EngAppr" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="GetEmployeeName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="nvarchar">
+          <Parameter Name="EmpID" Type="varchar" Mode="In" />
         </Function>
         <Function Name="ResolutionCountForMP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="EmpID" Type="int" Mode="In" />
@@ -455,6 +551,8 @@ warning 6002: The table/view 'PMRS_Bc.SC.VW_Login' does not have a primary key d
           <EntitySet Name="MemberResolutionInfo" EntityType="Self.MemberResolutionInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ParliamentSessionInfo" EntityType="Self.ParliamentSessionInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ResolutionApproval" EntityType="Self.ResolutionApproval" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ResolutionApprovalDTL" EntityType="Self.ResolutionApprovalDTL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ResolutionApprovalMST" EntityType="Self.ResolutionApprovalMST" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Audit_Trail" EntityType="Self.Audit_Trail" Schema="SC" store:Type="Tables" />
           <EntitySet Name="MailTrack" EntityType="Self.MailTrack" Schema="SC" store:Type="Tables" />
           <EntitySet Name="MLConf" EntityType="Self.MLConf" Schema="SC" store:Type="Tables" />
@@ -505,15 +603,30 @@ warning 6002: The table/view 'PMRS_Bc.SC.VW_Login' does not have a primary key d
     [VW_Summary].[ConstitutentBangla] AS [ConstitutentBangla], 
     [VW_Summary].[ConstiBangla] AS [ConstiBangla], 
     [VW_Summary].[AcceptanceComment] AS [AcceptanceComment], 
+    [VW_Summary].[AdministrativeOfcApproveDate] AS [AdministrativeOfcApproveDate], 
+    [VW_Summary].[AdministrativeOfcEmpID] AS [AdministrativeOfcEmpID], 
+    [VW_Summary].[AdministrativeOfcEmpName] AS [AdministrativeOfcEmpName], 
+    [VW_Summary].[AssitantSccApproveDate] AS [AssitantSccApproveDate], 
+    [VW_Summary].[AssitantSccEmpID] AS [AssitantSccEmpID], 
+    [VW_Summary].[AssitantSccEmpName] AS [AssitantSccEmpName], 
+    [VW_Summary].[SrAssitantSccApproveDate] AS [SrAssitantSccApproveDate], 
+    [VW_Summary].[SrAssitantSccEmpID] AS [SrAssitantSccEmpID], 
+    [VW_Summary].[SrAssitantSccEmpName] AS [SrAssitantSccEmpName], 
     [VW_Summary].[DeputySecApproveDate] AS [DeputySecApproveDate], 
-    [VW_Summary].[DeputySecApproveStatus] AS [DeputySecApproveStatus], 
-    [VW_Summary].[JointSecApproveDate] AS [JointSecApproveDate], 
-    [VW_Summary].[JointSecApproveStatus] AS [JointSecApproveStatus], 
-    [VW_Summary].[SecApproveDate] AS [SecApproveDate], 
-    [VW_Summary].[SecApproveStatus] AS [SecApproveStatus], 
+    [VW_Summary].[DeputySecEmpID] AS [DeputySecEmpID], 
+    [VW_Summary].[DeputySecEmpName] AS [DeputySecEmpName], 
     [VW_Summary].[AddSecApproveDate] AS [AddSecApproveDate], 
-    [VW_Summary].[AddSecApproveStatus] AS [AddSecApproveStatus], 
+    [VW_Summary].[AddSecEmpID] AS [AddSecEmpID], 
+    [VW_Summary].[AddSecEmpName] AS [AddSecEmpName], 
+    [VW_Summary].[SecApproveDate] AS [SecApproveDate], 
+    [VW_Summary].[SecEmpID] AS [SecEmpID], 
+    [VW_Summary].[SecEmpName] AS [SecEmpName], 
     [VW_Summary].[SpeakerApproveDate] AS [SpeakerApproveDate], 
+    [VW_Summary].[SpeakerEmpID] AS [SpeakerEmpID], 
+    [VW_Summary].[SpeakerEmpName] AS [SpeakerEmpName], 
+    [VW_Summary].[DeputySecApproveStatus] AS [DeputySecApproveStatus], 
+    [VW_Summary].[SecApproveStatus] AS [SecApproveStatus], 
+    [VW_Summary].[AddSecApproveStatus] AS [AddSecApproveStatus], 
     [VW_Summary].[SpeakerApproveStatus] AS [SpeakerApproveStatus], 
     [VW_Summary].[MemberResPriority] AS [MemberResPriority], 
     [VW_Summary].[BallotEnglish] AS [BallotEnglish], 
@@ -524,8 +637,14 @@ warning 6002: The table/view 'PMRS_Bc.SC.VW_Login' does not have a primary key d
     [VW_Summary].[AddSecApproveDetail] AS [AddSecApproveDetail], 
     [VW_Summary].[SpeakerApproveDetail] AS [SpeakerApproveDetail], 
     [VW_Summary].[SecApproveDetail] AS [SecApproveDetail], 
-    [VW_Summary].[JointSecApproveDetail] AS [JointSecApproveDetail], 
-    [VW_Summary].[DeputySecApproveDetail] AS [DeputySecApproveDetail]
+    [VW_Summary].[DeputySecApproveDetail] AS [DeputySecApproveDetail], 
+    [VW_Summary].[AdministrativeOfcSignature] AS [AdministrativeOfcSignature], 
+    [VW_Summary].[AssitantSccSignature] AS [AssitantSccSignature], 
+    [VW_Summary].[SrAssitantSccSignature] AS [SrAssitantSccSignature], 
+    [VW_Summary].[DeputySecSignature] AS [DeputySecSignature], 
+    [VW_Summary].[AddSecSignature] AS [AddSecSignature], 
+    [VW_Summary].[SecSignature] AS [SecSignature], 
+    [VW_Summary].[SpeakerSignature] AS [SpeakerSignature]
     FROM [dbo].[VW_Summary] AS [VW_Summary]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="VW_Tabular" EntityType="Self.VW_Tabular" store:Type="Views" store:Schema="dbo">
@@ -554,6 +673,10 @@ warning 6002: The table/view 'PMRS_Bc.SC.VW_Login' does not have a primary key d
     [VW_Login].[DesignationName] AS [DesignationName]
     FROM [SC].[VW_Login] AS [VW_Login]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="fk_ResolutionApprovalDTL_ResolutionApproveID" Association="Self.fk_ResolutionApprovalDTL_ResolutionApproveID">
+            <End Role="ResolutionApprovalMST" EntitySet="ResolutionApprovalMST" />
+            <End Role="ResolutionApprovalDTL" EntitySet="ResolutionApprovalDTL" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
@@ -740,6 +863,68 @@ warning 6002: The table/view 'PMRS_Bc.SC.VW_Login' does not have a primary key d
           <Property Name="SpeakerSignature" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="MemberResPriority" Type="Int32" />
         </EntityType>
+        <EntityType Name="ResolutionApprovalDTL">
+          <Key>
+            <PropertyRef Name="AID" />
+          </Key>
+          <Property Name="AID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ResolutionApproveID" Type="Int32" />
+          <Property Name="MemberResolutionID" Type="Int32" />
+          <Property Name="RDNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ParlSessID" Type="Int32" />
+          <Property Name="CompleteBackStatus" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="AdministrativeOfcDetail" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="AdministrativeOfcApproveStatus" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="AdministrativeOfcBackStatus" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="AssitantSccDetail" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="AssitantSccApproveStatus" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="AssitantSccBackStatus" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="SrAssitantSccDetail" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="SrAssitantSccApproveStatus" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="SrAssitantSccBackStatus" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="DeputySecApproveDetail" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="DeputySecApproveStatus" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="DeputySecBackStatus" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="AddSecApproveDetail" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="AddSecApproveStatus" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="AddSecBackStatus" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="SecApproveDetail" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="SecApproveStatus" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="SecBackStatus" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="SpeakerApproveDetail" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="SpeakerApproveStatus" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="SpeakerBackStatus" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="MemberResPriority" Type="Int32" />
+          <NavigationProperty Name="ResolutionApprovalMST" Relationship="Self.fk_ResolutionApprovalDTL_ResolutionApproveID" FromRole="ResolutionApprovalDTL" ToRole="ResolutionApprovalMST" />
+        </EntityType>
+        <EntityType Name="ResolutionApprovalMST">
+          <Key>
+            <PropertyRef Name="ResolutionApproveID" />
+          </Key>
+          <Property Name="ResolutionApproveID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdministrativeOfcApproveDate" Type="DateTime" Precision="3" />
+          <Property Name="AdministrativeOfcEmpID" Type="Int32" />
+          <Property Name="AdministrativeOfcSignature" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="AssitantSccApproveDate" Type="DateTime" Precision="3" />
+          <Property Name="AssitantSccEmpID" Type="Int32" />
+          <Property Name="AssitantSccSignature" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SrAssitantSccApproveDate" Type="DateTime" Precision="3" />
+          <Property Name="SrAssitantSccEmpID" Type="Int32" />
+          <Property Name="SrAssitantSccSignature" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DeputySecApproveDate" Type="DateTime" Precision="3" />
+          <Property Name="DeputySecEmpID" Type="Int32" />
+          <Property Name="DeputySecSignature" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="AddSecApproveDate" Type="DateTime" Precision="3" />
+          <Property Name="AddSecEmpID" Type="Int32" />
+          <Property Name="AddSecSignature" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SecApproveDate" Type="DateTime" Precision="3" />
+          <Property Name="SecEmpID" Type="Int32" />
+          <Property Name="SecSignature" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SpeakerApproveDate" Type="DateTime" Precision="3" />
+          <Property Name="SpeakerEmpID" Type="Int32" />
+          <Property Name="SpeakerSignature" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ResolutionApprovalDTLs" Relationship="Self.fk_ResolutionApprovalDTL_ResolutionApproveID" FromRole="ResolutionApprovalMST" ToRole="ResolutionApprovalDTL" />
+        </EntityType>
         <EntityType Name="Audit_Trail">
           <Key>
             <PropertyRef Name="ID" />
@@ -844,7 +1029,7 @@ warning 6002: The table/view 'PMRS_Bc.SC.VW_Login' does not have a primary key d
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Seq" Type="Int32" Nullable="false" />
-          <Property Name="Nm" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nm" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="CssClass" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="SecSM">
@@ -853,7 +1038,7 @@ warning 6002: The table/view 'PMRS_Bc.SC.VW_Login' does not have a primary key d
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="Seq" Type="Int32" Nullable="false" />
-          <Property Name="Nm" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nm" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Url" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="MH_ID" Type="Int32" Nullable="false" />
           <Property Name="CssClass" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -916,15 +1101,30 @@ warning 6002: The table/view 'PMRS_Bc.SC.VW_Login' does not have a primary key d
           <Property Name="ConstitutentBangla" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="ConstiBangla" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="AcceptanceComment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="AdministrativeOfcApproveDate" Type="DateTime" Precision="3" />
+          <Property Name="AdministrativeOfcEmpID" Type="Int32" />
+          <Property Name="AdministrativeOfcEmpName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="AssitantSccApproveDate" Type="DateTime" Precision="3" />
+          <Property Name="AssitantSccEmpID" Type="Int32" />
+          <Property Name="AssitantSccEmpName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SrAssitantSccApproveDate" Type="DateTime" Precision="3" />
+          <Property Name="SrAssitantSccEmpID" Type="Int32" />
+          <Property Name="SrAssitantSccEmpName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="DeputySecApproveDate" Type="DateTime" Precision="3" />
-          <Property Name="DeputySecApproveStatus" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="JointSecApproveDate" Type="DateTime" Precision="3" />
-          <Property Name="JointSecApproveStatus" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="SecApproveDate" Type="DateTime" Precision="3" />
-          <Property Name="SecApproveStatus" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="DeputySecEmpID" Type="Int32" />
+          <Property Name="DeputySecEmpName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="AddSecApproveDate" Type="DateTime" Precision="3" />
-          <Property Name="AddSecApproveStatus" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="AddSecEmpID" Type="Int32" />
+          <Property Name="AddSecEmpName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SecApproveDate" Type="DateTime" Precision="3" />
+          <Property Name="SecEmpID" Type="Int32" />
+          <Property Name="SecEmpName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="SpeakerApproveDate" Type="DateTime" Precision="3" />
+          <Property Name="SpeakerEmpID" Type="Int32" />
+          <Property Name="SpeakerEmpName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="DeputySecApproveStatus" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="SecApproveStatus" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="AddSecApproveStatus" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="SpeakerApproveStatus" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="MemberResPriority" Type="Int32" />
           <Property Name="BallotEnglish" Type="DateTime" Precision="3" />
@@ -935,8 +1135,14 @@ warning 6002: The table/view 'PMRS_Bc.SC.VW_Login' does not have a primary key d
           <Property Name="AddSecApproveDetail" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
           <Property Name="SpeakerApproveDetail" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
           <Property Name="SecApproveDetail" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="JointSecApproveDetail" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
           <Property Name="DeputySecApproveDetail" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="AdministrativeOfcSignature" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="AssitantSccSignature" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SrAssitantSccSignature" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DeputySecSignature" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="AddSecSignature" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SecSignature" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SpeakerSignature" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="VW_Tabular">
           <Key>
@@ -970,7 +1176,19 @@ warning 6002: The table/view 'PMRS_Bc.SC.VW_Login' does not have a primary key d
           <Property Name="DepartmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DesignationName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
-        <EntityContainer Name="PMRS_BcEntities1" annotation:LazyLoadingEnabled="true">
+        <Association Name="fk_ResolutionApprovalDTL_ResolutionApproveID">
+          <End Role="ResolutionApprovalMST" Type="Self.ResolutionApprovalMST" Multiplicity="0..1" />
+          <End Role="ResolutionApprovalDTL" Type="Self.ResolutionApprovalDTL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ResolutionApprovalMST">
+              <PropertyRef Name="ResolutionApproveID" />
+            </Principal>
+            <Dependent Role="ResolutionApprovalDTL">
+              <PropertyRef Name="ResolutionApproveID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PMRS_BcEntities3" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ApprovalStatus" EntityType="Self.ApprovalStatu" />
           <EntitySet Name="BallotInfoes" EntityType="Self.BallotInfo" />
           <EntitySet Name="ConstitutentInfoes" EntityType="Self.ConstitutentInfo" />
@@ -982,6 +1200,8 @@ warning 6002: The table/view 'PMRS_Bc.SC.VW_Login' does not have a primary key d
           <EntitySet Name="MemberResolutionInfoes" EntityType="Self.MemberResolutionInfo" />
           <EntitySet Name="ParliamentSessionInfoes" EntityType="Self.ParliamentSessionInfo" />
           <EntitySet Name="ResolutionApprovals" EntityType="Self.ResolutionApproval" />
+          <EntitySet Name="ResolutionApprovalDTLs" EntityType="Self.ResolutionApprovalDTL" />
+          <EntitySet Name="ResolutionApprovalMSTs" EntityType="Self.ResolutionApprovalMST" />
           <EntitySet Name="Audit_Trail" EntityType="Self.Audit_Trail" />
           <EntitySet Name="MailTracks" EntityType="Self.MailTrack" />
           <EntitySet Name="MLConfs" EntityType="Self.MLConf" />
@@ -998,6 +1218,10 @@ warning 6002: The table/view 'PMRS_Bc.SC.VW_Login' does not have a primary key d
           <EntitySet Name="VW_Summary" EntityType="Self.VW_Summary" />
           <EntitySet Name="VW_Tabular" EntityType="Self.VW_Tabular" />
           <EntitySet Name="VW_Login" EntityType="Self.VW_Login" />
+          <AssociationSet Name="fk_ResolutionApprovalDTL_ResolutionApproveID" Association="Self.fk_ResolutionApprovalDTL_ResolutionApproveID">
+            <End Role="ResolutionApprovalMST" EntitySet="ResolutionApprovalMSTs" />
+            <End Role="ResolutionApprovalDTL" EntitySet="ResolutionApprovalDTLs" />
+          </AssociationSet>
           <FunctionImport Name="ResolutionCountForMP">
             <Parameter Name="EmpID" Mode="In" Type="Int32" />
             <Parameter Name="Today" Mode="In" Type="DateTime" />
@@ -1015,7 +1239,7 @@ warning 6002: The table/view 'PMRS_Bc.SC.VW_Login' does not have a primary key d
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="PMRS_BcModel1StoreContainer" CdmEntityContainer="PMRS_BcEntities1">
+        <EntityContainerMapping StorageEntityContainer="PMRS_BcModel1StoreContainer" CdmEntityContainer="PMRS_BcEntities3">
           <EntitySetMapping Name="ApprovalStatus">
             <EntityTypeMapping TypeName="PMRS_BcModel1.ApprovalStatu">
               <MappingFragment StoreEntitySet="ApprovalStatus">
@@ -1207,6 +1431,68 @@ warning 6002: The table/view 'PMRS_Bc.SC.VW_Login' does not have a primary key d
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ResolutionApprovalDTLs">
+            <EntityTypeMapping TypeName="PMRS_BcModel1.ResolutionApprovalDTL">
+              <MappingFragment StoreEntitySet="ResolutionApprovalDTL">
+                <ScalarProperty Name="AID" ColumnName="AID" />
+                <ScalarProperty Name="ResolutionApproveID" ColumnName="ResolutionApproveID" />
+                <ScalarProperty Name="MemberResolutionID" ColumnName="MemberResolutionID" />
+                <ScalarProperty Name="RDNo" ColumnName="RDNo" />
+                <ScalarProperty Name="ParlSessID" ColumnName="ParlSessID" />
+                <ScalarProperty Name="CompleteBackStatus" ColumnName="CompleteBackStatus" />
+                <ScalarProperty Name="AdministrativeOfcDetail" ColumnName="AdministrativeOfcDetail" />
+                <ScalarProperty Name="AdministrativeOfcApproveStatus" ColumnName="AdministrativeOfcApproveStatus" />
+                <ScalarProperty Name="AdministrativeOfcBackStatus" ColumnName="AdministrativeOfcBackStatus" />
+                <ScalarProperty Name="AssitantSccDetail" ColumnName="AssitantSccDetail" />
+                <ScalarProperty Name="AssitantSccApproveStatus" ColumnName="AssitantSccApproveStatus" />
+                <ScalarProperty Name="AssitantSccBackStatus" ColumnName="AssitantSccBackStatus" />
+                <ScalarProperty Name="SrAssitantSccDetail" ColumnName="SrAssitantSccDetail" />
+                <ScalarProperty Name="SrAssitantSccApproveStatus" ColumnName="SrAssitantSccApproveStatus" />
+                <ScalarProperty Name="SrAssitantSccBackStatus" ColumnName="SrAssitantSccBackStatus" />
+                <ScalarProperty Name="DeputySecApproveDetail" ColumnName="DeputySecApproveDetail" />
+                <ScalarProperty Name="DeputySecApproveStatus" ColumnName="DeputySecApproveStatus" />
+                <ScalarProperty Name="DeputySecBackStatus" ColumnName="DeputySecBackStatus" />
+                <ScalarProperty Name="AddSecApproveDetail" ColumnName="AddSecApproveDetail" />
+                <ScalarProperty Name="AddSecApproveStatus" ColumnName="AddSecApproveStatus" />
+                <ScalarProperty Name="AddSecBackStatus" ColumnName="AddSecBackStatus" />
+                <ScalarProperty Name="SecApproveDetail" ColumnName="SecApproveDetail" />
+                <ScalarProperty Name="SecApproveStatus" ColumnName="SecApproveStatus" />
+                <ScalarProperty Name="SecBackStatus" ColumnName="SecBackStatus" />
+                <ScalarProperty Name="SpeakerApproveDetail" ColumnName="SpeakerApproveDetail" />
+                <ScalarProperty Name="SpeakerApproveStatus" ColumnName="SpeakerApproveStatus" />
+                <ScalarProperty Name="SpeakerBackStatus" ColumnName="SpeakerBackStatus" />
+                <ScalarProperty Name="MemberResPriority" ColumnName="MemberResPriority" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ResolutionApprovalMSTs">
+            <EntityTypeMapping TypeName="PMRS_BcModel1.ResolutionApprovalMST">
+              <MappingFragment StoreEntitySet="ResolutionApprovalMST">
+                <ScalarProperty Name="ResolutionApproveID" ColumnName="ResolutionApproveID" />
+                <ScalarProperty Name="AdministrativeOfcApproveDate" ColumnName="AdministrativeOfcApproveDate" />
+                <ScalarProperty Name="AdministrativeOfcEmpID" ColumnName="AdministrativeOfcEmpID" />
+                <ScalarProperty Name="AdministrativeOfcSignature" ColumnName="AdministrativeOfcSignature" />
+                <ScalarProperty Name="AssitantSccApproveDate" ColumnName="AssitantSccApproveDate" />
+                <ScalarProperty Name="AssitantSccEmpID" ColumnName="AssitantSccEmpID" />
+                <ScalarProperty Name="AssitantSccSignature" ColumnName="AssitantSccSignature" />
+                <ScalarProperty Name="SrAssitantSccApproveDate" ColumnName="SrAssitantSccApproveDate" />
+                <ScalarProperty Name="SrAssitantSccEmpID" ColumnName="SrAssitantSccEmpID" />
+                <ScalarProperty Name="SrAssitantSccSignature" ColumnName="SrAssitantSccSignature" />
+                <ScalarProperty Name="DeputySecApproveDate" ColumnName="DeputySecApproveDate" />
+                <ScalarProperty Name="DeputySecEmpID" ColumnName="DeputySecEmpID" />
+                <ScalarProperty Name="DeputySecSignature" ColumnName="DeputySecSignature" />
+                <ScalarProperty Name="AddSecApproveDate" ColumnName="AddSecApproveDate" />
+                <ScalarProperty Name="AddSecEmpID" ColumnName="AddSecEmpID" />
+                <ScalarProperty Name="AddSecSignature" ColumnName="AddSecSignature" />
+                <ScalarProperty Name="SecApproveDate" ColumnName="SecApproveDate" />
+                <ScalarProperty Name="SecEmpID" ColumnName="SecEmpID" />
+                <ScalarProperty Name="SecSignature" ColumnName="SecSignature" />
+                <ScalarProperty Name="SpeakerApproveDate" ColumnName="SpeakerApproveDate" />
+                <ScalarProperty Name="SpeakerEmpID" ColumnName="SpeakerEmpID" />
+                <ScalarProperty Name="SpeakerSignature" ColumnName="SpeakerSignature" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Audit_Trail">
             <EntityTypeMapping TypeName="PMRS_BcModel1.Audit_Trail">
               <MappingFragment StoreEntitySet="Audit_Trail">
@@ -1388,15 +1674,30 @@ warning 6002: The table/view 'PMRS_Bc.SC.VW_Login' does not have a primary key d
                 <ScalarProperty Name="ConstitutentBangla" ColumnName="ConstitutentBangla" />
                 <ScalarProperty Name="ConstiBangla" ColumnName="ConstiBangla" />
                 <ScalarProperty Name="AcceptanceComment" ColumnName="AcceptanceComment" />
+                <ScalarProperty Name="AdministrativeOfcApproveDate" ColumnName="AdministrativeOfcApproveDate" />
+                <ScalarProperty Name="AdministrativeOfcEmpID" ColumnName="AdministrativeOfcEmpID" />
+                <ScalarProperty Name="AdministrativeOfcEmpName" ColumnName="AdministrativeOfcEmpName" />
+                <ScalarProperty Name="AssitantSccApproveDate" ColumnName="AssitantSccApproveDate" />
+                <ScalarProperty Name="AssitantSccEmpID" ColumnName="AssitantSccEmpID" />
+                <ScalarProperty Name="AssitantSccEmpName" ColumnName="AssitantSccEmpName" />
+                <ScalarProperty Name="SrAssitantSccApproveDate" ColumnName="SrAssitantSccApproveDate" />
+                <ScalarProperty Name="SrAssitantSccEmpID" ColumnName="SrAssitantSccEmpID" />
+                <ScalarProperty Name="SrAssitantSccEmpName" ColumnName="SrAssitantSccEmpName" />
                 <ScalarProperty Name="DeputySecApproveDate" ColumnName="DeputySecApproveDate" />
-                <ScalarProperty Name="DeputySecApproveStatus" ColumnName="DeputySecApproveStatus" />
-                <ScalarProperty Name="JointSecApproveDate" ColumnName="JointSecApproveDate" />
-                <ScalarProperty Name="JointSecApproveStatus" ColumnName="JointSecApproveStatus" />
-                <ScalarProperty Name="SecApproveDate" ColumnName="SecApproveDate" />
-                <ScalarProperty Name="SecApproveStatus" ColumnName="SecApproveStatus" />
+                <ScalarProperty Name="DeputySecEmpID" ColumnName="DeputySecEmpID" />
+                <ScalarProperty Name="DeputySecEmpName" ColumnName="DeputySecEmpName" />
                 <ScalarProperty Name="AddSecApproveDate" ColumnName="AddSecApproveDate" />
-                <ScalarProperty Name="AddSecApproveStatus" ColumnName="AddSecApproveStatus" />
+                <ScalarProperty Name="AddSecEmpID" ColumnName="AddSecEmpID" />
+                <ScalarProperty Name="AddSecEmpName" ColumnName="AddSecEmpName" />
+                <ScalarProperty Name="SecApproveDate" ColumnName="SecApproveDate" />
+                <ScalarProperty Name="SecEmpID" ColumnName="SecEmpID" />
+                <ScalarProperty Name="SecEmpName" ColumnName="SecEmpName" />
                 <ScalarProperty Name="SpeakerApproveDate" ColumnName="SpeakerApproveDate" />
+                <ScalarProperty Name="SpeakerEmpID" ColumnName="SpeakerEmpID" />
+                <ScalarProperty Name="SpeakerEmpName" ColumnName="SpeakerEmpName" />
+                <ScalarProperty Name="DeputySecApproveStatus" ColumnName="DeputySecApproveStatus" />
+                <ScalarProperty Name="SecApproveStatus" ColumnName="SecApproveStatus" />
+                <ScalarProperty Name="AddSecApproveStatus" ColumnName="AddSecApproveStatus" />
                 <ScalarProperty Name="SpeakerApproveStatus" ColumnName="SpeakerApproveStatus" />
                 <ScalarProperty Name="MemberResPriority" ColumnName="MemberResPriority" />
                 <ScalarProperty Name="BallotEnglish" ColumnName="BallotEnglish" />
@@ -1407,8 +1708,14 @@ warning 6002: The table/view 'PMRS_Bc.SC.VW_Login' does not have a primary key d
                 <ScalarProperty Name="AddSecApproveDetail" ColumnName="AddSecApproveDetail" />
                 <ScalarProperty Name="SpeakerApproveDetail" ColumnName="SpeakerApproveDetail" />
                 <ScalarProperty Name="SecApproveDetail" ColumnName="SecApproveDetail" />
-                <ScalarProperty Name="JointSecApproveDetail" ColumnName="JointSecApproveDetail" />
                 <ScalarProperty Name="DeputySecApproveDetail" ColumnName="DeputySecApproveDetail" />
+                <ScalarProperty Name="AdministrativeOfcSignature" ColumnName="AdministrativeOfcSignature" />
+                <ScalarProperty Name="AssitantSccSignature" ColumnName="AssitantSccSignature" />
+                <ScalarProperty Name="SrAssitantSccSignature" ColumnName="SrAssitantSccSignature" />
+                <ScalarProperty Name="DeputySecSignature" ColumnName="DeputySecSignature" />
+                <ScalarProperty Name="AddSecSignature" ColumnName="AddSecSignature" />
+                <ScalarProperty Name="SecSignature" ColumnName="SecSignature" />
+                <ScalarProperty Name="SpeakerSignature" ColumnName="SpeakerSignature" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

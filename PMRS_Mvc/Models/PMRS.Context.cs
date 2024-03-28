@@ -38,6 +38,8 @@ namespace PMRS_Mvc.Models
         public virtual DbSet<MemberResolutionInfo> MemberResolutionInfoes { get; set; }
         public virtual DbSet<ParliamentSessionInfo> ParliamentSessionInfoes { get; set; }
         public virtual DbSet<ResolutionApproval> ResolutionApprovals { get; set; }
+        public virtual DbSet<ResolutionApprovalDTL> ResolutionApprovalDTLs { get; set; }
+        public virtual DbSet<ResolutionApprovalMST> ResolutionApprovalMSTs { get; set; }
         public virtual DbSet<Audit_Trail> Audit_Trail { get; set; }
         public virtual DbSet<MailTrack> MailTracks { get; set; }
         public virtual DbSet<MLConf> MLConfs { get; set; }

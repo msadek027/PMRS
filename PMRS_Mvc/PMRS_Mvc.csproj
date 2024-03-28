@@ -2665,6 +2665,12 @@
     <Compile Include="Models\ResolutionApproval.cs">
       <DependentUpon>PMRS.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ResolutionApprovalDTL.cs">
+      <DependentUpon>PMRS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ResolutionApprovalMST.cs">
+      <DependentUpon>PMRS.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\RL.cs">
       <DependentUpon>PMRS.tt</DependentUpon>
     </Compile>

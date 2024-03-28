@@ -117,7 +117,7 @@ namespace PMRS_Mvc.Areas.PMRS.Controllers
                         approval.RDNo = master.RDNo;
                         approval.ParlSessID = master.ParlSessID;
                         approval.AdministrativeOfcApproveStatus = "0";
-                        primaryApprDAO.SaveAdministrativeApproval(approval);
+                        //primaryApprDAO.SaveAdministrativeApproval(approval);
                     }
 
                     if (master.SendTo == "9")

@@ -73,7 +73,7 @@
         { name: 'RDNo', displayName: "আর ডি নং", width: 100 },
 
         {
-            name: 'Status', displayName: "Status", visible: true, width: 300, cellTemplate: `<select style="width:300px" ng-model="row.entity.frmAdministrativeOfficerApproval.AppStatus">
+            name: 'Status', displayName: "Status", visible: true, width: 300, cellTemplate:     `<select style="width:300px" ng-model="row.entity.Status">
                                
                                 <option ng-repeat="sts in grid.appScope.AprSts" value="{{ sts.ID }}">
                                     <div ng-bind-html="sts.Comments | highlight: $select.search">{{ sts.Comments }}</div>
@@ -81,7 +81,7 @@
                             </select>` },
 
         {
-            name: 'Action ', displayName: "অনুমোদন", enableFiltering: false, enableSorting: false, width: "100",
+            name: 'Action ', displayName: "অনুমোদন", enableFiltering: false, enableSorting: false, visible: false,width: "100",
             cellTemplate: '<div style="padding:2px 2px 2px 2px;"><button  class="btn-success" ng-click="grid.appScope.DirectSave(row)"><i class="fa fa-forward"></i></button> <button  class="btn-danger " ng-click="grid.appScope.rowDblClickCompCons(row)"><i class="fa fa-edit"></i></button></div>'
         }
     ];
@@ -389,7 +389,9 @@
 
                 $scope.SaveDb.AdministrativeOfcDetail = (resolutionList[i].html == '' || resolutionList[i].html == null || resolutionList[i].html == "null") ? resolutionList[i].MemberResolutionDetail : resolutionList[i].html;
                 $scope.SaveDb.AdministrativeOfcApproveDate = (dt.getFullYear() + '-' + dt.getMonth() + '-' + dt.getDate());
-                $scope.SaveDb.AdministrativeOfcApproveStatus = "1";
+                $scope.SaveDb.AdministrativeOfcApproveStatus =    resolutionList[i].Status;// "1";
+
+            
                 $scope.SaveDb.SendTo = $scope.frmAdministrativeOfficerApproval.SignTo;
                 $scope.SaveDb.DataMode = $scope.DataMode;
                 if ($scope.uiID === '' || typeof $scope.uiID === 'undefined' && $scope.SaveDb.SendTo != '' && $scope.SaveDb.SendTo != 'undefined' && $scope.SaveDb.SendTo != undefined) {
