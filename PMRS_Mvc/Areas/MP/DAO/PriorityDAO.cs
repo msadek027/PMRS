@@ -22,7 +22,7 @@ namespace PMRS_Mvc.Areas.MP.DAO
                               join prl in db.ParliamentSessionInfoes on t.ParlSessID equals prl.ParliamentSessionID
                               join map in db.ConstitutentUserMappingInfoes on em.UserID equals map.UserID
                               join cnt in db.ConstitutentInfoes on map.ConstitutentID equals cnt.ConstitutentID
-                              where prl.ParliamentSessionID == sessionID && apr.AddSecApproveStatus == "1"
+                              where prl.ParliamentSessionID == sessionID 
                               && apr.SpeakerApproveStatus == "1" && t.UserID == UserID && map.ParliamentNo == prl.ParliamentNo.ToString()
                               && apr.MemberResPriority == null && apr.NoticeBackStatus == "1"
                               select new
